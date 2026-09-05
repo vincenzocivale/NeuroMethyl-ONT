@@ -1,0 +1,697 @@
+2026-09-05 11:01:08,618 INFO Log file: /data2/home/vcivale/projects/methylation/NeuroMethyl-ONT/outputs/logs/data/build_canonical_methylation_20260905T090108Z.log
+2026-09-05 11:01:08,619 INFO cohort=ONT_WGS: 39 file(s) to consider
+2026-09-05 11:01:15,833 INFO ONT_WGS/ONT_WGS_1: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:01:24,226 INFO ONT_WGS/ONT_WGS_1: OK schema=coverage_percentage coordinate_rows=860899 probe_rows=860785 coverage_preserved=True total_coverage=18961776
+2026-09-05 11:01:31,503 INFO ONT_WGS/ONT_WGS_10: non-cg probe annotations: rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:01:40,471 INFO ONT_WGS/ONT_WGS_10: OK schema=coverage_percentage coordinate_rows=861069 probe_rows=861069 coverage_preserved=True total_coverage=19324219
+2026-09-05 11:01:47,664 INFO ONT_WGS/ONT_WGS_11: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:01:53,121 INFO ONT_WGS/ONT_WGS_11: OK schema=coverage_percentage coordinate_rows=862597 probe_rows=862480 coverage_preserved=True total_coverage=31664330
+2026-09-05 11:01:59,985 INFO ONT_WGS/ONT_WGS_12: non-cg probe annotations: rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:02:05,104 INFO ONT_WGS/ONT_WGS_12: OK schema=coverage_percentage coordinate_rows=860712 probe_rows=860712 coverage_preserved=True total_coverage=29056896
+2026-09-05 11:02:12,163 INFO ONT_WGS/ONT_WGS_13: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:02:17,566 INFO ONT_WGS/ONT_WGS_13: OK schema=coverage_percentage coordinate_rows=862131 probe_rows=862014 coverage_preserved=True total_coverage=37161680
+2026-09-05 11:02:24,570 INFO ONT_WGS/ONT_WGS_14: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:02:29,911 INFO ONT_WGS/ONT_WGS_14: OK schema=coverage_percentage coordinate_rows=862470 probe_rows=862353 coverage_preserved=True total_coverage=34844572
+2026-09-05 11:02:36,950 INFO ONT_WGS/ONT_WGS_16: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:02:42,316 INFO ONT_WGS/ONT_WGS_16: OK schema=coverage_percentage coordinate_rows=862528 probe_rows=862411 coverage_preserved=True total_coverage=16019616
+2026-09-05 11:02:49,169 INFO ONT_WGS/ONT_WGS_17: non-cg probe annotations: MGMT=113, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:02:56,093 INFO ONT_WGS/ONT_WGS_17: OK schema=coverage_percentage coordinate_rows=855493 probe_rows=855381 coverage_preserved=True total_coverage=5522340
+2026-09-05 11:03:03,473 INFO ONT_WGS/ONT_WGS_18: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:03:08,957 INFO ONT_WGS/ONT_WGS_18: OK schema=coverage_percentage_mod coordinate_rows=861387 probe_rows=861273 coverage_preserved=True total_coverage=34447320
+2026-09-05 11:03:16,012 INFO ONT_WGS/ONT_WGS_19: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:03:21,367 INFO ONT_WGS/ONT_WGS_19: OK schema=coverage_percentage coordinate_rows=861992 probe_rows=861878 coverage_preserved=True total_coverage=23971277
+2026-09-05 11:03:28,798 INFO ONT_WGS/ONT_WGS_2: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:03:34,428 INFO ONT_WGS/ONT_WGS_2: OK schema=coverage_percentage coordinate_rows=862002 probe_rows=861885 coverage_preserved=True total_coverage=30637170
+2026-09-05 11:03:41,438 INFO ONT_WGS/ONT_WGS_20: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:03:46,950 INFO ONT_WGS/ONT_WGS_20: OK schema=coverage_percentage coordinate_rows=860736 probe_rows=860623 coverage_preserved=True total_coverage=24771905
+2026-09-05 11:03:53,995 INFO ONT_WGS/ONT_WGS_21: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:04:00,660 INFO ONT_WGS/ONT_WGS_21: OK schema=coverage_percentage coordinate_rows=861021 probe_rows=860908 coverage_preserved=True total_coverage=21964307
+2026-09-05 11:04:07,908 INFO ONT_WGS/ONT_WGS_22: non-cg probe annotations: MGMT=115, rs133860=1, rs966367=1
+2026-09-05 11:04:13,011 INFO ONT_WGS/ONT_WGS_22: OK schema=coverage_percentage_mod coordinate_rows=860849 probe_rows=860735 coverage_preserved=True total_coverage=28857694
+2026-09-05 11:04:19,839 INFO ONT_WGS/ONT_WGS_23: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:04:24,834 INFO ONT_WGS/ONT_WGS_23: OK schema=coverage_percentage coordinate_rows=860656 probe_rows=860543 coverage_preserved=True total_coverage=15624125
+2026-09-05 11:04:31,650 INFO ONT_WGS/ONT_WGS_24: non-cg probe annotations: MGMT=114, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:04:36,751 INFO ONT_WGS/ONT_WGS_24: OK schema=coverage_percentage coordinate_rows=861203 probe_rows=861090 coverage_preserved=True total_coverage=21976180
+2026-09-05 11:04:43,896 INFO ONT_WGS/ONT_WGS_25: non-cg probe annotations: MGMT=115, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:04:48,849 INFO ONT_WGS/ONT_WGS_25: OK schema=coverage_percentage_mod coordinate_rows=861350 probe_rows=861236 coverage_preserved=True total_coverage=26551080
+2026-09-05 11:04:55,955 INFO ONT_WGS/ONT_WGS_26: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1
+2026-09-05 11:05:01,121 INFO ONT_WGS/ONT_WGS_26: OK schema=coverage_percentage_mod coordinate_rows=860917 probe_rows=860803 coverage_preserved=True total_coverage=30707212
+2026-09-05 11:05:08,107 INFO ONT_WGS/ONT_WGS_27: non-cg probe annotations: MGMT=114, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:05:13,088 INFO ONT_WGS/ONT_WGS_27: OK schema=coverage_percentage coordinate_rows=861314 probe_rows=861201 coverage_preserved=True total_coverage=21783505
+2026-09-05 11:05:20,253 INFO ONT_WGS/ONT_WGS_28: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:05:25,187 INFO ONT_WGS/ONT_WGS_28: OK schema=coverage_percentage_mod coordinate_rows=861256 probe_rows=861143 coverage_preserved=True total_coverage=21663124
+2026-09-05 11:05:32,026 INFO ONT_WGS/ONT_WGS_29: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:05:37,156 INFO ONT_WGS/ONT_WGS_29: OK schema=coverage_percentage coordinate_rows=861286 probe_rows=861173 coverage_preserved=True total_coverage=29018045
+2026-09-05 11:05:43,995 INFO ONT_WGS/ONT_WGS_3: non-cg probe annotations: MGMT=114, rs11249206=1, rs1495031=1, rs966367=1
+2026-09-05 11:05:48,959 INFO ONT_WGS/ONT_WGS_3: OK schema=coverage_percentage coordinate_rows=861276 probe_rows=861163 coverage_preserved=True total_coverage=21619924
+2026-09-05 11:05:56,094 INFO ONT_WGS/ONT_WGS_30: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:06:01,057 INFO ONT_WGS/ONT_WGS_30: OK schema=coverage_percentage_mod coordinate_rows=860770 probe_rows=860657 coverage_preserved=True total_coverage=25851377
+2026-09-05 11:06:08,202 INFO ONT_WGS/ONT_WGS_31: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:06:13,358 INFO ONT_WGS/ONT_WGS_31: OK schema=coverage_percentage_mod coordinate_rows=860845 probe_rows=860731 coverage_preserved=True total_coverage=19159155
+2026-09-05 11:06:20,608 INFO ONT_WGS/ONT_WGS_32: non-cg probe annotations: MGMT=114, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:06:25,727 INFO ONT_WGS/ONT_WGS_32: OK schema=coverage_percentage_mod coordinate_rows=861225 probe_rows=861112 coverage_preserved=True total_coverage=27837230
+2026-09-05 11:06:25,847 INFO cohort=ONT_WGS progress: 25/39
+2026-09-05 11:06:32,890 INFO ONT_WGS/ONT_WGS_33: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:06:38,038 INFO ONT_WGS/ONT_WGS_33: OK schema=coverage_percentage_mod coordinate_rows=860847 probe_rows=860733 coverage_preserved=True total_coverage=29699511
+2026-09-05 11:06:45,206 INFO ONT_WGS/ONT_WGS_34: non-cg probe annotations: MGMT=115, rs11249206=1, rs1495031=1
+2026-09-05 11:06:50,174 INFO ONT_WGS/ONT_WGS_34: OK schema=coverage_percentage_mod coordinate_rows=861304 probe_rows=861190 coverage_preserved=True total_coverage=27687161
+2026-09-05 11:06:57,300 INFO ONT_WGS/ONT_WGS_35: non-cg probe annotations: MGMT=115, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:07:02,249 INFO ONT_WGS/ONT_WGS_35: OK schema=coverage_percentage_mod coordinate_rows=861200 probe_rows=861086 coverage_preserved=True total_coverage=23059599
+2026-09-05 11:07:09,330 INFO ONT_WGS/ONT_WGS_36: non-cg probe annotations: MGMT=115, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:07:14,435 INFO ONT_WGS/ONT_WGS_36: OK schema=coverage_percentage_mod coordinate_rows=860822 probe_rows=860708 coverage_preserved=True total_coverage=22183895
+2026-09-05 11:07:21,216 INFO ONT_WGS/ONT_WGS_37: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:07:26,327 INFO ONT_WGS/ONT_WGS_37: OK schema=coverage_percentage coordinate_rows=861267 probe_rows=861153 coverage_preserved=True total_coverage=25541518
+2026-09-05 11:07:33,213 INFO ONT_WGS/ONT_WGS_38: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:07:38,116 INFO ONT_WGS/ONT_WGS_38: OK schema=coverage_percentage coordinate_rows=862554 probe_rows=862437 coverage_preserved=True total_coverage=30060237
+2026-09-05 11:07:44,880 INFO ONT_WGS/ONT_WGS_39: non-cg probe annotations: MGMT=115, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:07:50,020 INFO ONT_WGS/ONT_WGS_39: OK schema=coverage_percentage coordinate_rows=861260 probe_rows=861146 coverage_preserved=True total_coverage=22581313
+2026-09-05 11:07:56,956 INFO ONT_WGS/ONT_WGS_4: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:08:01,955 INFO ONT_WGS/ONT_WGS_4: OK schema=coverage_percentage coordinate_rows=862087 probe_rows=861970 coverage_preserved=True total_coverage=31546017
+2026-09-05 11:08:08,834 INFO ONT_WGS/ONT_WGS_40: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:08:13,778 INFO ONT_WGS/ONT_WGS_40: OK schema=coverage_percentage coordinate_rows=862565 probe_rows=862448 coverage_preserved=True total_coverage=38337964
+2026-09-05 11:08:20,603 INFO ONT_WGS/ONT_WGS_5: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:08:25,766 INFO ONT_WGS/ONT_WGS_5: OK schema=coverage_percentage coordinate_rows=861310 probe_rows=861196 coverage_preserved=True total_coverage=22502356
+2026-09-05 11:08:32,685 INFO ONT_WGS/ONT_WGS_6: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:08:37,662 INFO ONT_WGS/ONT_WGS_6: OK schema=coverage_percentage coordinate_rows=862576 probe_rows=862459 coverage_preserved=True total_coverage=29006667
+2026-09-05 11:08:44,605 INFO ONT_WGS/ONT_WGS_7: non-cg probe annotations: MGMT=115, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:08:49,565 INFO ONT_WGS/ONT_WGS_7: OK schema=coverage_percentage coordinate_rows=861946 probe_rows=861829 coverage_preserved=True total_coverage=25474072
+2026-09-05 11:08:56,420 INFO ONT_WGS/ONT_WGS_8: non-cg probe annotations: rs11249206=1, rs1495031=1, rs966367=1
+2026-09-05 11:09:01,381 INFO ONT_WGS/ONT_WGS_8: OK schema=coverage_percentage coordinate_rows=860857 probe_rows=860857 coverage_preserved=True total_coverage=14461458
+2026-09-05 11:09:08,201 INFO ONT_WGS/ONT_WGS_9: non-cg probe annotations: MGMT=115, rs11249206=1, rs1495031=1, rs966367=1
+2026-09-05 11:09:13,130 INFO ONT_WGS/ONT_WGS_9: OK schema=coverage_percentage coordinate_rows=860677 probe_rows=860563 coverage_preserved=True total_coverage=16612371
+2026-09-05 11:09:13,244 INFO cohort=ONT_WGS progress: 39/39
+2026-09-05 11:09:13,251 INFO cohort=Rapid_CNS2: 300 file(s) to consider
+2026-09-05 11:09:18,993 INFO Rapid_CNS2/ID_1: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:09:23,540 INFO Rapid_CNS2/ID_1: OK schema=coverage_percentage_headerless coordinate_rows=749603 probe_rows=749498 coverage_preserved=True total_coverage=1998455
+2026-09-05 11:09:29,547 INFO Rapid_CNS2/ID_10: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:09:34,236 INFO Rapid_CNS2/ID_10: OK schema=coverage_percentage_headerless coordinate_rows=765807 probe_rows=765702 coverage_preserved=True total_coverage=2165949
+2026-09-05 11:09:45,510 INFO Rapid_CNS2/ID_100: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:09:51,782 INFO Rapid_CNS2/ID_100: OK schema=coverage_percentage_headerless coordinate_rows=1445544 probe_rows=829335 coverage_preserved=True total_coverage=3424656
+2026-09-05 11:10:01,919 INFO Rapid_CNS2/ID_101: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:10:07,824 INFO Rapid_CNS2/ID_101: OK schema=coverage_percentage_headerless coordinate_rows=1302606 probe_rows=800234 coverage_preserved=True total_coverage=2517899
+2026-09-05 11:10:19,701 INFO Rapid_CNS2/ID_102: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:10:26,317 INFO Rapid_CNS2/ID_102: OK schema=coverage_percentage_headerless coordinate_rows=1532239 probe_rows=843188 coverage_preserved=True total_coverage=3888021
+2026-09-05 11:10:37,567 INFO Rapid_CNS2/ID_103: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:10:43,758 INFO Rapid_CNS2/ID_103: OK schema=coverage_percentage_headerless coordinate_rows=1439509 probe_rows=828911 coverage_preserved=True total_coverage=3349707
+2026-09-05 11:10:54,640 INFO Rapid_CNS2/ID_104: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:11:00,872 INFO Rapid_CNS2/ID_104: OK schema=coverage_percentage_headerless coordinate_rows=1398311 probe_rows=822086 coverage_preserved=True total_coverage=2894222
+2026-09-05 11:11:11,642 INFO Rapid_CNS2/ID_105: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:11:17,845 INFO Rapid_CNS2/ID_105: OK schema=coverage_percentage_headerless coordinate_rows=1373894 probe_rows=816494 coverage_preserved=True total_coverage=2746055
+2026-09-05 11:11:26,952 INFO Rapid_CNS2/ID_106: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:11:32,528 INFO Rapid_CNS2/ID_106: OK schema=coverage_percentage_headerless coordinate_rows=1171796 probe_rows=763940 coverage_preserved=True total_coverage=1986691
+2026-09-05 11:11:44,405 INFO Rapid_CNS2/ID_107: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:11:50,985 INFO Rapid_CNS2/ID_107: OK schema=coverage_percentage_headerless coordinate_rows=1516674 probe_rows=841223 coverage_preserved=True total_coverage=3886643
+2026-09-05 11:11:58,999 INFO Rapid_CNS2/ID_108: non-cg probe annotations: MGMT=194, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:12:03,809 INFO Rapid_CNS2/ID_108: OK schema=coverage_percentage_headerless coordinate_rows=1007659 probe_rows=704571 coverage_preserved=True total_coverage=1410026
+2026-09-05 11:12:10,690 INFO Rapid_CNS2/ID_109: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:12:14,762 INFO Rapid_CNS2/ID_109: OK schema=coverage_percentage_headerless coordinate_rows=867581 probe_rows=632788 coverage_preserved=True total_coverage=1112959
+2026-09-05 11:12:21,345 INFO Rapid_CNS2/ID_11: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:12:26,227 INFO Rapid_CNS2/ID_11: OK schema=coverage_percentage_headerless coordinate_rows=830388 probe_rows=830283 coverage_preserved=True total_coverage=3393358
+2026-09-05 11:12:33,173 INFO Rapid_CNS2/ID_110: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:12:37,349 INFO Rapid_CNS2/ID_110: OK schema=coverage_percentage_headerless coordinate_rows=879645 probe_rows=646946 coverage_preserved=True total_coverage=1108101
+2026-09-05 11:12:45,207 INFO Rapid_CNS2/ID_111: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:12:49,930 INFO Rapid_CNS2/ID_111: OK schema=coverage_percentage_headerless coordinate_rows=998883 probe_rows=699935 coverage_preserved=True total_coverage=1487332
+2026-09-05 11:12:58,393 INFO Rapid_CNS2/ID_112: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:13:03,484 INFO Rapid_CNS2/ID_112: OK schema=coverage_percentage_headerless coordinate_rows=1074963 probe_rows=719307 coverage_preserved=True total_coverage=1740866
+2026-09-05 11:13:11,599 INFO Rapid_CNS2/ID_113: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:13:16,403 INFO Rapid_CNS2/ID_113: OK schema=coverage_percentage_headerless coordinate_rows=1024388 probe_rows=703677 coverage_preserved=True total_coverage=1571261
+2026-09-05 11:13:19,888 INFO Rapid_CNS2/ID_114: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:13:22,345 INFO Rapid_CNS2/ID_114: OK schema=coverage_percentage_headerless coordinate_rows=438040 probe_rows=375140 coverage_preserved=True total_coverage=455494
+2026-09-05 11:13:29,525 INFO Rapid_CNS2/ID_115: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:13:33,934 INFO Rapid_CNS2/ID_115: OK schema=coverage_percentage_headerless coordinate_rows=913670 probe_rows=663884 coverage_preserved=True total_coverage=1260869
+2026-09-05 11:13:39,262 INFO Rapid_CNS2/ID_116: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:13:43,980 INFO Rapid_CNS2/ID_116: OK schema=coverage_percentage_headerless coordinate_rows=669727 probe_rows=527027 coverage_preserved=True total_coverage=813192
+2026-09-05 11:13:53,066 INFO Rapid_CNS2/ID_118: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:14:00,470 INFO Rapid_CNS2/ID_118: OK schema=coverage_percentage_headerless coordinate_rows=1106570 probe_rows=747642 coverage_preserved=True total_coverage=2324289
+2026-09-05 11:14:06,819 INFO Rapid_CNS2/ID_119: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:14:12,850 INFO Rapid_CNS2/ID_119: OK schema=coverage_percentage_headerless coordinate_rows=778097 probe_rows=592310 coverage_preserved=True total_coverage=1016512
+2026-09-05 11:14:19,612 INFO Rapid_CNS2/ID_12: non-cg probe annotations: MGMT=106, rs11249206=1, rs1495031=1
+2026-09-05 11:14:29,649 INFO Rapid_CNS2/ID_12: OK schema=coverage_percentage_headerless coordinate_rows=829258 probe_rows=829153 coverage_preserved=True total_coverage=3374278
+2026-09-05 11:14:39,013 INFO Rapid_CNS2/ID_120: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:14:47,946 INFO Rapid_CNS2/ID_120: OK schema=coverage_percentage_headerless coordinate_rows=1110901 probe_rows=737844 coverage_preserved=True total_coverage=1775848
+2026-09-05 11:14:56,543 INFO Rapid_CNS2/ID_121: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:15:04,801 INFO Rapid_CNS2/ID_121: OK schema=coverage_percentage_headerless coordinate_rows=1034953 probe_rows=714273 coverage_preserved=True total_coverage=1474939
+2026-09-05 11:15:05,008 INFO cohort=Rapid_CNS2 progress: 25/300
+2026-09-05 11:15:15,449 INFO Rapid_CNS2/ID_122: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:15:26,299 INFO Rapid_CNS2/ID_122: OK schema=coverage_percentage_headerless coordinate_rows=1280060 probe_rows=803003 coverage_preserved=True total_coverage=2911993
+2026-09-05 11:15:33,317 INFO Rapid_CNS2/ID_123: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:15:39,829 INFO Rapid_CNS2/ID_123: OK schema=coverage_percentage_headerless coordinate_rows=831990 probe_rows=614947 coverage_preserved=True total_coverage=1080478
+2026-09-05 11:15:52,781 INFO Rapid_CNS2/ID_124: non-cg probe annotations: MGMT=212, rs133860=1
+2026-09-05 11:16:06,002 INFO Rapid_CNS2/ID_124: OK schema=coverage_percentage_headerless coordinate_rows=1550579 probe_rows=849459 coverage_preserved=True total_coverage=5291958
+2026-09-05 11:16:19,675 INFO Rapid_CNS2/ID_125: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:16:33,524 INFO Rapid_CNS2/ID_125: OK schema=coverage_percentage_headerless coordinate_rows=1600676 probe_rows=855935 coverage_preserved=True total_coverage=5868773
+2026-09-05 11:16:43,165 INFO Rapid_CNS2/ID_126: non-cg probe annotations: MGMT=206, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:16:48,913 INFO Rapid_CNS2/ID_126: OK schema=coverage_percentage_headerless coordinate_rows=1178307 probe_rows=767947 coverage_preserved=True total_coverage=2456451
+2026-09-05 11:17:01,320 INFO Rapid_CNS2/ID_127: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:17:08,636 INFO Rapid_CNS2/ID_127: OK schema=coverage_percentage_headerless coordinate_rows=1570563 probe_rows=853676 coverage_preserved=True total_coverage=4966222
+2026-09-05 11:17:20,905 INFO Rapid_CNS2/ID_128: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:17:28,165 INFO Rapid_CNS2/ID_128: OK schema=coverage_percentage_headerless coordinate_rows=1551426 probe_rows=849983 coverage_preserved=True total_coverage=5076510
+2026-09-05 11:17:40,464 INFO Rapid_CNS2/ID_129: non-cg probe annotations: MGMT=41, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:17:47,701 INFO Rapid_CNS2/ID_129: OK schema=coverage_percentage_headerless coordinate_rows=1556419 probe_rows=850105 coverage_preserved=True total_coverage=5052761
+2026-09-05 11:17:54,514 INFO Rapid_CNS2/ID_13: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1
+2026-09-05 11:17:59,835 INFO Rapid_CNS2/ID_13: OK schema=coverage_percentage_headerless coordinate_rows=839728 probe_rows=839623 coverage_preserved=True total_coverage=3609129
+2026-09-05 11:18:06,509 INFO Rapid_CNS2/ID_130: non-cg probe annotations: MGMT=110, rs1495031=1
+2026-09-05 11:18:11,278 INFO Rapid_CNS2/ID_130: OK schema=coverage_percentage_headerless coordinate_rows=835043 probe_rows=626873 coverage_preserved=True total_coverage=1312843
+2026-09-05 11:18:22,146 INFO Rapid_CNS2/ID_131: non-cg probe annotations: MGMT=202, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:18:28,450 INFO Rapid_CNS2/ID_131: OK schema=coverage_percentage_headerless coordinate_rows=1377017 probe_rows=821964 coverage_preserved=True total_coverage=3514027
+2026-09-05 11:18:34,498 INFO Rapid_CNS2/ID_132: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:18:41,232 INFO Rapid_CNS2/ID_132: OK schema=coverage_percentage_headerless coordinate_rows=714031 probe_rows=559721 coverage_preserved=True total_coverage=1098309
+2026-09-05 11:18:50,100 INFO Rapid_CNS2/ID_133: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:18:56,935 INFO Rapid_CNS2/ID_133: OK schema=coverage_percentage_headerless coordinate_rows=1099107 probe_rows=743188 coverage_preserved=True total_coverage=2201822
+2026-09-05 11:19:05,748 INFO Rapid_CNS2/ID_134: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:19:11,353 INFO Rapid_CNS2/ID_134: OK schema=coverage_percentage_headerless coordinate_rows=1114634 probe_rows=746906 coverage_preserved=True total_coverage=2350962
+2026-09-05 11:19:22,153 INFO Rapid_CNS2/ID_135: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:19:28,568 INFO Rapid_CNS2/ID_135: OK schema=coverage_percentage_headerless coordinate_rows=1368820 probe_rows=819023 coverage_preserved=True total_coverage=4029611
+2026-09-05 11:19:36,971 INFO Rapid_CNS2/ID_136: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:19:42,272 INFO Rapid_CNS2/ID_136: OK schema=coverage_percentage_headerless coordinate_rows=1061587 probe_rows=727220 coverage_preserved=True total_coverage=2192934
+2026-09-05 11:19:47,544 INFO Rapid_CNS2/ID_137: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:19:51,526 INFO Rapid_CNS2/ID_137: OK schema=coverage_percentage_headerless coordinate_rows=665919 probe_rows=530297 coverage_preserved=True total_coverage=1017141
+2026-09-05 11:19:55,586 INFO Rapid_CNS2/ID_138: non-cg probe annotations: MGMT=204, rs133860=1, rs966367=1
+2026-09-05 11:19:58,584 INFO Rapid_CNS2/ID_138: OK schema=coverage_percentage_headerless coordinate_rows=511252 probe_rows=426746 coverage_preserved=True total_coverage=704991
+2026-09-05 11:20:01,202 INFO Rapid_CNS2/ID_139: non-cg probe annotations: MGMT=105, rs133860=1, rs966367=1
+2026-09-05 11:20:03,148 INFO Rapid_CNS2/ID_139: OK schema=coverage_percentage_headerless coordinate_rows=332098 probe_rows=294350 coverage_preserved=True total_coverage=418951
+2026-09-05 11:20:09,719 INFO Rapid_CNS2/ID_14: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:20:14,911 INFO Rapid_CNS2/ID_14: OK schema=coverage_percentage_headerless coordinate_rows=830672 probe_rows=830567 coverage_preserved=True total_coverage=3376133
+2026-09-05 11:20:19,032 INFO Rapid_CNS2/ID_140: non-cg probe annotations: MGMT=212, rs133860=1, rs966367=1
+2026-09-05 11:20:22,096 INFO Rapid_CNS2/ID_140: OK schema=coverage_percentage_headerless coordinate_rows=518135 probe_rows=433104 coverage_preserved=True total_coverage=724388
+2026-09-05 11:20:27,321 INFO Rapid_CNS2/ID_141: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:20:31,358 INFO Rapid_CNS2/ID_141: OK schema=coverage_percentage_headerless coordinate_rows=668001 probe_rows=531577 coverage_preserved=True total_coverage=1025397
+2026-09-05 11:20:36,797 INFO Rapid_CNS2/ID_142: non-cg probe annotations: MGMT=212, rs133860=1
+2026-09-05 11:20:41,107 INFO Rapid_CNS2/ID_142: OK schema=coverage_percentage_headerless coordinate_rows=694689 probe_rows=543495 coverage_preserved=True total_coverage=1092828
+2026-09-05 11:20:49,694 INFO Rapid_CNS2/ID_143: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:20:55,699 INFO Rapid_CNS2/ID_143: OK schema=coverage_percentage_headerless coordinate_rows=1098911 probe_rows=743475 coverage_preserved=True total_coverage=2274730
+2026-09-05 11:21:07,791 INFO Rapid_CNS2/ID_144: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:21:14,910 INFO Rapid_CNS2/ID_144: OK schema=coverage_percentage_headerless coordinate_rows=1530741 probe_rows=847127 coverage_preserved=True total_coverage=5347741
+2026-09-05 11:21:15,085 INFO cohort=Rapid_CNS2 progress: 50/300
+2026-09-05 11:21:16,992 INFO Rapid_CNS2/ID_145: non-cg probe annotations: MGMT=59, rs6426327=1, rs966367=1
+2026-09-05 11:21:18,340 INFO Rapid_CNS2/ID_145: OK schema=coverage_percentage_headerless coordinate_rows=249273 probe_rows=228262 coverage_preserved=True total_coverage=300805
+2026-09-05 11:21:27,471 INFO Rapid_CNS2/ID_146: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:21:33,301 INFO Rapid_CNS2/ID_146: OK schema=coverage_percentage_headerless coordinate_rows=1179126 probe_rows=768700 coverage_preserved=True total_coverage=2730761
+2026-09-05 11:21:45,981 INFO Rapid_CNS2/ID_147: non-cg probe annotations: MGMT=181, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:21:53,731 INFO Rapid_CNS2/ID_147: OK schema=coverage_percentage_headerless coordinate_rows=1608320 probe_rows=854550 coverage_preserved=True total_coverage=7358333
+2026-09-05 11:22:03,257 INFO Rapid_CNS2/ID_148: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:22:09,188 INFO Rapid_CNS2/ID_148: OK schema=coverage_percentage_headerless coordinate_rows=1192204 probe_rows=769565 coverage_preserved=True total_coverage=2717574
+2026-09-05 11:22:20,048 INFO Rapid_CNS2/ID_149: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:22:26,546 INFO Rapid_CNS2/ID_149: OK schema=coverage_percentage_headerless coordinate_rows=1385920 probe_rows=825061 coverage_preserved=True total_coverage=3994612
+2026-09-05 11:22:32,438 INFO Rapid_CNS2/ID_15: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1
+2026-09-05 11:22:37,621 INFO Rapid_CNS2/ID_15: OK schema=coverage_percentage_headerless coordinate_rows=745781 probe_rows=745676 coverage_preserved=True total_coverage=2190359
+2026-09-05 11:22:49,000 INFO Rapid_CNS2/ID_150: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:22:55,895 INFO Rapid_CNS2/ID_150: OK schema=coverage_percentage_headerless coordinate_rows=1459164 probe_rows=837387 coverage_preserved=True total_coverage=4272197
+2026-09-05 11:23:05,217 INFO Rapid_CNS2/ID_151: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:23:11,100 INFO Rapid_CNS2/ID_151: OK schema=coverage_percentage_headerless coordinate_rows=1190890 probe_rows=774573 coverage_preserved=True total_coverage=2672291
+2026-09-05 11:23:19,366 INFO Rapid_CNS2/ID_152: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:23:24,644 INFO Rapid_CNS2/ID_152: OK schema=coverage_percentage_headerless coordinate_rows=1063849 probe_rows=725436 coverage_preserved=True total_coverage=2144044
+2026-09-05 11:23:31,028 INFO Rapid_CNS2/ID_153: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:23:35,733 INFO Rapid_CNS2/ID_153: OK schema=coverage_percentage_headerless coordinate_rows=811151 probe_rows=610633 coverage_preserved=True total_coverage=1384162
+2026-09-05 11:23:41,193 INFO Rapid_CNS2/ID_154: non-cg probe annotations: MGMT=100, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:23:45,429 INFO Rapid_CNS2/ID_154: OK schema=coverage_percentage_headerless coordinate_rows=705044 probe_rows=545653 coverage_preserved=True total_coverage=1123468
+2026-09-05 11:23:53,341 INFO Rapid_CNS2/ID_155: non-cg probe annotations: MGMT=205, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:23:58,260 INFO Rapid_CNS2/ID_155: OK schema=coverage_percentage_headerless coordinate_rows=1009348 probe_rows=704963 coverage_preserved=True total_coverage=1909193
+2026-09-05 11:24:01,760 INFO Rapid_CNS2/ID_156: non-cg probe annotations: MGMT=199, rs1495031=1
+2026-09-05 11:24:04,440 INFO Rapid_CNS2/ID_156: OK schema=coverage_percentage_headerless coordinate_rows=444663 probe_rows=381929 coverage_preserved=True total_coverage=585166
+2026-09-05 11:24:09,708 INFO Rapid_CNS2/ID_157: non-cg probe annotations: MGMT=206, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:24:13,913 INFO Rapid_CNS2/ID_157: OK schema=coverage_percentage_headerless coordinate_rows=686567 probe_rows=542243 coverage_preserved=True total_coverage=1024521
+2026-09-05 11:24:19,064 INFO Rapid_CNS2/ID_158: non-cg probe annotations: MGMT=104, rs11249206=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:24:23,191 INFO Rapid_CNS2/ID_158: OK schema=coverage_percentage_headerless coordinate_rows=661563 probe_rows=526030 coverage_preserved=True total_coverage=1008589
+2026-09-05 11:24:28,405 INFO Rapid_CNS2/ID_159: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:24:32,420 INFO Rapid_CNS2/ID_159: OK schema=coverage_percentage_headerless coordinate_rows=670106 probe_rows=530870 coverage_preserved=True total_coverage=1025918
+2026-09-05 11:24:38,310 INFO Rapid_CNS2/ID_16: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:24:43,660 INFO Rapid_CNS2/ID_16: OK schema=coverage_percentage_headerless coordinate_rows=757014 probe_rows=756909 coverage_preserved=True total_coverage=2027952
+2026-09-05 11:24:51,828 INFO Rapid_CNS2/ID_160: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:24:56,931 INFO Rapid_CNS2/ID_160: OK schema=coverage_percentage_headerless coordinate_rows=1038283 probe_rows=717848 coverage_preserved=True total_coverage=2026369
+2026-09-05 11:25:06,057 INFO Rapid_CNS2/ID_161: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:25:11,869 INFO Rapid_CNS2/ID_161: OK schema=coverage_percentage_headerless coordinate_rows=1163086 probe_rows=761324 coverage_preserved=True total_coverage=2439057
+2026-09-05 11:25:21,856 INFO Rapid_CNS2/ID_162: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:25:28,120 INFO Rapid_CNS2/ID_162: OK schema=coverage_percentage_headerless coordinate_rows=1283763 probe_rows=801379 coverage_preserved=True total_coverage=3049534
+2026-09-05 11:25:33,420 INFO Rapid_CNS2/ID_163: non-cg probe annotations: MGMT=115, rs11249206=1, rs133860=1
+2026-09-05 11:25:37,712 INFO Rapid_CNS2/ID_163: OK schema=coverage_percentage_headerless coordinate_rows=675082 probe_rows=535777 coverage_preserved=True total_coverage=1009533
+2026-09-05 11:25:45,861 INFO Rapid_CNS2/ID_164: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:25:51,161 INFO Rapid_CNS2/ID_164: OK schema=coverage_percentage_headerless coordinate_rows=1054320 probe_rows=726817 coverage_preserved=True total_coverage=2045578
+2026-09-05 11:25:59,793 INFO Rapid_CNS2/ID_165: non-cg probe annotations: MGMT=211, rs1495031=1
+2026-09-05 11:26:05,421 INFO Rapid_CNS2/ID_165: OK schema=coverage_percentage_headerless coordinate_rows=1114179 probe_rows=748139 coverage_preserved=True total_coverage=2244833
+2026-09-05 11:26:09,517 INFO Rapid_CNS2/ID_166: non-cg probe annotations: MGMT=211, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:26:12,580 INFO Rapid_CNS2/ID_166: OK schema=coverage_percentage_headerless coordinate_rows=519174 probe_rows=435193 coverage_preserved=True total_coverage=720346
+2026-09-05 11:26:20,549 INFO Rapid_CNS2/ID_167: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:26:25,558 INFO Rapid_CNS2/ID_167: OK schema=coverage_percentage_headerless coordinate_rows=1030632 probe_rows=713403 coverage_preserved=True total_coverage=2069020
+2026-09-05 11:26:25,677 INFO cohort=Rapid_CNS2 progress: 75/300
+2026-09-05 11:26:31,497 INFO Rapid_CNS2/ID_168: non-cg probe annotations: MGMT=211, rs11249206=1, rs1495031=1, rs966367=1
+2026-09-05 11:26:36,141 INFO Rapid_CNS2/ID_168: OK schema=coverage_percentage_headerless coordinate_rows=770007 probe_rows=590292 coverage_preserved=True total_coverage=1215303
+2026-09-05 11:26:43,799 INFO Rapid_CNS2/ID_169: non-cg probe annotations: MGMT=212, rs11249206=1, rs1495031=1, rs966367=1
+2026-09-05 11:26:48,634 INFO Rapid_CNS2/ID_169: OK schema=coverage_percentage_headerless coordinate_rows=983592 probe_rows=697465 coverage_preserved=True total_coverage=1852751
+2026-09-05 11:26:54,946 INFO Rapid_CNS2/ID_17: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:27:00,443 INFO Rapid_CNS2/ID_17: OK schema=coverage_percentage_headerless coordinate_rows=803438 probe_rows=803333 coverage_preserved=True total_coverage=2689965
+2026-09-05 11:27:06,397 INFO Rapid_CNS2/ID_170: non-cg probe annotations: MGMT=199, rs133860=1, rs1495031=1
+2026-09-05 11:27:10,942 INFO Rapid_CNS2/ID_170: OK schema=coverage_percentage_headerless coordinate_rows=766181 probe_rows=586944 coverage_preserved=True total_coverage=1196131
+2026-09-05 11:27:19,862 INFO Rapid_CNS2/ID_171: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:27:25,597 INFO Rapid_CNS2/ID_171: OK schema=coverage_percentage_headerless coordinate_rows=1157060 probe_rows=764252 coverage_preserved=True total_coverage=2380149
+2026-09-05 11:27:33,774 INFO Rapid_CNS2/ID_172: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:27:38,817 INFO Rapid_CNS2/ID_172: OK schema=coverage_percentage_headerless coordinate_rows=1039333 probe_rows=719768 coverage_preserved=True total_coverage=2020414
+2026-09-05 11:27:46,387 INFO Rapid_CNS2/ID_173: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1
+2026-09-05 11:27:51,306 INFO Rapid_CNS2/ID_173: OK schema=coverage_percentage_headerless coordinate_rows=970591 probe_rows=691269 coverage_preserved=True total_coverage=1799527
+2026-09-05 11:27:56,000 INFO Rapid_CNS2/ID_174: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1
+2026-09-05 11:27:59,441 INFO Rapid_CNS2/ID_174: OK schema=coverage_percentage_headerless coordinate_rows=606974 probe_rows=490753 coverage_preserved=True total_coverage=944256
+2026-09-05 11:28:04,514 INFO Rapid_CNS2/ID_175: non-cg probe annotations: MGMT=210, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:28:08,635 INFO Rapid_CNS2/ID_175: OK schema=coverage_percentage_headerless coordinate_rows=660661 probe_rows=527157 coverage_preserved=True total_coverage=997741
+2026-09-05 11:28:12,922 INFO Rapid_CNS2/ID_176: non-cg probe annotations: MGMT=210, rs133860=1
+2026-09-05 11:28:16,099 INFO Rapid_CNS2/ID_176: OK schema=coverage_percentage_headerless coordinate_rows=555873 probe_rows=459719 coverage_preserved=True total_coverage=784517
+2026-09-05 11:28:22,830 INFO Rapid_CNS2/ID_177: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:28:27,256 INFO Rapid_CNS2/ID_177: OK schema=coverage_percentage_headerless coordinate_rows=872056 probe_rows=642698 coverage_preserved=True total_coverage=1432775
+2026-09-05 11:28:29,442 INFO Rapid_CNS2/ID_178: non-cg probe annotations: MGMT=106, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:28:30,891 INFO Rapid_CNS2/ID_178: OK schema=coverage_percentage_headerless coordinate_rows=275311 probe_rows=249798 coverage_preserved=True total_coverage=336648
+2026-09-05 11:28:34,686 INFO Rapid_CNS2/ID_179: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:28:37,496 INFO Rapid_CNS2/ID_179: OK schema=coverage_percentage_headerless coordinate_rows=496771 probe_rows=411256 coverage_preserved=True total_coverage=638622
+2026-09-05 11:28:43,910 INFO Rapid_CNS2/ID_18: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:28:49,204 INFO Rapid_CNS2/ID_18: OK schema=coverage_percentage_headerless coordinate_rows=824545 probe_rows=824440 coverage_preserved=True total_coverage=3156333
+2026-09-05 11:28:52,945 INFO Rapid_CNS2/ID_180: non-cg probe annotations: MGMT=29
+2026-09-05 11:28:55,661 INFO Rapid_CNS2/ID_180: OK schema=coverage_percentage_headerless coordinate_rows=480816 probe_rows=410451 coverage_preserved=True total_coverage=590937
+2026-09-05 11:29:03,081 INFO Rapid_CNS2/ID_181: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:29:07,888 INFO Rapid_CNS2/ID_181: OK schema=coverage_percentage_headerless coordinate_rows=957029 probe_rows=680799 coverage_preserved=True total_coverage=1644275
+2026-09-05 11:29:15,415 INFO Rapid_CNS2/ID_182: non-cg probe annotations: MGMT=209, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:29:20,287 INFO Rapid_CNS2/ID_182: OK schema=coverage_percentage_headerless coordinate_rows=965849 probe_rows=685083 coverage_preserved=True total_coverage=1603765
+2026-09-05 11:29:24,555 INFO Rapid_CNS2/ID_183: non-cg probe annotations: MGMT=210, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:29:27,746 INFO Rapid_CNS2/ID_183: OK schema=coverage_percentage_headerless coordinate_rows=550787 probe_rows=455692 coverage_preserved=True total_coverage=742303
+2026-09-05 11:29:35,007 INFO Rapid_CNS2/ID_184: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:29:40,240 INFO Rapid_CNS2/ID_184: OK schema=coverage_percentage_headerless coordinate_rows=940339 probe_rows=672953 coverage_preserved=True total_coverage=1558518
+2026-09-05 11:29:46,407 INFO Rapid_CNS2/ID_185: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:29:51,111 INFO Rapid_CNS2/ID_185: OK schema=coverage_percentage_headerless coordinate_rows=799296 probe_rows=603491 coverage_preserved=True total_coverage=1224636
+2026-09-05 11:29:59,181 INFO Rapid_CNS2/ID_186: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:30:04,190 INFO Rapid_CNS2/ID_186: OK schema=coverage_percentage_headerless coordinate_rows=1037095 probe_rows=715318 coverage_preserved=True total_coverage=1840674
+2026-09-05 11:30:12,518 INFO Rapid_CNS2/ID_187: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:30:18,423 INFO Rapid_CNS2/ID_187: OK schema=coverage_percentage_headerless coordinate_rows=1079878 probe_rows=731878 coverage_preserved=True total_coverage=1937775
+2026-09-05 11:30:24,381 INFO Rapid_CNS2/ID_188: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:30:28,886 INFO Rapid_CNS2/ID_188: OK schema=coverage_percentage_headerless coordinate_rows=774560 probe_rows=587767 coverage_preserved=True total_coverage=1145285
+2026-09-05 11:30:33,357 INFO Rapid_CNS2/ID_189: non-cg probe annotations: MGMT=210, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:30:36,616 INFO Rapid_CNS2/ID_189: OK schema=coverage_percentage_headerless coordinate_rows=581349 probe_rows=476687 coverage_preserved=True total_coverage=787457
+2026-09-05 11:30:42,750 INFO Rapid_CNS2/ID_19: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:30:48,138 INFO Rapid_CNS2/ID_19: OK schema=coverage_percentage_headerless coordinate_rows=796387 probe_rows=796282 coverage_preserved=True total_coverage=2491336
+2026-09-05 11:30:48,245 INFO cohort=Rapid_CNS2 progress: 100/300
+2026-09-05 11:30:54,280 INFO Rapid_CNS2/ID_190: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:30:58,981 INFO Rapid_CNS2/ID_190: OK schema=coverage_percentage_headerless coordinate_rows=789836 probe_rows=600397 coverage_preserved=True total_coverage=1206706
+2026-09-05 11:31:04,083 INFO Rapid_CNS2/ID_191: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:31:07,924 INFO Rapid_CNS2/ID_191: OK schema=coverage_percentage_headerless coordinate_rows=659644 probe_rows=520925 coverage_preserved=True total_coverage=953492
+2026-09-05 11:31:14,838 INFO Rapid_CNS2/ID_192: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:31:19,474 INFO Rapid_CNS2/ID_192: OK schema=coverage_percentage_headerless coordinate_rows=894363 probe_rows=652290 coverage_preserved=True total_coverage=1435289
+2026-09-05 11:31:25,639 INFO Rapid_CNS2/ID_193: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:31:30,385 INFO Rapid_CNS2/ID_193: OK schema=coverage_percentage_headerless coordinate_rows=799786 probe_rows=602986 coverage_preserved=True total_coverage=1205491
+2026-09-05 11:31:32,687 INFO Rapid_CNS2/ID_194: non-cg probe annotations: MGMT=162, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:31:34,290 INFO Rapid_CNS2/ID_194: OK schema=coverage_percentage_headerless coordinate_rows=292121 probe_rows=262232 coverage_preserved=True total_coverage=346680
+2026-09-05 11:31:41,900 INFO Rapid_CNS2/ID_195: non-cg probe annotations: MGMT=212, rs133860=1
+2026-09-05 11:31:46,742 INFO Rapid_CNS2/ID_195: OK schema=coverage_percentage_headerless coordinate_rows=994722 probe_rows=697304 coverage_preserved=True total_coverage=1693322
+2026-09-05 11:31:57,510 INFO Rapid_CNS2/ID_196: non-cg probe annotations: MGMT=212, rs11249206=2, rs133860=1, rs6426327=2
+2026-09-05 11:32:03,652 INFO Rapid_CNS2/ID_196: OK schema=coverage_percentage_headerless coordinate_rows=1404083 probe_rows=716112 coverage_preserved=True total_coverage=2471133
+2026-09-05 11:32:11,785 INFO Rapid_CNS2/ID_197: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:32:16,989 INFO Rapid_CNS2/ID_197: OK schema=coverage_percentage_headerless coordinate_rows=1051900 probe_rows=719387 coverage_preserved=True total_coverage=1856346
+2026-09-05 11:32:22,273 INFO Rapid_CNS2/ID_198: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1
+2026-09-05 11:32:26,491 INFO Rapid_CNS2/ID_198: OK schema=coverage_percentage_headerless coordinate_rows=681439 probe_rows=538915 coverage_preserved=True total_coverage=1013584
+2026-09-05 11:32:31,083 INFO Rapid_CNS2/ID_199: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:32:34,550 INFO Rapid_CNS2/ID_199: OK schema=coverage_percentage_headerless coordinate_rows=602105 probe_rows=489754 coverage_preserved=True total_coverage=824726
+2026-09-05 11:32:40,325 INFO Rapid_CNS2/ID_2: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1
+2026-09-05 11:32:45,548 INFO Rapid_CNS2/ID_2: OK schema=coverage_percentage_headerless coordinate_rows=746927 probe_rows=746822 coverage_preserved=True total_coverage=1953859
+2026-09-05 11:32:51,217 INFO Rapid_CNS2/ID_20: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1
+2026-09-05 11:32:56,412 INFO Rapid_CNS2/ID_20: OK schema=coverage_percentage_headerless coordinate_rows=737099 probe_rows=736994 coverage_preserved=True total_coverage=1909221
+2026-09-05 11:33:04,521 INFO Rapid_CNS2/ID_200: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:33:09,566 INFO Rapid_CNS2/ID_200: OK schema=coverage_percentage_headerless coordinate_rows=1047408 probe_rows=714468 coverage_preserved=True total_coverage=1877644
+2026-09-05 11:33:17,414 INFO Rapid_CNS2/ID_201: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1
+2026-09-05 11:33:22,295 INFO Rapid_CNS2/ID_201: OK schema=coverage_percentage_headerless coordinate_rows=1007959 probe_rows=699978 coverage_preserved=True total_coverage=1793989
+2026-09-05 11:33:30,047 INFO Rapid_CNS2/ID_202: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:33:34,880 INFO Rapid_CNS2/ID_202: OK schema=coverage_percentage_headerless coordinate_rows=994308 probe_rows=696002 coverage_preserved=True total_coverage=1781214
+2026-09-05 11:33:42,779 INFO Rapid_CNS2/ID_203: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:33:47,743 INFO Rapid_CNS2/ID_203: OK schema=coverage_percentage_headerless coordinate_rows=1022304 probe_rows=706713 coverage_preserved=True total_coverage=1743167
+2026-09-05 11:33:53,694 INFO Rapid_CNS2/ID_204: non-cg probe annotations: MGMT=211, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:33:58,222 INFO Rapid_CNS2/ID_204: OK schema=coverage_percentage_headerless coordinate_rows=778074 probe_rows=591772 coverage_preserved=True total_coverage=1205476
+2026-09-05 11:34:03,217 INFO Rapid_CNS2/ID_205: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:34:06,958 INFO Rapid_CNS2/ID_205: OK schema=coverage_percentage coordinate_rows=652389 probe_rows=521852 coverage_preserved=True total_coverage=924354
+2026-09-05 11:34:15,043 INFO Rapid_CNS2/ID_206: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:34:20,217 INFO Rapid_CNS2/ID_206: OK schema=coverage_percentage coordinate_rows=1062877 probe_rows=726682 coverage_preserved=True total_coverage=1813252
+2026-09-05 11:34:27,540 INFO Rapid_CNS2/ID_207: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:34:32,506 INFO Rapid_CNS2/ID_207: OK schema=coverage_percentage coordinate_rows=946169 probe_rows=673908 coverage_preserved=True total_coverage=1574037
+2026-09-05 11:34:37,320 INFO Rapid_CNS2/ID_208: non-cg probe annotations: MGMT=205, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:34:40,971 INFO Rapid_CNS2/ID_208: OK schema=coverage_percentage coordinate_rows=631155 probe_rows=503335 coverage_preserved=True total_coverage=882349
+2026-09-05 11:34:48,697 INFO Rapid_CNS2/ID_209: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:34:56,773 INFO Rapid_CNS2/ID_209: OK schema=coverage_percentage_headerless coordinate_rows=1005717 probe_rows=703677 coverage_preserved=True total_coverage=1734901
+2026-09-05 11:35:03,800 INFO Rapid_CNS2/ID_21: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:35:12,975 INFO Rapid_CNS2/ID_21: OK schema=coverage_percentage_headerless coordinate_rows=819562 probe_rows=819457 coverage_preserved=True total_coverage=3342518
+2026-09-05 11:35:22,139 INFO Rapid_CNS2/ID_210: non-cg probe annotations: MGMT=106, rs11249206=1
+2026-09-05 11:35:31,441 INFO Rapid_CNS2/ID_210: OK schema=coverage_percentage_headerless coordinate_rows=1101681 probe_rows=734989 coverage_preserved=True total_coverage=2082506
+2026-09-05 11:35:39,846 INFO Rapid_CNS2/ID_211: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:35:48,491 INFO Rapid_CNS2/ID_211: OK schema=coverage_percentage_headerless coordinate_rows=1007129 probe_rows=703250 coverage_preserved=True total_coverage=1739796
+2026-09-05 11:35:48,713 INFO cohort=Rapid_CNS2 progress: 125/300
+2026-09-05 11:35:57,590 INFO Rapid_CNS2/ID_212: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:36:06,780 INFO Rapid_CNS2/ID_212: OK schema=coverage_percentage_headerless coordinate_rows=1088958 probe_rows=734268 coverage_preserved=True total_coverage=1915865
+2026-09-05 11:36:15,032 INFO Rapid_CNS2/ID_213: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1
+2026-09-05 11:36:23,731 INFO Rapid_CNS2/ID_213: OK schema=coverage_percentage_headerless coordinate_rows=989123 probe_rows=697329 coverage_preserved=True total_coverage=1615787
+2026-09-05 11:36:32,292 INFO Rapid_CNS2/ID_214: non-cg probe annotations: MGMT=212, rs133860=1
+2026-09-05 11:36:41,274 INFO Rapid_CNS2/ID_214: OK schema=coverage_percentage_headerless coordinate_rows=1035716 probe_rows=712650 coverage_preserved=True total_coverage=1801705
+2026-09-05 11:36:50,618 INFO Rapid_CNS2/ID_215: non-cg probe annotations: MGMT=209, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:36:59,900 INFO Rapid_CNS2/ID_215: OK schema=coverage_percentage_headerless coordinate_rows=1128535 probe_rows=744799 coverage_preserved=True total_coverage=2127308
+2026-09-05 11:37:10,260 INFO Rapid_CNS2/ID_216: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1
+2026-09-05 11:37:21,090 INFO Rapid_CNS2/ID_216: OK schema=coverage_percentage_headerless coordinate_rows=1270983 probe_rows=792343 coverage_preserved=True total_coverage=2632550
+2026-09-05 11:37:29,029 INFO Rapid_CNS2/ID_217: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1
+2026-09-05 11:37:37,282 INFO Rapid_CNS2/ID_217: OK schema=coverage_percentage_headerless coordinate_rows=934713 probe_rows=669587 coverage_preserved=True total_coverage=1566549
+2026-09-05 11:37:46,408 INFO Rapid_CNS2/ID_218: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:37:55,061 INFO Rapid_CNS2/ID_218: OK schema=coverage_percentage_headerless coordinate_rows=1101702 probe_rows=736817 coverage_preserved=True total_coverage=2091133
+2026-09-05 11:38:03,034 INFO Rapid_CNS2/ID_219: non-cg probe annotations: MGMT=204, rs133860=1, rs1495031=1
+2026-09-05 11:38:11,276 INFO Rapid_CNS2/ID_219: OK schema=coverage_percentage_headerless coordinate_rows=956088 probe_rows=680537 coverage_preserved=True total_coverage=1604205
+2026-09-05 11:38:17,917 INFO Rapid_CNS2/ID_22: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:38:26,880 INFO Rapid_CNS2/ID_22: OK schema=coverage_percentage_headerless coordinate_rows=776516 probe_rows=776411 coverage_preserved=True total_coverage=2338206
+2026-09-05 11:38:35,843 INFO Rapid_CNS2/ID_220: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1
+2026-09-05 11:38:44,349 INFO Rapid_CNS2/ID_220: OK schema=coverage_percentage_headerless coordinate_rows=1088519 probe_rows=734976 coverage_preserved=True total_coverage=1941104
+2026-09-05 11:38:53,432 INFO Rapid_CNS2/ID_221: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:39:02,042 INFO Rapid_CNS2/ID_221: OK schema=coverage_percentage_headerless coordinate_rows=1092020 probe_rows=732111 coverage_preserved=True total_coverage=2006360
+2026-09-05 11:39:09,948 INFO Rapid_CNS2/ID_222: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:39:18,346 INFO Rapid_CNS2/ID_222: OK schema=coverage_percentage_headerless coordinate_rows=947602 probe_rows=679432 coverage_preserved=True total_coverage=1575717
+2026-09-05 11:39:24,928 INFO Rapid_CNS2/ID_223: non-cg probe annotations: MGMT=209, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:39:32,116 INFO Rapid_CNS2/ID_223: OK schema=coverage_percentage_headerless coordinate_rows=767782 probe_rows=587483 coverage_preserved=True total_coverage=1126988
+2026-09-05 11:39:40,243 INFO Rapid_CNS2/ID_224: non-cg probe annotations: MGMT=156, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:39:48,599 INFO Rapid_CNS2/ID_224: OK schema=coverage_percentage_headerless coordinate_rows=978188 probe_rows=692513 coverage_preserved=True total_coverage=1575876
+2026-09-05 11:39:57,457 INFO Rapid_CNS2/ID_225: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:40:06,434 INFO Rapid_CNS2/ID_225: OK schema=coverage_percentage_headerless coordinate_rows=1057414 probe_rows=725640 coverage_preserved=True total_coverage=1877878
+2026-09-05 11:40:15,919 INFO Rapid_CNS2/ID_226: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:40:24,938 INFO Rapid_CNS2/ID_226: OK schema=coverage_percentage_headerless coordinate_rows=1147689 probe_rows=756516 coverage_preserved=True total_coverage=2213738
+2026-09-05 11:40:35,669 INFO Rapid_CNS2/ID_227: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:40:45,221 INFO Rapid_CNS2/ID_227: OK schema=coverage_percentage_headerless coordinate_rows=1301534 probe_rows=793625 coverage_preserved=True total_coverage=3231867
+2026-09-05 11:40:49,329 INFO Rapid_CNS2/ID_228: non-cg probe annotations: MGMT=212
+2026-09-05 11:40:53,678 INFO Rapid_CNS2/ID_228: OK schema=coverage_percentage_headerless coordinate_rows=465462 probe_rows=396846 coverage_preserved=True total_coverage=580076
+2026-09-05 11:41:01,936 INFO Rapid_CNS2/ID_229: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1
+2026-09-05 11:41:10,566 INFO Rapid_CNS2/ID_229: OK schema=coverage_percentage_headerless coordinate_rows=1009972 probe_rows=705895 coverage_preserved=True total_coverage=1727217
+2026-09-05 11:41:16,856 INFO Rapid_CNS2/ID_23: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:41:25,256 INFO Rapid_CNS2/ID_23: OK schema=coverage_percentage_headerless coordinate_rows=733376 probe_rows=733271 coverage_preserved=True total_coverage=1768874
+2026-09-05 11:41:32,878 INFO Rapid_CNS2/ID_230: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:41:40,826 INFO Rapid_CNS2/ID_230: OK schema=coverage_percentage_headerless coordinate_rows=919062 probe_rows=662126 coverage_preserved=True total_coverage=1521597
+2026-09-05 11:41:50,720 INFO Rapid_CNS2/ID_231: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:41:59,819 INFO Rapid_CNS2/ID_231: OK schema=coverage_percentage_headerless coordinate_rows=1197351 probe_rows=771323 coverage_preserved=True total_coverage=2421246
+2026-09-05 11:42:08,939 INFO Rapid_CNS2/ID_232: non-cg probe annotations: MGMT=212, rs133860=1, rs966367=1
+2026-09-05 11:42:17,607 INFO Rapid_CNS2/ID_232: OK schema=coverage_percentage_headerless coordinate_rows=1096860 probe_rows=739732 coverage_preserved=True total_coverage=2045750
+2026-09-05 11:42:23,950 INFO Rapid_CNS2/ID_233: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1
+2026-09-05 11:42:30,884 INFO Rapid_CNS2/ID_233: OK schema=coverage_percentage_headerless coordinate_rows=745803 probe_rows=576434 coverage_preserved=True total_coverage=1101964
+2026-09-05 11:42:39,719 INFO Rapid_CNS2/ID_234: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1
+2026-09-05 11:42:48,521 INFO Rapid_CNS2/ID_234: OK schema=coverage_percentage_headerless coordinate_rows=1065434 probe_rows=726528 coverage_preserved=True total_coverage=1914116
+2026-09-05 11:42:48,745 INFO cohort=Rapid_CNS2 progress: 150/300
+2026-09-05 11:42:57,735 INFO Rapid_CNS2/ID_235: non-cg probe annotations: MGMT=210, rs11249206=1, rs966367=1
+2026-09-05 11:43:06,422 INFO Rapid_CNS2/ID_235: OK schema=coverage_percentage_headerless coordinate_rows=1109524 probe_rows=738973 coverage_preserved=True total_coverage=2130959
+2026-09-05 11:43:14,631 INFO Rapid_CNS2/ID_236: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:43:23,110 INFO Rapid_CNS2/ID_236: OK schema=coverage_percentage_headerless coordinate_rows=990505 probe_rows=693766 coverage_preserved=True total_coverage=1756073
+2026-09-05 11:43:32,579 INFO Rapid_CNS2/ID_237: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:43:41,332 INFO Rapid_CNS2/ID_237: OK schema=coverage_percentage_headerless coordinate_rows=1143923 probe_rows=748916 coverage_preserved=True total_coverage=2329963
+2026-09-05 11:43:49,288 INFO Rapid_CNS2/ID_238: non-cg probe annotations: MGMT=212, rs11249206=1, rs1495031=1
+2026-09-05 11:43:57,680 INFO Rapid_CNS2/ID_238: OK schema=coverage_percentage_headerless coordinate_rows=948529 probe_rows=680348 coverage_preserved=True total_coverage=1578154
+2026-09-05 11:44:07,770 INFO Rapid_CNS2/ID_239: non-cg probe annotations: MGMT=212, rs133860=1, rs966367=1
+2026-09-05 11:44:16,940 INFO Rapid_CNS2/ID_239: OK schema=coverage_percentage_headerless coordinate_rows=1225085 probe_rows=780744 coverage_preserved=True total_coverage=2438190
+2026-09-05 11:44:23,527 INFO Rapid_CNS2/ID_24: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:44:32,120 INFO Rapid_CNS2/ID_24: OK schema=coverage_percentage_headerless coordinate_rows=754747 probe_rows=754642 coverage_preserved=True total_coverage=2059171
+2026-09-05 11:44:41,622 INFO Rapid_CNS2/ID_240: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1
+2026-09-05 11:44:50,453 INFO Rapid_CNS2/ID_240: OK schema=coverage_percentage_headerless coordinate_rows=1145886 probe_rows=752757 coverage_preserved=True total_coverage=2181630
+2026-09-05 11:44:54,710 INFO Rapid_CNS2/ID_241: non-cg probe annotations: MGMT=3
+2026-09-05 11:44:59,176 INFO Rapid_CNS2/ID_241: OK schema=coverage_percentage_headerless coordinate_rows=487759 probe_rows=412450 coverage_preserved=True total_coverage=623484
+2026-09-05 11:45:07,855 INFO Rapid_CNS2/ID_242: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:45:16,774 INFO Rapid_CNS2/ID_242: OK schema=coverage_percentage_headerless coordinate_rows=1060411 probe_rows=723712 coverage_preserved=True total_coverage=1929975
+2026-09-05 11:45:26,310 INFO Rapid_CNS2/ID_243: non-cg probe annotations: MGMT=212, rs133860=1, rs966367=1
+2026-09-05 11:45:35,160 INFO Rapid_CNS2/ID_243: OK schema=coverage_percentage_headerless coordinate_rows=1155384 probe_rows=759331 coverage_preserved=True total_coverage=2197961
+2026-09-05 11:45:45,240 INFO Rapid_CNS2/ID_244: non-cg probe annotations: MGMT=212, rs11249206=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:45:54,413 INFO Rapid_CNS2/ID_244: OK schema=coverage_percentage_headerless coordinate_rows=1221327 probe_rows=779313 coverage_preserved=True total_coverage=2466905
+2026-09-05 11:46:02,624 INFO Rapid_CNS2/ID_245: non-cg probe annotations: MGMT=212, rs1495031=1, rs966367=1
+2026-09-05 11:46:11,069 INFO Rapid_CNS2/ID_245: OK schema=coverage_percentage_headerless coordinate_rows=990160 probe_rows=694263 coverage_preserved=True total_coverage=1738530
+2026-09-05 11:46:17,337 INFO Rapid_CNS2/ID_246: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:46:24,050 INFO Rapid_CNS2/ID_246: OK schema=coverage_percentage_headerless coordinate_rows=739638 probe_rows=571948 coverage_preserved=True total_coverage=1090812
+2026-09-05 11:46:31,763 INFO Rapid_CNS2/ID_247: non-cg probe annotations: MGMT=212, rs1495031=1
+2026-09-05 11:46:40,052 INFO Rapid_CNS2/ID_247: OK schema=coverage_percentage_headerless coordinate_rows=934855 probe_rows=673415 coverage_preserved=True total_coverage=1496743
+2026-09-05 11:46:49,343 INFO Rapid_CNS2/ID_248: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:46:58,181 INFO Rapid_CNS2/ID_248: OK schema=coverage_percentage_headerless coordinate_rows=1124956 probe_rows=748507 coverage_preserved=True total_coverage=2139711
+2026-09-05 11:47:07,038 INFO Rapid_CNS2/ID_249: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:47:15,993 INFO Rapid_CNS2/ID_249: OK schema=coverage_percentage_headerless coordinate_rows=1060142 probe_rows=724382 coverage_preserved=True total_coverage=1920914
+2026-09-05 11:47:22,781 INFO Rapid_CNS2/ID_25: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:47:32,118 INFO Rapid_CNS2/ID_25: OK schema=coverage_percentage_headerless coordinate_rows=806257 probe_rows=806152 coverage_preserved=True total_coverage=2727223
+2026-09-05 11:47:41,706 INFO Rapid_CNS2/ID_250: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:47:50,546 INFO Rapid_CNS2/ID_250: OK schema=coverage_percentage_headerless coordinate_rows=1163876 probe_rows=753461 coverage_preserved=True total_coverage=2340880
+2026-09-05 11:48:00,758 INFO Rapid_CNS2/ID_251: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:48:09,863 INFO Rapid_CNS2/ID_251: OK schema=coverage_percentage_headerless coordinate_rows=1241689 probe_rows=778941 coverage_preserved=True total_coverage=2758091
+2026-09-05 11:48:15,383 INFO Rapid_CNS2/ID_252: non-cg probe annotations: MGMT=208, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:48:21,018 INFO Rapid_CNS2/ID_252: OK schema=coverage_percentage_headerless coordinate_rows=639943 probe_rows=512783 coverage_preserved=True total_coverage=947734
+2026-09-05 11:48:28,516 INFO Rapid_CNS2/ID_253: non-cg probe annotations: MGMT=207, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:48:36,552 INFO Rapid_CNS2/ID_253: OK schema=coverage_percentage_headerless coordinate_rows=911614 probe_rows=662123 coverage_preserved=True total_coverage=1495170
+2026-09-05 11:48:47,560 INFO Rapid_CNS2/ID_254: non-cg probe annotations: MGMT=212, rs133860=1, rs966367=1
+2026-09-05 11:48:57,266 INFO Rapid_CNS2/ID_254: OK schema=coverage_percentage_headerless coordinate_rows=1337454 probe_rows=805907 coverage_preserved=True total_coverage=3011964
+2026-09-05 11:49:06,898 INFO Rapid_CNS2/ID_255: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:49:15,737 INFO Rapid_CNS2/ID_255: OK schema=coverage_percentage_headerless coordinate_rows=1169184 probe_rows=759270 coverage_preserved=True total_coverage=2316530
+2026-09-05 11:49:25,217 INFO Rapid_CNS2/ID_256: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:49:33,958 INFO Rapid_CNS2/ID_256: OK schema=coverage_percentage_headerless coordinate_rows=1137397 probe_rows=753746 coverage_preserved=True total_coverage=2113352
+2026-09-05 11:49:43,621 INFO Rapid_CNS2/ID_257: non-cg probe annotations: MGMT=206, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:49:52,543 INFO Rapid_CNS2/ID_257: OK schema=coverage_percentage_headerless coordinate_rows=1170823 probe_rows=759456 coverage_preserved=True total_coverage=2247347
+2026-09-05 11:49:52,776 INFO cohort=Rapid_CNS2 progress: 175/300
+2026-09-05 11:50:02,131 INFO Rapid_CNS2/ID_258: non-cg probe annotations: MGMT=212, rs1495031=1
+2026-09-05 11:50:10,953 INFO Rapid_CNS2/ID_258: OK schema=coverage_percentage_headerless coordinate_rows=1158821 probe_rows=758253 coverage_preserved=True total_coverage=2243354
+2026-09-05 11:50:21,306 INFO Rapid_CNS2/ID_259: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:50:30,418 INFO Rapid_CNS2/ID_259: OK schema=coverage_percentage_headerless coordinate_rows=1240179 probe_rows=782355 coverage_preserved=True total_coverage=2585540
+2026-09-05 11:50:35,307 INFO Rapid_CNS2/ID_26: non-cg probe annotations: MGMT=95, rs1495031=1, rs966367=1
+2026-09-05 11:50:40,981 INFO Rapid_CNS2/ID_26: OK schema=coverage_percentage_headerless coordinate_rows=569501 probe_rows=569407 coverage_preserved=True total_coverage=1007998
+2026-09-05 11:50:54,432 INFO Rapid_CNS2/ID_260: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1
+2026-09-05 11:51:06,490 INFO Rapid_CNS2/ID_260: OK schema=coverage_percentage_headerless coordinate_rows=1659736 probe_rows=848636 coverage_preserved=True total_coverage=8984261
+2026-09-05 11:51:20,041 INFO Rapid_CNS2/ID_261: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:51:32,057 INFO Rapid_CNS2/ID_261: OK schema=coverage_percentage_headerless coordinate_rows=1656055 probe_rows=848784 coverage_preserved=True total_coverage=8793150
+2026-09-05 11:51:44,949 INFO Rapid_CNS2/ID_262: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:51:55,371 INFO Rapid_CNS2/ID_262: OK schema=coverage_percentage_headerless coordinate_rows=1570525 probe_rows=841899 coverage_preserved=True total_coverage=6160783
+2026-09-05 11:52:08,817 INFO Rapid_CNS2/ID_263: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:52:20,654 INFO Rapid_CNS2/ID_263: OK schema=coverage_percentage_headerless coordinate_rows=1652350 probe_rows=848057 coverage_preserved=True total_coverage=8690590
+2026-09-05 11:52:31,186 INFO Rapid_CNS2/ID_264: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:52:40,552 INFO Rapid_CNS2/ID_264: OK schema=coverage_percentage_headerless coordinate_rows=1274613 probe_rows=789936 coverage_preserved=True total_coverage=2798592
+2026-09-05 11:52:48,039 INFO Rapid_CNS2/ID_265: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:52:56,308 INFO Rapid_CNS2/ID_265: OK schema=coverage_percentage_headerless coordinate_rows=899354 probe_rows=656956 coverage_preserved=True total_coverage=1486360
+2026-09-05 11:53:05,769 INFO Rapid_CNS2/ID_266: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:53:14,293 INFO Rapid_CNS2/ID_266: OK schema=coverage_percentage_headerless coordinate_rows=1147557 probe_rows=753958 coverage_preserved=True total_coverage=2187611
+2026-09-05 11:53:22,244 INFO Rapid_CNS2/ID_267: non-cg probe annotations: MGMT=212, rs133860=1, rs966367=1
+2026-09-05 11:53:30,622 INFO Rapid_CNS2/ID_267: OK schema=coverage_percentage_headerless coordinate_rows=956315 probe_rows=682869 coverage_preserved=True total_coverage=1575903
+2026-09-05 11:53:40,653 INFO Rapid_CNS2/ID_268: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:53:49,623 INFO Rapid_CNS2/ID_268: OK schema=coverage_percentage_headerless coordinate_rows=1222948 probe_rows=779107 coverage_preserved=True total_coverage=2465816
+2026-09-05 11:54:03,608 INFO Rapid_CNS2/ID_269: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 11:54:15,909 INFO Rapid_CNS2/ID_269: OK schema=coverage_percentage_headerless coordinate_rows=1704354 probe_rows=853533 coverage_preserved=True total_coverage=15804646
+2026-09-05 11:54:21,349 INFO Rapid_CNS2/ID_27: non-cg probe annotations: MGMT=105, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:54:28,015 INFO Rapid_CNS2/ID_27: OK schema=coverage_percentage_headerless coordinate_rows=631822 probe_rows=631718 coverage_preserved=True total_coverage=1233316
+2026-09-05 11:54:41,920 INFO Rapid_CNS2/ID_270: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:54:54,788 INFO Rapid_CNS2/ID_270: OK schema=coverage_percentage_headerless coordinate_rows=1706081 probe_rows=854337 coverage_preserved=True total_coverage=16404167
+2026-09-05 11:55:05,203 INFO Rapid_CNS2/ID_271: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:55:12,894 INFO Rapid_CNS2/ID_271: OK schema=coverage_percentage_headerless coordinate_rows=1290907 probe_rows=793467 coverage_preserved=True total_coverage=2882418
+2026-09-05 11:55:21,784 INFO Rapid_CNS2/ID_272: non-cg probe annotations: MGMT=212, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:55:28,648 INFO Rapid_CNS2/ID_272: OK schema=coverage_percentage_headerless coordinate_rows=1130515 probe_rows=747912 coverage_preserved=True total_coverage=2156772
+2026-09-05 11:55:36,591 INFO Rapid_CNS2/ID_273: non-cg probe annotations: MGMT=211, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:55:42,634 INFO Rapid_CNS2/ID_273: OK schema=coverage_percentage_headerless coordinate_rows=1002041 probe_rows=703035 coverage_preserved=True total_coverage=1684633
+2026-09-05 11:55:56,047 INFO Rapid_CNS2/ID_274: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 11:56:08,055 INFO Rapid_CNS2/ID_274: OK schema=coverage_percentage_headerless coordinate_rows=1687335 probe_rows=851361 coverage_preserved=True total_coverage=10575293
+2026-09-05 11:56:22,739 INFO Rapid_CNS2/ID_275: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:56:38,165 INFO Rapid_CNS2/ID_275: OK schema=coverage_percentage_headerless coordinate_rows=1701205 probe_rows=853624 coverage_preserved=True total_coverage=13360313
+2026-09-05 11:56:47,216 INFO Rapid_CNS2/ID_276: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:56:56,856 INFO Rapid_CNS2/ID_276: OK schema=coverage_percentage_headerless coordinate_rows=1046794 probe_rows=720584 coverage_preserved=True total_coverage=1865100
+2026-09-05 11:57:10,590 INFO Rapid_CNS2/ID_277: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 11:57:26,176 INFO Rapid_CNS2/ID_277: OK schema=coverage_percentage_headerless coordinate_rows=1629367 probe_rows=847834 coverage_preserved=True total_coverage=6987692
+2026-09-05 11:57:40,548 INFO Rapid_CNS2/ID_278: non-cg probe annotations: MGMT=212, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:57:56,509 INFO Rapid_CNS2/ID_278: OK schema=coverage_percentage_headerless coordinate_rows=1678665 probe_rows=850489 coverage_preserved=True total_coverage=9579305
+2026-09-05 11:58:10,116 INFO Rapid_CNS2/ID_279: non-cg probe annotations: MGMT=212, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:58:20,455 INFO Rapid_CNS2/ID_279: OK schema=coverage_percentage_headerless coordinate_rows=1676373 probe_rows=850174 coverage_preserved=True total_coverage=9285662
+2026-09-05 11:58:26,531 INFO Rapid_CNS2/ID_28: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 11:58:33,160 INFO Rapid_CNS2/ID_28: OK schema=coverage_percentage_headerless coordinate_rows=751737 probe_rows=751632 coverage_preserved=True total_coverage=2071765
+2026-09-05 11:58:33,312 INFO cohort=Rapid_CNS2 progress: 200/300
+2026-09-05 11:58:46,527 INFO Rapid_CNS2/ID_280: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 11:58:56,791 INFO Rapid_CNS2/ID_280: OK schema=coverage_percentage_headerless coordinate_rows=1680165 probe_rows=849650 coverage_preserved=True total_coverage=9727650
+2026-09-05 11:59:10,685 INFO Rapid_CNS2/ID_281: non-cg probe annotations: MGMT=212, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:59:21,044 INFO Rapid_CNS2/ID_281: OK schema=coverage_percentage_headerless coordinate_rows=1698150 probe_rows=851345 coverage_preserved=True total_coverage=15913235
+2026-09-05 11:59:34,068 INFO Rapid_CNS2/ID_282: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 11:59:44,219 INFO Rapid_CNS2/ID_282: OK schema=coverage_percentage_headerless coordinate_rows=1641232 probe_rows=847203 coverage_preserved=True total_coverage=8165283
+2026-09-05 11:59:57,733 INFO Rapid_CNS2/ID_283: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:00:07,968 INFO Rapid_CNS2/ID_283: OK schema=coverage_percentage_headerless coordinate_rows=1682741 probe_rows=849762 coverage_preserved=True total_coverage=11164305
+2026-09-05 12:00:22,296 INFO Rapid_CNS2/ID_284: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 12:00:33,888 INFO Rapid_CNS2/ID_284: OK schema=coverage_percentage_headerless coordinate_rows=1706713 probe_rows=854788 coverage_preserved=True total_coverage=15465521
+2026-09-05 12:00:47,896 INFO Rapid_CNS2/ID_285: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:00:59,301 INFO Rapid_CNS2/ID_285: OK schema=coverage_percentage_headerless coordinate_rows=1687754 probe_rows=850281 coverage_preserved=True total_coverage=11198056
+2026-09-05 12:01:13,307 INFO Rapid_CNS2/ID_286: non-cg probe annotations: MGMT=212, rs133860=1
+2026-09-05 12:01:24,855 INFO Rapid_CNS2/ID_286: OK schema=coverage_percentage_headerless coordinate_rows=1682595 probe_rows=850438 coverage_preserved=True total_coverage=10137162
+2026-09-05 12:01:38,633 INFO Rapid_CNS2/ID_287: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:01:50,012 INFO Rapid_CNS2/ID_287: OK schema=coverage_percentage_headerless coordinate_rows=1668802 probe_rows=852412 coverage_preserved=True total_coverage=8047529
+2026-09-05 12:01:53,019 INFO Rapid_CNS2/ID_288: non-cg probe annotations: MGMT=198
+2026-09-05 12:01:55,465 INFO Rapid_CNS2/ID_288: OK schema=coverage_percentage_headerless coordinate_rows=331846 probe_rows=297113 coverage_preserved=True total_coverage=401902
+2026-09-05 12:02:06,517 INFO Rapid_CNS2/ID_289: non-cg probe annotations: MGMT=212, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:02:15,230 INFO Rapid_CNS2/ID_289: OK schema=coverage_percentage_headerless coordinate_rows=1355579 probe_rows=810555 coverage_preserved=True total_coverage=3279212
+2026-09-05 12:02:21,556 INFO Rapid_CNS2/ID_29: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:02:28,162 INFO Rapid_CNS2/ID_29: OK schema=coverage_percentage_headerless coordinate_rows=763790 probe_rows=763685 coverage_preserved=True total_coverage=2204035
+2026-09-05 12:02:36,711 INFO Rapid_CNS2/ID_290: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:02:44,147 INFO Rapid_CNS2/ID_290: OK schema=coverage_percentage_headerless coordinate_rows=1028015 probe_rows=713675 coverage_preserved=True total_coverage=1823843
+2026-09-05 12:02:56,612 INFO Rapid_CNS2/ID_291: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1
+2026-09-05 12:03:06,045 INFO Rapid_CNS2/ID_291: OK schema=coverage_percentage_headerless coordinate_rows=1514440 probe_rows=837088 coverage_preserved=True total_coverage=4838554
+2026-09-05 12:03:12,329 INFO Rapid_CNS2/ID_292: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:03:19,573 INFO Rapid_CNS2/ID_292: OK schema=coverage_percentage_headerless coordinate_rows=737241 probe_rows=737136 coverage_preserved=True total_coverage=1912767
+2026-09-05 12:03:25,859 INFO Rapid_CNS2/ID_293: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1
+2026-09-05 12:03:33,183 INFO Rapid_CNS2/ID_293: OK schema=coverage_percentage_headerless coordinate_rows=751457 probe_rows=751352 coverage_preserved=True total_coverage=2033618
+2026-09-05 12:03:40,203 INFO Rapid_CNS2/ID_294: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1
+2026-09-05 12:03:47,667 INFO Rapid_CNS2/ID_294: OK schema=coverage_percentage_headerless coordinate_rows=829915 probe_rows=829810 coverage_preserved=True total_coverage=3498708
+2026-09-05 12:03:54,748 INFO Rapid_CNS2/ID_295: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 12:04:02,332 INFO Rapid_CNS2/ID_295: OK schema=coverage_percentage_headerless coordinate_rows=840799 probe_rows=840694 coverage_preserved=True total_coverage=3743136
+2026-09-05 12:04:09,073 INFO Rapid_CNS2/ID_296: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 12:04:16,951 INFO Rapid_CNS2/ID_296: OK schema=coverage_percentage_headerless coordinate_rows=798429 probe_rows=798324 coverage_preserved=True total_coverage=2718398
+2026-09-05 12:04:24,048 INFO Rapid_CNS2/ID_297: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:04:31,662 INFO Rapid_CNS2/ID_297: OK schema=coverage_percentage_headerless coordinate_rows=838553 probe_rows=838448 coverage_preserved=True total_coverage=3831307
+2026-09-05 12:04:38,870 INFO Rapid_CNS2/ID_298: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:04:46,533 INFO Rapid_CNS2/ID_298: OK schema=coverage_percentage_headerless coordinate_rows=850099 probe_rows=849994 coverage_preserved=True total_coverage=4387922
+2026-09-05 12:04:52,684 INFO Rapid_CNS2/ID_299: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 12:04:59,698 INFO Rapid_CNS2/ID_299: OK schema=coverage_percentage_headerless coordinate_rows=730846 probe_rows=730741 coverage_preserved=True total_coverage=1795262
+2026-09-05 12:05:05,757 INFO Rapid_CNS2/ID_3: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 12:05:12,618 INFO Rapid_CNS2/ID_3: OK schema=coverage_percentage_headerless coordinate_rows=721153 probe_rows=721048 coverage_preserved=True total_coverage=1849944
+2026-09-05 12:05:19,643 INFO Rapid_CNS2/ID_30: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:05:27,084 INFO Rapid_CNS2/ID_30: OK schema=coverage_percentage_headerless coordinate_rows=830948 probe_rows=830843 coverage_preserved=True total_coverage=3433292
+2026-09-05 12:05:33,603 INFO Rapid_CNS2/ID_300: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 12:05:41,469 INFO Rapid_CNS2/ID_300: OK schema=coverage_percentage_headerless coordinate_rows=776626 probe_rows=776521 coverage_preserved=True total_coverage=2251736
+2026-09-05 12:05:47,137 INFO Rapid_CNS2/ID_301: non-cg probe annotations: MGMT=102, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:05:53,497 INFO Rapid_CNS2/ID_301: OK schema=coverage_percentage_headerless coordinate_rows=672885 probe_rows=672784 coverage_preserved=True total_coverage=1465121
+2026-09-05 12:05:53,639 INFO cohort=Rapid_CNS2 progress: 225/300
+2026-09-05 12:06:00,505 INFO Rapid_CNS2/ID_31: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1
+2026-09-05 12:06:07,978 INFO Rapid_CNS2/ID_31: OK schema=coverage_percentage_headerless coordinate_rows=835022 probe_rows=834917 coverage_preserved=True total_coverage=3575052
+2026-09-05 12:06:14,922 INFO Rapid_CNS2/ID_32: non-cg probe annotations: MGMT=106, rs11249206=1, rs1495031=1
+2026-09-05 12:06:23,192 INFO Rapid_CNS2/ID_32: OK schema=coverage_percentage_headerless coordinate_rows=826454 probe_rows=826349 coverage_preserved=True total_coverage=3224782
+2026-09-05 12:06:30,092 INFO Rapid_CNS2/ID_33: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:06:39,889 INFO Rapid_CNS2/ID_33: OK schema=coverage_percentage_headerless coordinate_rows=806537 probe_rows=806432 coverage_preserved=True total_coverage=2698792
+2026-09-05 12:06:45,417 INFO Rapid_CNS2/ID_34: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:06:52,423 INFO Rapid_CNS2/ID_34: OK schema=coverage_percentage_headerless coordinate_rows=640973 probe_rows=640868 coverage_preserved=True total_coverage=1287868
+2026-09-05 12:06:59,525 INFO Rapid_CNS2/ID_35: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 12:07:09,098 INFO Rapid_CNS2/ID_35: OK schema=coverage_percentage_headerless coordinate_rows=832530 probe_rows=832425 coverage_preserved=True total_coverage=3493978
+2026-09-05 12:07:16,323 INFO Rapid_CNS2/ID_36: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:07:26,170 INFO Rapid_CNS2/ID_36: OK schema=coverage_percentage_headerless coordinate_rows=847405 probe_rows=847300 coverage_preserved=True total_coverage=4079451
+2026-09-05 12:07:32,944 INFO Rapid_CNS2/ID_37: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:07:42,483 INFO Rapid_CNS2/ID_37: OK schema=coverage_percentage_headerless coordinate_rows=792224 probe_rows=792119 coverage_preserved=True total_coverage=2437493
+2026-09-05 12:07:46,801 INFO Rapid_CNS2/ID_38: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:07:51,893 INFO Rapid_CNS2/ID_38: OK schema=coverage_percentage_headerless coordinate_rows=495062 probe_rows=494957 coverage_preserved=True total_coverage=809108
+2026-09-05 12:07:58,733 INFO Rapid_CNS2/ID_39: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:08:07,806 INFO Rapid_CNS2/ID_39: OK schema=coverage_percentage_headerless coordinate_rows=815703 probe_rows=815598 coverage_preserved=True total_coverage=2871406
+2026-09-05 12:08:14,558 INFO Rapid_CNS2/ID_4: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:08:23,639 INFO Rapid_CNS2/ID_4: OK schema=coverage_percentage_headerless coordinate_rows=777262 probe_rows=777157 coverage_preserved=True total_coverage=2181725
+2026-09-05 12:08:35,610 INFO Rapid_CNS2/ID_40: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:08:45,815 INFO Rapid_CNS2/ID_40: OK schema=coverage_percentage_headerless coordinate_rows=1434460 probe_rows=826603 coverage_preserved=True total_coverage=4186355
+2026-09-05 12:08:57,399 INFO Rapid_CNS2/ID_41: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:09:07,533 INFO Rapid_CNS2/ID_41: OK schema=coverage_percentage_headerless coordinate_rows=1392879 probe_rows=813462 coverage_preserved=True total_coverage=3408535
+2026-09-05 12:09:19,775 INFO Rapid_CNS2/ID_42: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:09:30,748 INFO Rapid_CNS2/ID_42: OK schema=coverage_percentage_headerless coordinate_rows=1485024 probe_rows=834415 coverage_preserved=True total_coverage=4878168
+2026-09-05 12:09:42,680 INFO Rapid_CNS2/ID_43: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:09:52,919 INFO Rapid_CNS2/ID_43: OK schema=coverage_percentage_headerless coordinate_rows=1435466 probe_rows=827496 coverage_preserved=True total_coverage=3492948
+2026-09-05 12:10:06,017 INFO Rapid_CNS2/ID_44: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:10:17,201 INFO Rapid_CNS2/ID_44: OK schema=coverage_percentage_headerless coordinate_rows=1585813 probe_rows=849052 coverage_preserved=True total_coverage=5485929
+2026-09-05 12:10:29,148 INFO Rapid_CNS2/ID_45: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:10:39,354 INFO Rapid_CNS2/ID_45: OK schema=coverage_percentage_headerless coordinate_rows=1434215 probe_rows=824712 coverage_preserved=True total_coverage=4134775
+2026-09-05 12:10:49,335 INFO Rapid_CNS2/ID_46: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:10:58,542 INFO Rapid_CNS2/ID_46: OK schema=coverage_percentage_headerless coordinate_rows=1185497 probe_rows=757070 coverage_preserved=True total_coverage=2650337
+2026-09-05 12:11:10,640 INFO Rapid_CNS2/ID_47: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:11:20,821 INFO Rapid_CNS2/ID_47: OK schema=coverage_percentage_headerless coordinate_rows=1443577 probe_rows=826790 coverage_preserved=True total_coverage=4612812
+2026-09-05 12:11:33,120 INFO Rapid_CNS2/ID_48: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:11:43,913 INFO Rapid_CNS2/ID_48: OK schema=coverage_percentage_headerless coordinate_rows=1498664 probe_rows=835355 coverage_preserved=True total_coverage=4302638
+2026-09-05 12:11:55,808 INFO Rapid_CNS2/ID_49: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:12:05,990 INFO Rapid_CNS2/ID_49: OK schema=coverage_percentage_headerless coordinate_rows=1434185 probe_rows=822397 coverage_preserved=True total_coverage=3328950
+2026-09-05 12:12:10,547 INFO Rapid_CNS2/ID_5: non-cg probe annotations: MGMT=100, rs11249206=1, rs133860=1, rs966367=1
+2026-09-05 12:12:15,801 INFO Rapid_CNS2/ID_5: OK schema=coverage_percentage_headerless coordinate_rows=525398 probe_rows=525299 coverage_preserved=True total_coverage=868439
+2026-09-05 12:12:26,506 INFO Rapid_CNS2/ID_50: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:12:36,333 INFO Rapid_CNS2/ID_50: OK schema=coverage_percentage_headerless coordinate_rows=1292758 probe_rows=790379 coverage_preserved=True total_coverage=3668191
+2026-09-05 12:12:47,268 INFO Rapid_CNS2/ID_51: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:12:57,251 INFO Rapid_CNS2/ID_51: OK schema=coverage_percentage_headerless coordinate_rows=1314661 probe_rows=798037 coverage_preserved=True total_coverage=2800610
+2026-09-05 12:13:08,685 INFO Rapid_CNS2/ID_52: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:13:18,698 INFO Rapid_CNS2/ID_52: OK schema=coverage_percentage_headerless coordinate_rows=1369463 probe_rows=810556 coverage_preserved=True total_coverage=3394995
+2026-09-05 12:13:29,084 INFO Rapid_CNS2/ID_53: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:13:38,604 INFO Rapid_CNS2/ID_53: OK schema=coverage_percentage_headerless coordinate_rows=1243017 probe_rows=775884 coverage_preserved=True total_coverage=2885781
+2026-09-05 12:13:38,860 INFO cohort=Rapid_CNS2 progress: 250/300
+2026-09-05 12:13:48,836 INFO Rapid_CNS2/ID_54: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:13:58,335 INFO Rapid_CNS2/ID_54: OK schema=coverage_percentage_headerless coordinate_rows=1224388 probe_rows=771229 coverage_preserved=True total_coverage=2650718
+2026-09-05 12:14:10,362 INFO Rapid_CNS2/ID_55: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:14:20,651 INFO Rapid_CNS2/ID_55: OK schema=coverage_percentage_headerless coordinate_rows=1445474 probe_rows=826294 coverage_preserved=True total_coverage=4682848
+2026-09-05 12:14:32,171 INFO Rapid_CNS2/ID_56: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:14:42,064 INFO Rapid_CNS2/ID_56: OK schema=coverage_percentage_headerless coordinate_rows=1383821 probe_rows=814793 coverage_preserved=True total_coverage=3942946
+2026-09-05 12:14:54,138 INFO Rapid_CNS2/ID_57: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:15:04,381 INFO Rapid_CNS2/ID_57: OK schema=coverage_percentage_headerless coordinate_rows=1459848 probe_rows=827498 coverage_preserved=True total_coverage=4150166
+2026-09-05 12:15:13,705 INFO Rapid_CNS2/ID_58: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:15:22,531 INFO Rapid_CNS2/ID_58: OK schema=coverage_percentage_headerless coordinate_rows=1110486 probe_rows=732902 coverage_preserved=True total_coverage=1854205
+2026-09-05 12:15:32,885 INFO Rapid_CNS2/ID_59: non-cg probe annotations: MGMT=159, rs11249206=1, rs133860=1, rs6426327=1, rs966367=1
+2026-09-05 12:15:42,375 INFO Rapid_CNS2/ID_59: OK schema=coverage_percentage_headerless coordinate_rows=1252007 probe_rows=779265 coverage_preserved=True total_coverage=2452214
+2026-09-05 12:15:48,813 INFO Rapid_CNS2/ID_6: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1
+2026-09-05 12:15:57,252 INFO Rapid_CNS2/ID_6: OK schema=coverage_percentage_headerless coordinate_rows=761788 probe_rows=761683 coverage_preserved=True total_coverage=2152990
+2026-09-05 12:16:09,879 INFO Rapid_CNS2/ID_60: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:16:20,692 INFO Rapid_CNS2/ID_60: OK schema=coverage_percentage_headerless coordinate_rows=1549871 probe_rows=846154 coverage_preserved=True total_coverage=5844865
+2026-09-05 12:16:34,162 INFO Rapid_CNS2/ID_61: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:16:46,594 INFO Rapid_CNS2/ID_61: OK schema=coverage_percentage_headerless coordinate_rows=1649705 probe_rows=853991 coverage_preserved=True total_coverage=5646876
+2026-09-05 12:17:00,153 INFO Rapid_CNS2/ID_62: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:17:12,459 INFO Rapid_CNS2/ID_62: OK schema=coverage_percentage_headerless coordinate_rows=1662359 probe_rows=854644 coverage_preserved=True total_coverage=5919610
+2026-09-05 12:17:25,468 INFO Rapid_CNS2/ID_63: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:17:36,511 INFO Rapid_CNS2/ID_63: OK schema=coverage_percentage_headerless coordinate_rows=1591437 probe_rows=850238 coverage_preserved=True total_coverage=4826852
+2026-09-05 12:17:45,936 INFO Rapid_CNS2/ID_64: non-cg probe annotations: MGMT=212, rs11249206=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:17:55,119 INFO Rapid_CNS2/ID_64: OK schema=coverage_percentage_headerless coordinate_rows=1126209 probe_rows=744574 coverage_preserved=True total_coverage=1600406
+2026-09-05 12:18:07,940 INFO Rapid_CNS2/ID_65: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:18:18,585 INFO Rapid_CNS2/ID_65: OK schema=coverage_percentage_headerless coordinate_rows=1542598 probe_rows=841996 coverage_preserved=True total_coverage=4195436
+2026-09-05 12:18:29,730 INFO Rapid_CNS2/ID_66: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:18:39,566 INFO Rapid_CNS2/ID_66: OK schema=coverage_percentage_headerless coordinate_rows=1322538 probe_rows=795559 coverage_preserved=True total_coverage=3221151
+2026-09-05 12:18:50,953 INFO Rapid_CNS2/ID_67: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:19:00,883 INFO Rapid_CNS2/ID_67: OK schema=coverage_percentage_headerless coordinate_rows=1363700 probe_rows=811105 coverage_preserved=True total_coverage=2529973
+2026-09-05 12:19:13,889 INFO Rapid_CNS2/ID_68: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:19:25,056 INFO Rapid_CNS2/ID_68: OK schema=coverage_percentage_headerless coordinate_rows=1585261 probe_rows=848381 coverage_preserved=True total_coverage=4679901
+2026-09-05 12:19:37,621 INFO Rapid_CNS2/ID_69: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:19:48,397 INFO Rapid_CNS2/ID_69: OK schema=coverage_percentage_headerless coordinate_rows=1521430 probe_rows=838935 coverage_preserved=True total_coverage=4591624
+2026-09-05 12:19:54,288 INFO Rapid_CNS2/ID_7: non-cg probe annotations: MGMT=106, rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:20:01,576 INFO Rapid_CNS2/ID_7: OK schema=coverage_percentage_headerless coordinate_rows=686360 probe_rows=686255 coverage_preserved=True total_coverage=1551283
+2026-09-05 12:20:14,729 INFO Rapid_CNS2/ID_70: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:20:27,250 INFO Rapid_CNS2/ID_70: OK schema=coverage_percentage_headerless coordinate_rows=1616683 probe_rows=849925 coverage_preserved=True total_coverage=5044362
+2026-09-05 12:20:40,358 INFO Rapid_CNS2/ID_71: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:20:51,319 INFO Rapid_CNS2/ID_71: OK schema=coverage_percentage_headerless coordinate_rows=1587526 probe_rows=847934 coverage_preserved=True total_coverage=5784168
+2026-09-05 12:21:04,095 INFO Rapid_CNS2/ID_72: non-cg probe annotations: MGMT=133, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:21:17,577 INFO Rapid_CNS2/ID_72: OK schema=coverage_percentage_headerless coordinate_rows=1475680 probe_rows=831963 coverage_preserved=True total_coverage=3058647
+2026-09-05 12:21:30,079 INFO Rapid_CNS2/ID_73: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:21:42,009 INFO Rapid_CNS2/ID_73: OK schema=coverage_percentage_headerless coordinate_rows=1436833 probe_rows=821922 coverage_preserved=True total_coverage=4001052
+2026-09-05 12:21:55,845 INFO Rapid_CNS2/ID_74: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:22:11,380 INFO Rapid_CNS2/ID_74: OK schema=coverage_percentage_headerless coordinate_rows=1622903 probe_rows=851049 coverage_preserved=True total_coverage=4709207
+2026-09-05 12:22:25,892 INFO Rapid_CNS2/ID_75: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:22:41,630 INFO Rapid_CNS2/ID_75: OK schema=coverage_percentage_headerless coordinate_rows=1679045 probe_rows=853601 coverage_preserved=True total_coverage=6606634
+2026-09-05 12:22:55,628 INFO Rapid_CNS2/ID_76: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:23:08,876 INFO Rapid_CNS2/ID_76: OK schema=coverage_percentage_headerless coordinate_rows=1678139 probe_rows=856916 coverage_preserved=True total_coverage=7782802
+2026-09-05 12:23:09,172 INFO cohort=Rapid_CNS2 progress: 275/300
+2026-09-05 12:23:22,907 INFO Rapid_CNS2/ID_77: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:23:36,278 INFO Rapid_CNS2/ID_77: OK schema=coverage_percentage_headerless coordinate_rows=1690537 probe_rows=858478 coverage_preserved=True total_coverage=7741567
+2026-09-05 12:23:50,030 INFO Rapid_CNS2/ID_78: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:24:02,717 INFO Rapid_CNS2/ID_78: OK schema=coverage_percentage_headerless coordinate_rows=1671578 probe_rows=853250 coverage_preserved=True total_coverage=5854524
+2026-09-05 12:24:16,644 INFO Rapid_CNS2/ID_79: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:24:29,663 INFO Rapid_CNS2/ID_79: OK schema=coverage_percentage_headerless coordinate_rows=1683260 probe_rows=858791 coverage_preserved=True total_coverage=7918412
+2026-09-05 12:24:36,303 INFO Rapid_CNS2/ID_8: non-cg probe annotations: MGMT=106, rs1495031=1, rs966367=1
+2026-09-05 12:24:44,922 INFO Rapid_CNS2/ID_8: OK schema=coverage_percentage_headerless coordinate_rows=772493 probe_rows=772388 coverage_preserved=True total_coverage=2199210
+2026-09-05 12:24:57,111 INFO Rapid_CNS2/ID_80: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:25:08,201 INFO Rapid_CNS2/ID_80: OK schema=coverage_percentage_headerless coordinate_rows=1492746 probe_rows=837912 coverage_preserved=True total_coverage=3640277
+2026-09-05 12:25:16,868 INFO Rapid_CNS2/ID_81: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:25:25,681 INFO Rapid_CNS2/ID_81: OK schema=coverage_percentage_headerless coordinate_rows=1012539 probe_rows=688366 coverage_preserved=True total_coverage=1885759
+2026-09-05 12:25:36,015 INFO Rapid_CNS2/ID_82: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:25:45,668 INFO Rapid_CNS2/ID_82: OK schema=coverage_percentage_headerless coordinate_rows=1243172 probe_rows=775059 coverage_preserved=True total_coverage=2799391
+2026-09-05 12:25:58,214 INFO Rapid_CNS2/ID_83: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:26:09,114 INFO Rapid_CNS2/ID_83: OK schema=coverage_percentage_headerless coordinate_rows=1518342 probe_rows=840064 coverage_preserved=True total_coverage=5110965
+2026-09-05 12:26:21,407 INFO Rapid_CNS2/ID_84: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:26:32,269 INFO Rapid_CNS2/ID_84: OK schema=coverage_percentage_headerless coordinate_rows=1483994 probe_rows=838444 coverage_preserved=True total_coverage=2983119
+2026-09-05 12:26:43,606 INFO Rapid_CNS2/ID_85: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:26:53,298 INFO Rapid_CNS2/ID_85: OK schema=coverage_percentage_headerless coordinate_rows=1357474 probe_rows=810731 coverage_preserved=True total_coverage=2931726
+2026-09-05 12:27:04,954 INFO Rapid_CNS2/ID_86: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:27:16,189 INFO Rapid_CNS2/ID_86: OK schema=coverage_percentage_headerless coordinate_rows=1359854 probe_rows=811907 coverage_preserved=True total_coverage=2702182
+2026-09-05 12:27:26,509 INFO Rapid_CNS2/ID_87: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:27:37,425 INFO Rapid_CNS2/ID_87: OK schema=coverage_percentage_headerless coordinate_rows=1187349 probe_rows=769704 coverage_preserved=True total_coverage=1967687
+2026-09-05 12:27:49,981 INFO Rapid_CNS2/ID_88: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:28:01,969 INFO Rapid_CNS2/ID_88: OK schema=coverage_percentage_headerless coordinate_rows=1498024 probe_rows=838731 coverage_preserved=True total_coverage=3531154
+2026-09-05 12:28:14,562 INFO Rapid_CNS2/ID_89: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:28:26,239 INFO Rapid_CNS2/ID_89: OK schema=coverage_percentage_headerless coordinate_rows=1497291 probe_rows=837606 coverage_preserved=True total_coverage=3674361
+2026-09-05 12:28:32,603 INFO Rapid_CNS2/ID_9: non-cg probe annotations: MGMT=106, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 12:28:39,678 INFO Rapid_CNS2/ID_9: OK schema=coverage_percentage_headerless coordinate_rows=741106 probe_rows=741001 coverage_preserved=True total_coverage=1905154
+2026-09-05 12:28:45,376 INFO Rapid_CNS2/ID_90: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:28:50,834 INFO Rapid_CNS2/ID_90: OK schema=coverage_percentage_headerless coordinate_rows=674095 probe_rows=530706 coverage_preserved=True total_coverage=844671
+2026-09-05 12:29:01,582 INFO Rapid_CNS2/ID_91: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:29:10,205 INFO Rapid_CNS2/ID_91: OK schema=coverage_percentage_headerless coordinate_rows=1290952 probe_rows=796369 coverage_preserved=True total_coverage=2590971
+2026-09-05 12:29:22,038 INFO Rapid_CNS2/ID_92: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:29:31,340 INFO Rapid_CNS2/ID_92: OK schema=coverage_percentage_headerless coordinate_rows=1431425 probe_rows=828453 coverage_preserved=True total_coverage=3291484
+2026-09-05 12:29:41,055 INFO Rapid_CNS2/ID_93: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:29:49,903 INFO Rapid_CNS2/ID_93: OK schema=coverage_percentage_headerless coordinate_rows=1143818 probe_rows=753123 coverage_preserved=True total_coverage=1795948
+2026-09-05 12:30:00,784 INFO Rapid_CNS2/ID_94: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:30:10,136 INFO Rapid_CNS2/ID_94: OK schema=coverage_percentage_headerless coordinate_rows=1282240 probe_rows=796735 coverage_preserved=True total_coverage=2264783
+2026-09-05 12:30:18,758 INFO Rapid_CNS2/ID_95: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:30:27,020 INFO Rapid_CNS2/ID_95: OK schema=coverage_percentage_headerless coordinate_rows=996174 probe_rows=697932 coverage_preserved=True total_coverage=1524198
+2026-09-05 12:30:40,693 INFO Rapid_CNS2/ID_96: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:30:51,297 INFO Rapid_CNS2/ID_96: OK schema=coverage_percentage_headerless coordinate_rows=1586352 probe_rows=849995 coverage_preserved=True total_coverage=5193095
+2026-09-05 12:31:00,046 INFO Rapid_CNS2/ID_97: non-cg probe annotations: MGMT=212, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:31:07,358 INFO Rapid_CNS2/ID_97: OK schema=coverage_percentage_headerless coordinate_rows=982934 probe_rows=693966 coverage_preserved=True total_coverage=1364143
+2026-09-05 12:31:18,213 INFO Rapid_CNS2/ID_98: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:31:27,549 INFO Rapid_CNS2/ID_98: OK schema=coverage_percentage_headerless coordinate_rows=1260738 probe_rows=788935 coverage_preserved=True total_coverage=2366335
+2026-09-05 12:31:36,985 INFO Rapid_CNS2/ID_99: non-cg probe annotations: MGMT=212, ch.X.79027977R=1, rs11249206=1, rs133860=1, rs1495031=1, rs6426327=1, rs966367=1
+2026-09-05 12:31:45,950 INFO Rapid_CNS2/ID_99: OK schema=coverage_percentage_headerless coordinate_rows=1094495 probe_rows=739402 coverage_preserved=True total_coverage=1634826
+2026-09-05 12:31:46,169 INFO cohort=Rapid_CNS2 progress: 300/300
+2026-09-05 12:31:46,170 INFO Dry run: manifest not written
+2026-09-05 12:31:46,170 INFO Done. ok=339 failed=0 skipped=0

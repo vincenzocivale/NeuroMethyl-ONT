@@ -1,0 +1,25 @@
+model:
+  name: binary_linear
+  id: B0
+  representation: binary
+  family: evidence_linear
+  architecture:
+    hidden_layers: 0
+    bias: true
+  binary_threshold: 0.6
+
+optimizer:
+  name: AdamW
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+
+training:
+  batch_size: 16
+  max_epochs: 80
+  early_stopping_patience: 12
+  mixed_precision: bf16
+
+loss:
+  name: cross_entropy
+
+seed: 17

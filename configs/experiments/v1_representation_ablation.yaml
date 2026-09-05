@@ -1,0 +1,34 @@
+experiment:
+  id: v1_representation_ablation
+  description: >
+    Compare BinaryLinear (B0), ContinuousLinear (C0) and EvidenceLinearV1 (E1)
+    under an identical architecture, optimizer and training schedule, varying
+    only how synthetic sequencing evidence is turned into features at a fixed
+    GSE90496-derived feature space. See docs/EVIDENCE_LINEAR_V1.md.
+
+data:
+  train_dataset: GSE90496
+  validation_dataset: GSE109379
+  legacy_benchmark_dataset: GSE209865
+  full_run_benchmark_datasets: [RapidCNS2, ONT_WGS]
+  feature_reference: $NEUROMETHYL_DATA_ROOT/derived/reference/GSE90496
+
+models:
+  - configs/models/binary_linear.yaml
+  - configs/models/continuous_linear.yaml
+  - configs/models/evidence_linear_v1.yaml
+
+# Training-time augmentation mixture (docs/EVIDENCE_LINEAR_V1.md #7). Kept
+# generic (not fit to Rapid-CNS2/ONT-WGS depth) to avoid test-set adaptation.
+depth_augmentation:
+  lambda_grid: [0.02, 0.05, 0.10, 0.5, 1, 2, 4, 8, 16, 32, .inf]
+  lambda_weights: [0.05, 0.05, 0.05, 0.1125, 0.1125, 0.1125, 0.1125, 0.10, 0.10, 0.10, 0.10]
+
+# Fixed grid the depth-curve figure (spec #15) is reported over; realizations
+# are saved once and shared across B0/C0/E1 (spec #13).
+depth_curve:
+  lambda_grid: [0.02, 0.1, 0.5, 1, 2, 4, 8, 16, 32, .inf]
+
+report:
+  metrics: [accuracy, balanced_accuracy, macro_f1, top3_accuracy, nll, ece]
+  score_thresholds: [0.8, 0.95]

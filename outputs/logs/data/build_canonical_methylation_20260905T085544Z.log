@@ -1,0 +1,8 @@
+2026-09-05 10:55:44,614 INFO Log file: /data2/home/vcivale/projects/methylation/NeuroMethyl-ONT/outputs/logs/data/build_canonical_methylation_20260905T085544Z.log
+2026-09-05 10:55:44,615 INFO cohort=ONT_WGS: 1 file(s) to consider
+2026-09-05 10:55:51,378 INFO ONT_WGS/ONT_WGS_10: non-cg probe annotations: rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 10:55:51,900 ERROR ONT_WGS/ONT_WGS_10: coordinate-level validation failed: methylation_fraction inconsistent with methylated_count/coverage in 356746 row(s) (tolerance=1e-06)
+2026-09-05 10:55:51,939 INFO cohort=ONT_WGS progress: 1/1
+2026-09-05 10:55:51,944 WARNING cohort=Rapid_CNS2: no files matched (sample filter=ONT_WGS_10)
+2026-09-05 10:55:51,944 INFO Dry run: manifest not written
+2026-09-05 10:55:51,944 INFO Done. ok=0 failed=1 skipped=0

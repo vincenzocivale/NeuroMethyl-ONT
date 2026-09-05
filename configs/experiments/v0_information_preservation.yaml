@@ -1,0 +1,22 @@
+experiment:
+  id: v0_information_preservation
+  description: Compare binary, continuous beta, and coverage-aware representations at fixed loci.
+
+data:
+  train_dataset: GSE90496
+  validation_dataset: GSE109379
+  primary_test_dataset: GSE289246
+
+representations:
+  - binary
+  - continuous_beta
+  - beta_plus_coverage
+
+report:
+  metrics:
+    - accuracy
+    - balanced_accuracy
+    - macro_f1
+  stratify_by:
+    - methylation_family
+    - coverage_bin

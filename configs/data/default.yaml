@@ -1,0 +1,6 @@
+data_root_env: NEUROMETHYL_DATA_ROOT
+reference_genome: hg38
+registry:
+  datasets: registry/datasets.tsv
+  samples: registry/samples.tsv
+  provenance: registry/provenance.tsv

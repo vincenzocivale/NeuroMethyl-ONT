@@ -1,0 +1,7 @@
+dataset_id	modality	default_role	accession_or_source	raw_format	reference_genome	status	notes
+GSE90496	450K_array	train	GSE90496	IDAT/beta	NA	planned	Capper/Heidelberg reference cohort
+GSE109379	450K_array	validation	GSE109379	IDAT/beta	NA	planned	External array validation/model-selection cohort
+GSE289246	ONT_methylation	test_primary	GSE289246	bedMethyl	TBD	planned	Primary continuous/depth-aware ONT evaluation
+GSE209865	ONT_binary	benchmark_legacy	GSE209865	binary_calls	TBD	planned	Legacy Sturgeon/nanoDx-style benchmark
+RapidCNS2	ONT_methylation	test_secondary	Zenodo/Rapid-CNS2	processed	TBD	planned	Secondary full-run sequencing benchmark
+nanoDx_EGA	ONT_raw	test_raw_reads	EGA controlled access	BAM/FAST5/POD5	TBD	planned	Read-level downsampling/scaling experiments

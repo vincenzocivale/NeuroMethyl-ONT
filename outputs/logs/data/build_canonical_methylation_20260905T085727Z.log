@@ -1,0 +1,8 @@
+2026-09-05 10:57:27,284 INFO Log file: /data2/home/vcivale/projects/methylation/NeuroMethyl-ONT/outputs/logs/data/build_canonical_methylation_20260905T085727Z.log
+2026-09-05 10:57:27,285 INFO cohort=ONT_WGS: 1 file(s) to consider
+2026-09-05 10:57:34,072 INFO ONT_WGS/ONT_WGS_10: non-cg probe annotations: rs11249206=1, rs133860=1, rs1495031=1, rs966367=1
+2026-09-05 10:57:38,953 INFO ONT_WGS/ONT_WGS_10: OK schema=coverage_percentage coordinate_rows=861069 probe_rows=861069 coverage_preserved=True total_coverage=19324219
+2026-09-05 10:57:39,067 INFO cohort=ONT_WGS progress: 1/1
+2026-09-05 10:57:39,073 WARNING cohort=Rapid_CNS2: no files matched (sample filter=ONT_WGS_10)
+2026-09-05 10:57:39,073 INFO Dry run: manifest not written
+2026-09-05 10:57:39,073 INFO Done. ok=1 failed=0 skipped=0
