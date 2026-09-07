@@ -1,7 +1,9 @@
 import numpy as np
+import pytest
+import torch
 
 from neuromethyl_ont.models.evidence_linear import build_linear_classifier
-from neuromethyl_ont.training.trainer import TrainingConfig, train_linear_classifier
+from neuromethyl_ont.training.trainer import TrainingConfig, predict_logits, train_linear_classifier
 
 
 def _separable_dataset(n_per_class: int, n_features: int, seed: int):
@@ -85,3 +87,30 @@ def test_train_linear_classifier_works_for_all_three_representations():
         )
         result = train_linear_classifier(model, beta_train, y_train, beta_val, y_val, mu, config)
         assert len(result.history) > 0
+
+
+def test_predict_logits_matches_model_device_cpu():
+    model = build_linear_classifier(n_features=6, n_classes=3)
+    x = np.random.default_rng(0).normal(size=(4, 6)).astype(np.float32)
+
+    logits = predict_logits(model, x)
+
+    assert isinstance(logits, np.ndarray)
+    assert logits.shape == (4, 3)
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="requires a CUDA device")
+def test_predict_logits_moves_cuda_model_output_back_to_cpu():
+    """Regression test: a model trained with --device cuda must not crash when
+    its full-array validation logits are converted to numpy (docs bugfix --
+    scripts/training/train_classifier.py used to build the input tensor on
+    the CPU and call ``.numpy()`` directly on a CUDA-resident output, which
+    raises ``TypeError: can't convert cuda:0 device type tensor to numpy``).
+    """
+    model = build_linear_classifier(n_features=6, n_classes=3).to("cuda")
+    x = np.random.default_rng(0).normal(size=(4, 6)).astype(np.float32)
+
+    logits = predict_logits(model, x)
+
+    assert isinstance(logits, np.ndarray)
+    assert logits.shape == (4, 3)

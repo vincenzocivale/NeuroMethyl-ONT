@@ -74,6 +74,20 @@ def _encode(
     )
 
 
+def predict_logits(model: nn.Module, x: np.ndarray) -> np.ndarray:
+    """Run ``model`` on a full feature matrix and return logits as a numpy array.
+
+    Always runs inference on the device ``model``'s parameters already live on
+    (e.g. after training with ``config.device == "cuda"``) and always brings
+    the result back to CPU before the ``.numpy()`` conversion -- ``.numpy()``
+    on a CUDA tensor raises, so this must not be skipped.
+    """
+    device = next(model.parameters()).device
+    x_t = torch.as_tensor(x, dtype=torch.float32, device=device)
+    with torch.no_grad():
+        return model(x_t).cpu().numpy()
+
+
 def train_linear_classifier(
     model: nn.Module,
     beta_train: np.ndarray,

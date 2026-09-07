@@ -47,7 +47,11 @@ from neuromethyl_ont.data.array_reference import (  # noqa: E402
 from neuromethyl_ont.data.sequencing_simulator import encode_full_array  # noqa: E402
 from neuromethyl_ont.evaluation.classification import depth_curve_metrics  # noqa: E402
 from neuromethyl_ont.models.evidence_linear import build_linear_classifier  # noqa: E402
-from neuromethyl_ont.training.trainer import TrainingConfig, train_linear_classifier  # noqa: E402
+from neuromethyl_ont.training.trainer import (  # noqa: E402
+    TrainingConfig,
+    predict_logits,
+    train_linear_classifier,
+)
 
 
 def git_commit() -> str:
@@ -151,11 +155,10 @@ def main() -> int:
         model.load_state_dict(result.best_state_dict)
 
     model.eval()
-    with torch.no_grad():
-        x_val_full = encode_full_array(
-            representation, val_beta, mu=ref.probe_mean, threshold=training_config.binary_threshold
-        )
-        val_logits = model(torch.as_tensor(x_val_full, dtype=torch.float32)).numpy()
+    x_val_full = encode_full_array(
+        representation, val_beta, mu=ref.probe_mean, threshold=training_config.binary_threshold
+    )
+    val_logits = predict_logits(model, x_val_full)
     val_metrics = depth_curve_metrics(val_logits, y_val)
     val_prediction = val_logits.argmax(axis=1)
 
