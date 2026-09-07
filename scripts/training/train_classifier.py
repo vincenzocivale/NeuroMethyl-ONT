@@ -98,17 +98,37 @@ def main() -> int:
         "--reference-dir", type=Path, required=True, help="build_array_reference.py output dir"
     )
     ap.add_argument(
-        "--validation-beta", type=Path, required=True, help="samples x probes .npy, GSE109379 order"
+        "--validation-beta", type=Path, default=None, help="samples x probes .npy, GSE109379 order"
     )
-    ap.add_argument("--validation-probe-ids", type=Path, required=True)
+    ap.add_argument("--validation-probe-ids", type=Path, default=None)
     ap.add_argument(
-        "--validation-labels", type=Path, required=True, help=".tsv with sample_id, label"
+        "--validation-labels", type=Path, default=None, help=".tsv with sample_id, label"
     )
     ap.add_argument("--validation-dataset", default="GSE109379")
+    ap.add_argument(
+        "--no-validation",
+        action="store_true",
+        help=(
+            "Train for exactly max_epochs with no validation set: no early stopping, no "
+            "per-epoch or full-array validation metrics, no best-epoch selection (the saved "
+            "checkpoint is the final epoch's weights). Mutually exclusive with "
+            "--validation-beta/--validation-probe-ids/--validation-labels."
+        ),
+    )
     ap.add_argument("--run-id", required=True)
     ap.add_argument("--output-dir", type=Path, default=None)
     ap.add_argument("--device", default="cpu")
     args = ap.parse_args()
+
+    validation_args = (args.validation_beta, args.validation_probe_ids, args.validation_labels)
+    if args.no_validation:
+        if any(a is not None for a in validation_args):
+            ap.error("--no-validation cannot be combined with --validation-*")
+    elif any(a is None for a in validation_args):
+        ap.error(
+            "--validation-beta/--validation-probe-ids/--validation-labels are all required "
+            "unless --no-validation is given"
+        )
 
     model_config = yaml.safe_load(args.model_config.read_text())
     representation = model_config["model"]["representation"]
@@ -122,21 +142,26 @@ def main() -> int:
     class_to_idx = {c: i for i, c in enumerate(classes)}
     y_train = np.array([class_to_idx[label] for label in ref.labels], dtype=np.int64)
 
-    val_probe_ids = load_probe_ids(args.validation_probe_ids)
-    val_beta_raw = np.load(args.validation_beta).astype(np.float64)
-    val_beta = align_to_feature_index(val_beta_raw, val_probe_ids, feature_index)
-    val_labels_df = pd.read_csv(args.validation_labels, sep="\t")
-    unknown = sorted(set(val_labels_df["label"]) - set(class_to_idx))
-    if unknown:
-        print(
-            f"WARNING: {len(unknown)} validation class(es) unseen in training: {unknown}",
-            file=sys.stderr,
+    val_beta: np.ndarray | None
+    y_val: np.ndarray | None
+    if args.no_validation:
+        val_beta, y_val = None, None
+    else:
+        val_probe_ids = load_probe_ids(args.validation_probe_ids)
+        val_beta_raw = np.load(args.validation_beta).astype(np.float64)
+        val_beta = align_to_feature_index(val_beta_raw, val_probe_ids, feature_index)
+        val_labels_df = pd.read_csv(args.validation_labels, sep="\t")
+        unknown = sorted(set(val_labels_df["label"]) - set(class_to_idx))
+        if unknown:
+            print(
+                f"WARNING: {len(unknown)} validation class(es) unseen in training: {unknown}",
+                file=sys.stderr,
+            )
+        keep = val_labels_df["label"].isin(class_to_idx)
+        val_beta = val_beta[keep.to_numpy()]
+        y_val = np.array(
+            [class_to_idx[label] for label in val_labels_df.loc[keep, "label"]], dtype=np.int64
         )
-    keep = val_labels_df["label"].isin(class_to_idx)
-    val_beta = val_beta[keep.to_numpy()]
-    y_val = np.array(
-        [class_to_idx[label] for label in val_labels_df.loc[keep, "label"]], dtype=np.int64
-    )
 
     model = build_linear_classifier(n_features=feature_index.n_features, n_classes=len(classes))
     training_config = build_training_config(model_config, representation)
@@ -155,13 +180,6 @@ def main() -> int:
         model.load_state_dict(result.best_state_dict)
 
     model.eval()
-    x_val_full = encode_full_array(
-        representation, val_beta, mu=ref.probe_mean, threshold=training_config.binary_threshold
-    )
-    val_logits = predict_logits(model, x_val_full)
-    val_metrics = depth_curve_metrics(val_logits, y_val)
-    val_prediction = val_logits.argmax(axis=1)
-
     output_dir = args.output_dir or (REPO_ROOT / "outputs" / "experiments" / args.run_id)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -178,15 +196,23 @@ def main() -> int:
     ]
     pd.DataFrame(history_rows).to_csv(output_dir / "training_history.tsv", sep="\t", index=False)
 
-    (output_dir / "validation_metrics.json").write_text(json.dumps(val_metrics, indent=2))
+    if not args.no_validation:
+        x_val_full = encode_full_array(
+            representation, val_beta, mu=ref.probe_mean, threshold=training_config.binary_threshold
+        )
+        val_logits = predict_logits(model, x_val_full)
+        val_metrics = depth_curve_metrics(val_logits, y_val)
+        val_prediction = val_logits.argmax(axis=1)
 
-    report = classification_report(
-        y_val, val_prediction, labels=list(range(len(classes))), target_names=classes,
-        output_dict=True, zero_division=0,
-    )
-    pd.DataFrame(report).T.rename_axis("class_name").reset_index().to_csv(
-        output_dir / "per_class_metrics.tsv", sep="\t", index=False
-    )
+        (output_dir / "validation_metrics.json").write_text(json.dumps(val_metrics, indent=2))
+
+        report = classification_report(
+            y_val, val_prediction, labels=list(range(len(classes))), target_names=classes,
+            output_dict=True, zero_division=0,
+        )
+        pd.DataFrame(report).T.rename_axis("class_name").reset_index().to_csv(
+            output_dir / "per_class_metrics.tsv", sep="\t", index=False
+        )
 
     torch.save(
         {
@@ -202,7 +228,7 @@ def main() -> int:
         "git_commit": git_commit(),
         "feature_index_checksum": feature_index.checksum,
         "training_dataset": feature_index.source_dataset,
-        "validation_dataset": args.validation_dataset,
+        "validation_dataset": None if args.no_validation else args.validation_dataset,
         "n_features": feature_index.n_features,
         "n_classes": len(classes),
         "class_mapping_version": 1,
@@ -214,7 +240,10 @@ def main() -> int:
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2))
 
-    print(f"Best epoch {result.best_epoch}: val_accuracy={result.best_val_accuracy:.4f}")
+    if result.best_val_accuracy is None:
+        print(f"Ran {len(result.history)} fixed epochs, no validation set: saved final epoch")
+    else:
+        print(f"Best epoch {result.best_epoch}: val_accuracy={result.best_val_accuracy:.4f}")
     print(f"Wrote run outputs to {output_dir}")
     return 0
 

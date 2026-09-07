@@ -42,15 +42,15 @@ class TrainingConfig:
 class EpochRecord:
     epoch: int
     train_loss: float
-    val_loss: float
-    val_accuracy: float
+    val_loss: float | None
+    val_accuracy: float | None
 
 
 @dataclass
 class TrainingResult:
     history: list[EpochRecord] = field(default_factory=list)
     best_epoch: int = -1
-    best_val_accuracy: float = float("-inf")
+    best_val_accuracy: float | None = float("-inf")
     best_state_dict: dict | None = None
     stopped_early: bool = False
 
@@ -92,8 +92,8 @@ def train_linear_classifier(
     model: nn.Module,
     beta_train: np.ndarray,
     y_train: np.ndarray,
-    beta_val: np.ndarray,
-    y_val: np.ndarray,
+    beta_val: np.ndarray | None,
+    y_val: np.ndarray | None,
     mu: np.ndarray,
     config: TrainingConfig,
 ) -> TrainingResult:
@@ -101,7 +101,18 @@ def train_linear_classifier(
 
     ``mu`` is the training-set probe mean beta (unused by the binary
     representation, required by continuous/evidence).
+
+    ``beta_val``/``y_val`` are optional. When both are ``None`` there is no
+    per-epoch validation signal: training runs for exactly
+    ``config.max_epochs`` (early stopping is disabled -- there is nothing to
+    compare against) and the returned checkpoint is the model's state after
+    the final epoch, not a "best" epoch by any validation metric. Pass both
+    or neither; passing only one is a caller error.
     """
+    if (beta_val is None) != (y_val is None):
+        raise ValueError("beta_val and y_val must both be given or both be None")
+    has_validation = beta_val is not None
+
     torch.manual_seed(config.seed)
     rng = np.random.default_rng(config.seed)
 
@@ -113,17 +124,18 @@ def train_linear_classifier(
     loss_fn = build_loss(config.loss_name)
 
     y_train_t = torch.as_tensor(y_train, dtype=torch.long, device=device)
-    x_val = torch.as_tensor(
-        encode_full_array(
-            config.representation, beta_val, mu=mu, threshold=config.binary_threshold
-        ),
-        dtype=torch.float32,
-        device=device,
-    )
-    y_val_t = torch.as_tensor(y_val, dtype=torch.long, device=device)
+    if has_validation:
+        x_val = torch.as_tensor(
+            encode_full_array(
+                config.representation, beta_val, mu=mu, threshold=config.binary_threshold
+            ),
+            dtype=torch.float32,
+            device=device,
+        )
+        y_val_t = torch.as_tensor(y_val, dtype=torch.long, device=device)
 
     n_train = beta_train.shape[0]
-    result = TrainingResult()
+    result = TrainingResult(best_val_accuracy=float("-inf") if has_validation else None)
     epochs_without_improvement = 0
 
     for epoch in range(config.max_epochs):
@@ -145,6 +157,12 @@ def train_linear_classifier(
             optimizer.step()
             epoch_loss_sum += float(loss.detach()) * len(batch_idx)
         train_loss = epoch_loss_sum / n_train
+
+        if not has_validation:
+            result.history.append(
+                EpochRecord(epoch=epoch, train_loss=train_loss, val_loss=None, val_accuracy=None)
+            )
+            continue
 
         model.eval()
         with torch.no_grad():
@@ -168,5 +186,9 @@ def train_linear_classifier(
             if epochs_without_improvement >= config.early_stopping_patience:
                 result.stopped_early = True
                 break
+
+    if not has_validation:
+        result.best_epoch = len(result.history) - 1
+        result.best_state_dict = {k: v.detach().clone() for k, v in model.state_dict().items()}
 
     return result

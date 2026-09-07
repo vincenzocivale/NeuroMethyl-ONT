@@ -89,6 +89,41 @@ def test_train_linear_classifier_works_for_all_three_representations():
         assert len(result.history) > 0
 
 
+def test_train_linear_classifier_runs_fixed_epochs_without_validation():
+    beta_train, y_train = _separable_dataset(n_per_class=15, n_features=6, seed=0)
+    mu = beta_train.mean(axis=0)
+
+    model = build_linear_classifier(n_features=6, n_classes=3)
+    config = TrainingConfig(
+        representation="continuous",
+        max_epochs=7,
+        early_stopping_patience=2,  # must be ignored: no validation signal to stop on
+        batch_size=8,
+        mixed_precision="none",
+        seed=17,
+    )
+
+    result = train_linear_classifier(model, beta_train, y_train, None, None, mu, config)
+
+    assert len(result.history) == 7  # ran every epoch, early stopping never triggers
+    assert not result.stopped_early
+    assert result.best_epoch == 6
+    assert result.best_val_accuracy is None
+    assert result.best_state_dict is not None
+    assert all(r.val_loss is None and r.val_accuracy is None for r in result.history)
+
+
+def test_train_linear_classifier_rejects_partial_validation_args():
+    beta_train, y_train = _separable_dataset(n_per_class=5, n_features=4, seed=0)
+    beta_val, y_val = _separable_dataset(n_per_class=5, n_features=4, seed=1)
+    mu = beta_train.mean(axis=0)
+    model = build_linear_classifier(n_features=4, n_classes=3)
+    config = TrainingConfig(representation="continuous", max_epochs=1, mixed_precision="none")
+
+    with pytest.raises(ValueError):
+        train_linear_classifier(model, beta_train, y_train, beta_val, None, mu, config)
+
+
 def test_predict_logits_matches_model_device_cpu():
     model = build_linear_classifier(n_features=6, n_classes=3)
     x = np.random.default_rng(0).normal(size=(4, 6)).astype(np.float32)
