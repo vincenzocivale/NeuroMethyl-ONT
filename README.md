@@ -4,6 +4,16 @@
 
 NeuroMethyl-ONT is a research codebase for developing and benchmarking CNS tumor classifiers that exploit methylation information from Oxford Nanopore sequencing, with emphasis on **full-run diagnostic performance**, **continuous methylation**, **coverage-aware modelling**, and eventual **genome-wide** inference.
 
+## Production model
+
+**B0** (`configs/models/binary_linear.yaml`) is the recommended model for
+real classification, intra-operative or end-of-run — see
+[`docs/B0_PRODUCTION_MODEL.md`](docs/B0_PRODUCTION_MODEL.md) for the
+supporting benchmark evidence, why one model covers both use cases, and the
+built-in linear-decomposition explainability
+(`src/neuromethyl_ont/evaluation/explainability.py`,
+`scripts/inference/classify_sample.py`).
+
 ## Project principles
 
 - **Reproducibility first**: every transformation from source data to benchmark output should be scripted and configurable.
