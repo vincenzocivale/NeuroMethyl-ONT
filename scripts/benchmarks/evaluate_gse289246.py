@@ -214,6 +214,14 @@ def main() -> int:
     if e1_fam is not None:
         model_probs["E1"] = e1_fam
         model_probs["B0+E1 (avg)"] = 0.5 * b0_fam + 0.5 * e1_fam
+
+        n = m + u
+        mean_coverage = np.mean(n, axis=1, where=n > 0)
+        w_e1 = (1.0 / (1.0 + mean_coverage / 3.0))[:, None]
+        model_probs["B0+E1 (coverage-weighted)"] = w_e1 * e1_fam + (1.0 - w_e1) * b0_fam
+
+        geo = np.sqrt(np.clip(b0_fam, 1e-12, None) * np.clip(e1_fam, 1e-12, None))
+        model_probs["B0+E1 (geo mean)"] = geo / geo.sum(axis=1, keepdims=True)
     rows = []
     for i, sample_id in enumerate(sample_ids):
         true_idx = families.index(true_families[i])
@@ -237,7 +245,9 @@ def main() -> int:
 
     report_models = ["B0", "C0", "EB1"]
     if e1_fam is not None:
-        report_models += ["E1", "B0+E1 (avg)"]
+        report_models += [
+            "E1", "B0+E1 (avg)", "B0+E1 (coverage-weighted)", "B0+E1 (geo mean)",
+        ]
     report_models += ["Sturgeon", "crossNN"]
     for name in report_models:
         col = f"{name}_predicted_family"

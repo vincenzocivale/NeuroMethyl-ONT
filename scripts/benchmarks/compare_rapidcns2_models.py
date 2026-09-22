@@ -163,6 +163,22 @@ def score_cohort(
         model_probs["E1"] = e1_fam
         model_probs["B0+E1 (avg)"] = 0.5 * b0_fam + 0.5 * e1_fam
 
+        # Coverage-weighted: trust E1 more where it has shown a real edge
+        # (Rapid-CNS2-like low coverage) and fall back toward B0 as coverage
+        # rises (where E1's continuous feature is vulnerable to platform
+        # batch effects, see docs/B0_PRODUCTION_MODEL.md). Calibrated so
+        # w_e1 ~= 0.5 at Rapid-CNS2's median coverage (~2.9x, matching the
+        # flat-average result there) and decays toward ~0 by end-of-run
+        # coverage (~30x).
+        w_e1 = (1.0 / (1.0 + features["mean_coverage"] / 3.0))[:, None]
+        model_probs["B0+E1 (coverage-weighted)"] = w_e1 * e1_fam + (1.0 - w_e1) * b0_fam
+
+        # Geometric mean (renormalized product): punishes disagreement more
+        # harshly than the arithmetic average, since one confidently-wrong
+        # model pulls the product toward zero rather than just diluting it.
+        geo = np.sqrt(np.clip(b0_fam, 1e-12, None) * np.clip(e1_fam, 1e-12, None))
+        model_probs["B0+E1 (geo mean)"] = geo / geo.sum(axis=1, keepdims=True)
+
     frame = pd.DataFrame(
         {"sample_id": features["sample_id"], "mean_coverage": features["mean_coverage"]}
     )
@@ -325,7 +341,9 @@ def main() -> int:
     )
     model_names = ["B0", "C0", "EB1", "Sturgeon", "crossNN"]
     if e1_model is not None:
-        model_names[3:3] = ["E1", "B0+E1 (avg)"]
+        model_names[3:3] = [
+            "E1", "B0+E1 (avg)", "B0+E1 (coverage-weighted)", "B0+E1 (geo mean)",
+        ]
 
     labels = load_rapidcns2_labels(args.rapid_labels_xlsx, set(b0_classes)).labels
     truth_family = labels.assign(family_code=labels.label.map(family_by_class))

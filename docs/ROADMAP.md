@@ -11,13 +11,17 @@ Goal: isolate the value of continuous methylation and coverage at fixed loci.
 - Reproduce crossNN / Sturgeon / MethyLYZR where feasible
 
 **Outcome**: E1 (beta+coverage) was trained and evaluated 2026-09-22. It
-beats B0 on real low/medium coverage (Rapid-CNS2) but loses badly on real
-end-of-run coverage (GSE289246, 77.8% vs B0's 100%) due to a platform
-batch-effect vulnerability in its continuous feature. Averaging B0's and
-E1's softmax probabilities matches or beats whichever single model is
-better on every cohort tested, including calibration (NLL) beyond both —
-this **B0+E1 ensemble** is now the recommended production model, not B0
-alone. See [`docs/B0_PRODUCTION_MODEL.md`](B0_PRODUCTION_MODEL.md) for the
+beats B0 on Rapid-CNS2 (real coverage, median 2.9x) but loses badly on
+GSE289246 (77.8% vs B0's 100%) due to a platform/array-vs-nanopore batch
+effect in its continuous feature -- note GSE289246's actual per-probe
+coverage turned out to be ~1x after aggregation, so this is a platform
+effect, not specifically an end-of-run/high-coverage failure (no genuinely
+high-coverage labelled cohort has confirmed the effect there yet).
+Averaging B0's and E1's softmax probabilities matches or beats whichever
+single model is better on every cohort tested, including calibration
+(NLL) beyond both — this **B0+E1 ensemble** is now the recommended
+production model, not B0 alone. See
+[`docs/B0_PRODUCTION_MODEL.md`](B0_PRODUCTION_MODEL.md) for the
 full evidence.
 
 ## V1 — Region-aware Nanopore model
