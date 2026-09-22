@@ -79,12 +79,24 @@ here -- it didn't (77.8%, identical to E1 alone), precisely because
 GSE289246's low coverage told the weighting formula to trust E1, which is
 wrong here for a platform reason unrelated to coverage. A **geometric-mean**
 ensemble was also tried: better calibration on Rapid-CNS2 (NLL 2.43, best of
-all variants) but worse on GSE289246 (94.4%, one dragged-down sample). The
-flat 50/50 average remains the best overall choice across both real
-cohorts and is what's implemented; the coverage-weighted variant should not
-be used until a genuinely high-coverage labelled cohort is found to
-validate it, and the batch-effect root cause (not coverage) is confirmed to
-generalize.
+all variants) but worse on GSE289246 (94.4%, one dragged-down sample).
+
+**Bigger ensembles (adding C0 and/or EB1) were also tried, 2026-09-22** --
+does more models help? On Rapid-CNS2, `B0+E1+EB1 (avg)` improves balanced
+accuracy to 81.8% (vs the pair's 78.7%, close to E1 alone's 82.5%), at a
+small cost to accuracy (86.7% vs 87.1%) and NLL (2.57 vs 2.53).
+`B0+C0+E1+EB1 (avg)` is similar. But on GSE289246, **both 3- and 4-model
+ensembles drop to 88.9%** (vs the pair's 100%) -- EB1 (83.3% alone) and
+especially C0 (38.9% alone, the known collapse) dilute B0's robustness
+exactly where it matters most. This is a real, not marginal, cost on the
+cohort that reflects the end-of-run priority, for a modest rare-class gain
+on the low-coverage cohort. **The flat B0+E1 (avg) pair remains the best
+overall choice** and is what's implemented -- adding more models trades
+away exactly the property (immunity to the GSE289246-style failure) that
+justified using an ensemble in the first place. The coverage-weighted
+variant should also not be used until a genuinely high-coverage labelled
+cohort is found to validate it, and the batch-effect root cause (not
+coverage) is confirmed to generalize.
 
 ## Why one model (pair) covers intra-operative and end-of-run
 

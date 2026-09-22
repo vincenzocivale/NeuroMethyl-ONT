@@ -179,6 +179,13 @@ def score_cohort(
         geo = np.sqrt(np.clip(b0_fam, 1e-12, None) * np.clip(e1_fam, 1e-12, None))
         model_probs["B0+E1 (geo mean)"] = geo / geo.sum(axis=1, keepdims=True)
 
+        # Bigger ensembles: does adding EB1 (poor calibration on Rapid-CNS2,
+        # NLL 5.61 alone) and/or C0 (catastrophic collapse on GSE289246,
+        # 38.9%) help, or does their individual weakness drag the average
+        # down? Tested rather than assumed either way.
+        model_probs["B0+E1+EB1 (avg)"] = (b0_fam + e1_fam + eb1_fam) / 3.0
+        model_probs["B0+C0+E1+EB1 (avg)"] = (b0_fam + c0_fam + e1_fam + eb1_fam) / 4.0
+
     frame = pd.DataFrame(
         {"sample_id": features["sample_id"], "mean_coverage": features["mean_coverage"]}
     )
@@ -343,6 +350,7 @@ def main() -> int:
     if e1_model is not None:
         model_names[3:3] = [
             "E1", "B0+E1 (avg)", "B0+E1 (coverage-weighted)", "B0+E1 (geo mean)",
+            "B0+E1+EB1 (avg)", "B0+C0+E1+EB1 (avg)",
         ]
 
     labels = load_rapidcns2_labels(args.rapid_labels_xlsx, set(b0_classes)).labels

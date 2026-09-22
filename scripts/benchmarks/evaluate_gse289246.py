@@ -222,6 +222,9 @@ def main() -> int:
 
         geo = np.sqrt(np.clip(b0_fam, 1e-12, None) * np.clip(e1_fam, 1e-12, None))
         model_probs["B0+E1 (geo mean)"] = geo / geo.sum(axis=1, keepdims=True)
+
+        model_probs["B0+E1+EB1 (avg)"] = (b0_fam + e1_fam + eb1_fam) / 3.0
+        model_probs["B0+C0+E1+EB1 (avg)"] = (b0_fam + c0_fam + e1_fam + eb1_fam) / 4.0
     rows = []
     for i, sample_id in enumerate(sample_ids):
         true_idx = families.index(true_families[i])
@@ -247,6 +250,7 @@ def main() -> int:
     if e1_fam is not None:
         report_models += [
             "E1", "B0+E1 (avg)", "B0+E1 (coverage-weighted)", "B0+E1 (geo mean)",
+            "B0+E1+EB1 (avg)", "B0+C0+E1+EB1 (avg)",
         ]
     report_models += ["Sturgeon", "crossNN"]
     for name in report_models:
