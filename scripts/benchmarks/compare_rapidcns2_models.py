@@ -161,6 +161,7 @@ def score_cohort(
         e1_fam, e1_families = aggregate_to_family(e1_probs, e1_classes, family_by_class)
         e1_fam = reindex(e1_fam, e1_families, families)
         model_probs["E1"] = e1_fam
+        model_probs["B0+E1 (avg)"] = 0.5 * b0_fam + 0.5 * e1_fam
 
     frame = pd.DataFrame(
         {"sample_id": features["sample_id"], "mean_coverage": features["mean_coverage"]}
@@ -324,7 +325,7 @@ def main() -> int:
     )
     model_names = ["B0", "C0", "EB1", "Sturgeon", "crossNN"]
     if e1_model is not None:
-        model_names.insert(3, "E1")
+        model_names[3:3] = ["E1", "B0+E1 (avg)"]
 
     labels = load_rapidcns2_labels(args.rapid_labels_xlsx, set(b0_classes)).labels
     truth_family = labels.assign(family_code=labels.label.map(family_by_class))

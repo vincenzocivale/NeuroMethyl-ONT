@@ -213,6 +213,7 @@ def main() -> int:
     model_probs = {"B0": b0_fam, "C0": c0_fam, "EB1": eb1_fam}
     if e1_fam is not None:
         model_probs["E1"] = e1_fam
+        model_probs["B0+E1 (avg)"] = 0.5 * b0_fam + 0.5 * e1_fam
     rows = []
     for i, sample_id in enumerate(sample_ids):
         true_idx = families.index(true_families[i])
@@ -236,7 +237,7 @@ def main() -> int:
 
     report_models = ["B0", "C0", "EB1"]
     if e1_fam is not None:
-        report_models.append("E1")
+        report_models += ["E1", "B0+E1 (avg)"]
     report_models += ["Sturgeon", "crossNN"]
     for name in report_models:
         col = f"{name}_predicted_family"

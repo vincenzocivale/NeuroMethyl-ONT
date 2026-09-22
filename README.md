@@ -6,11 +6,12 @@ NeuroMethyl-ONT is a research codebase for developing and benchmarking CNS tumor
 
 ## Production model
 
-**B0** (`configs/models/binary_linear.yaml`) is the recommended model for
-real classification, intra-operative or end-of-run — see
+The recommended model for real classification, intra-operative or
+end-of-run, is the **B0+E1 ensemble** (average of `configs/models/binary_linear.yaml`
+and `configs/models/evidence_linear_v1.yaml`'s softmax probabilities) — see
 [`docs/B0_PRODUCTION_MODEL.md`](docs/B0_PRODUCTION_MODEL.md) for the
-supporting benchmark evidence, why one model covers both use cases, and the
-built-in linear-decomposition explainability
+supporting benchmark evidence, why one model pair covers both use cases, and
+the built-in linear-decomposition explainability
 (`src/neuromethyl_ont/evaluation/explainability.py`,
 `scripts/inference/classify_sample.py`).
 

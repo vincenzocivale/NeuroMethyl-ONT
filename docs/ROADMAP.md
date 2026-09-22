@@ -10,13 +10,15 @@ Goal: isolate the value of continuous methylation and coverage at fixed loci.
 - Compare binary vs beta vs beta+coverage representations
 - Reproduce crossNN / Sturgeon / MethyLYZR where feasible
 
-**Outcome**: B0 (binary representation) is the best-evidenced of the three
-and is now the recommended production model — see
-[`docs/B0_PRODUCTION_MODEL.md`](B0_PRODUCTION_MODEL.md). E1 (beta+coverage)
-remains implemented but unvalidated: no training run or benchmark exists for
-it yet, and its fixed global `kappa` is the same strategy that failed for
-EB1 (`docs/EVIDENCE_BAYES_V1.md` §7). Reviving it is future work, not a
-completed part of V0.
+**Outcome**: E1 (beta+coverage) was trained and evaluated 2026-09-22. It
+beats B0 on real low/medium coverage (Rapid-CNS2) but loses badly on real
+end-of-run coverage (GSE289246, 77.8% vs B0's 100%) due to a platform
+batch-effect vulnerability in its continuous feature. Averaging B0's and
+E1's softmax probabilities matches or beats whichever single model is
+better on every cohort tested, including calibration (NLL) beyond both —
+this **B0+E1 ensemble** is now the recommended production model, not B0
+alone. See [`docs/B0_PRODUCTION_MODEL.md`](B0_PRODUCTION_MODEL.md) for the
+full evidence.
 
 ## V1 — Region-aware Nanopore model
 
