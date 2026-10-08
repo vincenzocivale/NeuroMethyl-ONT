@@ -7,3 +7,7 @@ venv/
 .ruff_cache/
 .mypy_cache/
 outputs/
+
+# vendored competitor clones (see third_party/README.md)
+third_party/crossNN/
+third_party/MethyLYZR/

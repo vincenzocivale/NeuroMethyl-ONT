@@ -14,7 +14,10 @@ optimizer:
   weight_decay: 1.0e-4
 
 training:
-  batch_size: 16
+  batch_size: 128
+  # Sixteen CPU threads for synthetic count generation; bounded for the shared server.
+  # for a shared server.
+  batch_encoding_workers: 16
   max_epochs: 80
   early_stopping_patience: 12
   mixed_precision: bf16

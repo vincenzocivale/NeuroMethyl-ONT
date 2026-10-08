@@ -7,7 +7,6 @@ document is the source of truth for `src/neuromethyl_ont/data/array_reference.py
 `src/neuromethyl_ont/models/evidence_linear.py`, the `training/` and
 `evaluation/` modules, and the configs under `configs/models/` and
 `configs/experiments/v1_representation_ablation.yaml`. It refines
-`docs/ROADMAP.md`'s "V0 — Information-preservation benchmark" milestone and
 `docs/EXPERIMENT_POLICY.md`'s "Core V0 ablation" into an exact, testable
 specification.
 
@@ -18,8 +17,8 @@ First experimental question:
 > Does retaining continuous methylation and sequencing evidence improve CNS
 > tumor classification compared with binary methylation representations?
 
-Not tested yet in this milestone: genome-wide CpGs, Transformers, region
-encoders, CNV, hierarchical classifiers, read-level models. This milestone
+Not tested: genome-wide CpGs, Transformers, region
+encoders, CNV, hierarchical classifiers, read-level models. This study
 must first show that **the representation of evidence matters**, using the
 smallest architecture that makes that claim credible.
 
@@ -236,7 +235,7 @@ A. On GSE109379 full-array, E1/C0 are competitive with a good linear
    E. No collapse vs. sparse-oriented methods on GSE209865. If A-E hold,
    move to V2.
 
-## 22. Explicitly out of scope for this milestone
+## 22. Explicitly out of scope
 
 MLP, Transformer, Set Transformer, CpG embeddings, genomic position
 embeddings, regional attention, CNV, sequence features, hierarchical loss,

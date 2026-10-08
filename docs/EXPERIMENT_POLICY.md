@@ -23,11 +23,10 @@ thin API clients for cross-checking TCGA/IPD-Brain/DBTA case metadata
 against those classes. Run `extract_sturgeon_classes.py` once per Sturgeon
 model release, not per experiment.
 
-`src/neuromethyl_ont/evaluation/paired_bootstrap.py` (the statistical core
-extracted from the sibling `ntv3-intraop-classifier` project) adds
+`src/neuromethyl_ont/evaluation/paired_bootstrap.py` adds
 significance testing on top of the existing point-estimate comparison
-scripts (`scripts/benchmarks/compare_rapidcns2_models.py`,
-`compare_magibu_pools.py`): given two models' per-sample class
+scripts (`scripts/evaluation/evaluate_rapidcns2.py`,
+`evaluate_magibu_pools.py`): given two models' per-sample class
 probabilities on the same cohort, `compare_paired` reports a stratified
 paired-bootstrap 95% CI on the accuracy/NLL/Brier/macro-F1 delta, not just
 the point estimate.
