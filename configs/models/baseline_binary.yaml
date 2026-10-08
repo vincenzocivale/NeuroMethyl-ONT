@@ -1,7 +1,0 @@
-model:
-  name: baseline_binary
-  representation: binary
-  family: logistic_regression
-  params:
-    max_iter: 2000
-    class_weight: balanced
