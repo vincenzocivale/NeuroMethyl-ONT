@@ -64,6 +64,18 @@ def test_rejects_non_cg_probe_id(tmp_path):
         read_gse289246_sample(path)
 
 
+def test_drops_snp_probe_ids_but_keeps_cpg_probes(tmp_path):
+    rows = [
+        "chr1\t1\t2\tCG\t1.0\t+\t1\t2\t0,0,0\t5\t100.0\trs11249206\n",
+        "chr1\t3\t4\tCG\t0.0\t+\t3\t4\t0,0,0\t5\t0.0\tcg00000957\n",
+    ]
+    path = _write(tmp_path, "sample.bed", rows)
+
+    df = read_gse289246_sample(path)
+
+    assert df["probe_id"].tolist() == ["cg00000957"]
+
+
 def test_rejects_out_of_range_percent(tmp_path):
     rows = ["chr1\t1\t2\tCG\t1.0\t+\t1\t2\t0,0,0\t5\t150.0\tcg00000957\n"]
     path = _write(tmp_path, "sample.bed", rows)

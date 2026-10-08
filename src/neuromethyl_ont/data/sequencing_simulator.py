@@ -88,14 +88,23 @@ def simulate_counts(
         raise ValueError("lam must be a scalar or have one entry per sample (beta.shape[0])")
 
     full_array = np.isinf(lam_arr)
-    lam_safe = np.where(full_array, 1.0, lam_arr).reshape(-1, 1)  # placeholder for full-array rows
-
     missing = np.isnan(beta)
     p = np.clip(np.where(missing, 0.0, beta), 0.0, 1.0)
 
-    n = rng.poisson(lam_safe, size=beta.shape).astype(np.int64)
-    n = np.where(missing, 0, n)
-    m = rng.binomial(n, p).astype(np.int64)
+    # Full-array rows use a closed-form representation downstream; their
+    # counts are deliberately meaningless.  Do not draw and immediately
+    # discard billions of random values for those rows.
+    n = np.zeros(beta.shape, dtype=np.int64)
+    m = np.zeros(beta.shape, dtype=np.int64)
+    sampled_rows = ~full_array
+    if sampled_rows.any():
+        sampled_missing = missing[sampled_rows]
+        sampled_n = rng.poisson(
+            lam_arr[sampled_rows, None], size=(sampled_rows.sum(), beta.shape[1])
+        ).astype(np.int64)
+        sampled_n[sampled_missing] = 0
+        n[sampled_rows] = sampled_n
+        m[sampled_rows] = rng.binomial(sampled_n, p[sampled_rows]).astype(np.int64)
     u = n - m
 
     return SimulatedCounts(m=m, u=u, n=n, full_array=full_array)
@@ -229,7 +238,42 @@ def encode_batch(
     same counts across representations (see docs/EVIDENCE_LINEAR_V1.md #13).
     """
     lam = sample_lambda_batch(rng, size=beta.shape[0])
+    if representation == "binary":
+        return encode_binary_batch(beta, lam=lam, rng=rng, threshold=threshold)
     counts = simulate_counts(beta, lam, rng)
     return apply_representation(
         representation, beta, counts, mu=mu, kappa=kappa, threshold=threshold
     )
+
+
+def encode_binary_batch(
+    beta: np.ndarray, lam: np.ndarray, rng: np.random.Generator, threshold: float = BINARY_THRESHOLD
+) -> np.ndarray:
+    """Simulate B0 directly, avoiding unused count tensors and float64 casts.
+
+    ``m / n > 0.6`` is exactly equivalent to ``5 * m > 3 * n`` for positive
+    integer coverage.  The returned values are only ``{-1, 0, +1}``, so
+    float32 preserves the representation passed to the classifier.
+    """
+    beta = np.asarray(beta, dtype=np.float64)
+    full_array = np.isinf(lam)
+    missing = np.isnan(beta)
+    x = np.zeros(beta.shape, dtype=np.float32)
+
+    sampled_rows = ~full_array
+    if sampled_rows.any():
+        sampled_beta = beta[sampled_rows]
+        sampled_missing = missing[sampled_rows]
+        n = rng.poisson(
+            lam[sampled_rows, None], size=sampled_beta.shape
+        ).astype(np.int64)
+        n[sampled_missing] = 0
+        m = rng.binomial(n, np.clip(np.where(sampled_missing, 0.0, sampled_beta), 0.0, 1.0))
+        x_sampled = np.where(n == 0, 0.0, np.where(5 * m > 3 * n, 1.0, -1.0))
+        x[sampled_rows] = x_sampled.astype(np.float32, copy=False)
+
+    if full_array.any():
+        full_beta = beta[full_array]
+        x_full = np.where(full_beta > threshold, 1.0, -1.0)
+        x[full_array] = np.where(np.isnan(full_beta), 0.0, x_full).astype(np.float32)
+    return x

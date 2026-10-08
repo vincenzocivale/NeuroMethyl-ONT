@@ -1,14 +1,10 @@
 """Paired stratified-bootstrap significance testing between two models' predictions.
 
-Extracted and generalized from the sibling ``ntv3-intraop-classifier``
-project's ``ntv3_intraop.analysis.paired_bootstrap`` (its model-loading and
-config-orchestration plumbing was specific to that project's own package and
-was not migrated -- only this pure-numpy statistical core, which has no
-NeuroMethyl-ONT- or ntv3-specific coupling).
+Pure-numpy statistical core with no dataset- or model-specific coupling.
 
 None of NeuroMethyl-ONT's existing comparison scripts
-(``scripts/benchmarks/compare_rapidcns2_models.py``,
-``compare_magibu_pools.py``, ...) currently report whether a point-estimate
+(``scripts/evaluation/evaluate_rapidcns2.py``,
+``evaluate_magibu_pools.py``, ...) currently report whether a point-estimate
 accuracy gap (e.g. B0 vs crossNN) is statistically significant given the
 sample size -- this module adds that, operating directly on two models'
 per-sample class probabilities (already computed, however they were

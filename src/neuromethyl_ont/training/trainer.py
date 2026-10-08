@@ -12,13 +12,22 @@ stopping.
 
 from __future__ import annotations
 
+import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 
 import numpy as np
 import torch
 from torch import nn
 
-from neuromethyl_ont.data.sequencing_simulator import encode_batch, encode_full_array
+from neuromethyl_ont.data.sequencing_simulator import (
+    apply_representation,
+    encode_batch,
+    encode_binary_batch,
+    encode_full_array,
+    sample_lambda_batch,
+    simulate_counts,
+)
 from neuromethyl_ont.training.objectives import build_loss
 
 
@@ -36,6 +45,7 @@ class TrainingConfig:
     seed: int = 17
     loss_name: str = "cross_entropy"
     device: str = "cpu"
+    batch_encoding_workers: int = 1
 
 
 @dataclass
@@ -72,6 +82,76 @@ def _encode(
         kappa=config.kappa,
         threshold=config.binary_threshold,
     )
+
+
+def _encode_chunk(
+    representation: str,
+    beta: np.ndarray,
+    lam: np.ndarray,
+    seed: int,
+    mu: np.ndarray | None,
+    kappa: float,
+    threshold: float,
+) -> np.ndarray:
+    """Encode one independent batch slice with its own deterministic RNG."""
+    chunk_rng = np.random.default_rng(seed)
+    if representation == "binary":
+        return encode_binary_batch(beta, lam=lam, rng=chunk_rng, threshold=threshold)
+    counts = simulate_counts(beta, lam, chunk_rng)
+    return apply_representation(
+        representation, beta, counts, mu=mu, kappa=kappa, threshold=threshold
+    )
+
+
+def _encode_parallel(
+    config: TrainingConfig,
+    beta: np.ndarray,
+    mu: np.ndarray | None,
+    rng: np.random.Generator,
+    pool: ThreadPoolExecutor | None = None,
+) -> np.ndarray:
+    """Bounded-memory, deterministic parallel batch encoding.
+
+    The simulator's Poisson/Binomial draws dominate wall time.  Independent
+    row slices permit a small number of NumPy worker threads while keeping the
+    full reference shared and allocating only one batch-sized output.
+    """
+    n_workers = min(config.batch_encoding_workers, beta.shape[0])
+    if n_workers <= 1:
+        return _encode(config, beta, mu, rng)
+
+    lam = sample_lambda_batch(rng, size=beta.shape[0])
+    seeds = rng.integers(0, np.iinfo(np.uint64).max, size=n_workers, dtype=np.uint64)
+    boundaries = np.linspace(0, beta.shape[0], num=n_workers + 1, dtype=int)
+    encoded = np.empty(beta.shape, dtype=np.float64)
+
+    owns_pool = pool is None
+    if pool is None:
+        pool = ThreadPoolExecutor(max_workers=n_workers, thread_name_prefix="methyl-encode")
+    try:
+        futures = [
+            (
+                start,
+                end,
+                pool.submit(
+                    _encode_chunk,
+                    config.representation,
+                    beta[start:end],
+                    lam[start:end],
+                    int(seeds[i]),
+                    mu,
+                    config.kappa,
+                    config.binary_threshold,
+                ),
+            )
+            for i, (start, end) in enumerate(zip(boundaries[:-1], boundaries[1:], strict=True))
+        ]
+        for start, end, future in futures:
+            encoded[start:end] = future.result()
+    finally:
+        if owns_pool:
+            pool.shutdown()
+    return encoded
 
 
 def predict_logits(model: nn.Module, x: np.ndarray) -> np.ndarray:
@@ -139,13 +219,16 @@ def train_linear_classifier(
     epochs_without_improvement = 0
 
     for epoch in range(config.max_epochs):
+        epoch_started = time.perf_counter()
         model.train()
         order = rng.permutation(n_train)
         epoch_loss_sum = 0.0
         for start in range(0, n_train, config.batch_size):
             batch_idx = order[start : start + config.batch_size]
             x_batch = torch.as_tensor(
-                _encode(config, beta_train[batch_idx], mu, rng), dtype=torch.float32, device=device
+                _encode_parallel(config, beta_train[batch_idx], mu, rng),
+                dtype=torch.float32,
+                device=device,
             )
             y_batch = y_train_t[batch_idx]
 
@@ -157,6 +240,12 @@ def train_linear_classifier(
             optimizer.step()
             epoch_loss_sum += float(loss.detach()) * len(batch_idx)
         train_loss = epoch_loss_sum / n_train
+        epoch_seconds = time.perf_counter() - epoch_started
+        print(
+            f"Epoch {epoch + 1:03d}/{config.max_epochs}: "
+            f"train_loss={train_loss:.6f} elapsed={epoch_seconds:.1f}s",
+            flush=True,
+        )
 
         if not has_validation:
             result.history.append(

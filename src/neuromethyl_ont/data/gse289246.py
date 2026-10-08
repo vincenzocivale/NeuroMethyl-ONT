@@ -93,6 +93,10 @@ def read_gse289246_sample(path: str | Path) -> pd.DataFrame:
     df = df.rename(columns={"Probe_ID_450K": "probe_id"})
     df["probe_id"] = df["probe_id"].astype("string")
     df = df[df["probe_id"].notna() & (df["probe_id"] != "")].reset_index(drop=True)
+    # GEO's annotation column also contains Infinium SNP controls (rs IDs).
+    # They are not CpG probes and therefore cannot be represented in the
+    # 450K-aligned classifier/Sturgeon feature space.
+    df = df[~df["probe_id"].str.fullmatch(r"rs\d+")].reset_index(drop=True)
 
     if df.empty:
         return pd.DataFrame(

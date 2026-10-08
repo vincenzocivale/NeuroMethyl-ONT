@@ -57,7 +57,7 @@ def aggregate_to_probe_level(coord_df: pd.DataFrame) -> pd.DataFrame:
     has_evidence = df["methylated_count"].notna() & df["unmethylated_count"].notna()
     df["_m_valid"] = df["methylated_count"].where(has_evidence)
     df["_u_valid"] = df["unmethylated_count"].where(has_evidence)
-    df["_coord"] = list(zip(df["chrom"], df["start"], df["end"]))
+    df["_coord"] = list(zip(df["chrom"], df["start"], df["end"], strict=True))
 
     grouped = df.groupby(["sample_id", "probe_id"], sort=False, dropna=False)
 

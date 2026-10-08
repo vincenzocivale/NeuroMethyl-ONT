@@ -79,6 +79,58 @@ def score_threshold_metrics(
     return out
 
 
+def reliability_bins(
+    probs: np.ndarray, y_true: np.ndarray, n_bins: int = 10
+) -> Mapping[str, np.ndarray]:
+    """Per-bin (confidence, accuracy, count) underlying a reliability diagram --
+    same binning convention as :func:`expected_calibration_error` (bin by max
+    predicted probability), but returns the bins instead of collapsing them
+    to one scalar, so a caller can plot the diagram."""
+    y_true = np.asarray(y_true)
+    confidence = probs.max(axis=1)
+    prediction = probs.argmax(axis=1)
+    correct = (prediction == y_true).astype(np.float64)
+
+    bin_edges = np.linspace(0.0, 1.0, n_bins + 1)
+    bin_confidence, bin_accuracy, bin_count = [], [], []
+    for lo, hi in zip(bin_edges[:-1], bin_edges[1:], strict=True):
+        above_lo = (confidence > lo) if lo > 0 else (confidence >= lo)
+        in_bin = above_lo & (confidence <= hi)
+        count = int(in_bin.sum())
+        bin_confidence.append(float(confidence[in_bin].mean()) if count else float("nan"))
+        bin_accuracy.append(float(correct[in_bin].mean()) if count else float("nan"))
+        bin_count.append(count)
+    return {
+        "bin_lower": bin_edges[:-1],
+        "bin_upper": bin_edges[1:],
+        "confidence": np.array(bin_confidence),
+        "accuracy": np.array(bin_accuracy),
+        "count": np.array(bin_count),
+    }
+
+
+def top_k_table(
+    probs: np.ndarray, y_true: np.ndarray, class_names: list[str], k: int = 3
+) -> list[dict]:
+    """Per-sample top-k predictions with their probabilities, plus whether the
+    true class was hit at rank 1 vs. somewhere in the top-k -- the per-sample
+    detail behind :func:`top_k_accuracy`, for showing which samples top-3
+    recovers that top-1 misses."""
+    y_true = np.asarray(y_true)
+    top_k_idx = np.argsort(-probs, axis=1)[:, :k]
+    rows = []
+    for i in range(len(y_true)):
+        ranked = top_k_idx[i]
+        row = {"true_class": class_names[y_true[i]]}
+        for rank, cls_idx in enumerate(ranked, start=1):
+            row[f"top{rank}_class"] = class_names[cls_idx]
+            row[f"top{rank}_probability"] = float(probs[i, cls_idx])
+        row["hit_top1"] = bool(ranked[0] == y_true[i])
+        row["hit_topk"] = bool((ranked == y_true[i]).any())
+        rows.append(row)
+    return rows
+
+
 def depth_curve_metrics(logits: np.ndarray, y_true: np.ndarray) -> dict[str, float]:
     """The full section-14 metric set for one (representation, depth) cell."""
     probs = softmax_probs(logits)

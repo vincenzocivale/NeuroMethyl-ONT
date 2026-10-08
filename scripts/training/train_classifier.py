@@ -82,6 +82,7 @@ def build_training_config(model_config: dict, representation: str) -> TrainingCo
         max_epochs=int(training.get("max_epochs", 80)),
         early_stopping_patience=int(training.get("early_stopping_patience", 12)),
         mixed_precision=str(training.get("mixed_precision", "bf16")),
+        batch_encoding_workers=int(training.get("batch_encoding_workers", 1)),
         kappa=float(model.get("kappa", 2.0)),
         binary_threshold=float(model.get("binary_threshold", 0.6)),
         seed=int(model_config.get("seed", 17)),
@@ -105,6 +106,13 @@ def main() -> int:
         "--validation-labels", type=Path, default=None, help=".tsv with sample_id, label"
     )
     ap.add_argument("--validation-dataset", default="GSE109379")
+    ap.add_argument(
+        "--expected-classes",
+        type=int,
+        default=91,
+        help="Sanity-check class count from the reference labels (91 for GSE90496-derived "
+        "CNS references).",
+    )
     ap.add_argument(
         "--no-validation",
         action="store_true",
@@ -133,12 +141,20 @@ def main() -> int:
     model_config = yaml.safe_load(args.model_config.read_text())
     representation = model_config["model"]["representation"]
 
+    print(f"Loading training reference from {args.reference_dir}", flush=True)
     ref = load_array_reference(args.reference_dir)
+    print(
+        f"Loaded reference: {ref.beta.shape[0]} samples x {ref.beta.shape[1]} probes",
+        flush=True,
+    )
     feature_index = load_feature_index(args.reference_dir / "feature_index.json")
 
     classes = sorted(set(ref.labels))
-    if len(classes) != 91:
-        print(f"WARNING: expected 91 training classes, found {len(classes)}", file=sys.stderr)
+    if len(classes) != args.expected_classes:
+        print(
+            f"WARNING: expected {args.expected_classes} training classes, found {len(classes)}",
+            file=sys.stderr,
+        )
     class_to_idx = {c: i for i, c in enumerate(classes)}
     y_train = np.array([class_to_idx[label] for label in ref.labels], dtype=np.int64)
 
@@ -163,10 +179,20 @@ def main() -> int:
             [class_to_idx[label] for label in val_labels_df.loc[keep, "label"]], dtype=np.int64
         )
 
+    print(
+        f"Initializing {representation} classifier: {feature_index.n_features} features, "
+        f"{len(classes)} classes",
+        flush=True,
+    )
     model = build_linear_classifier(n_features=feature_index.n_features, n_classes=len(classes))
     training_config = build_training_config(model_config, representation)
     training_config.device = args.device
 
+    print(
+        f"Starting training: {training_config.max_epochs} epochs, "
+        f"batch_size={training_config.batch_size}, device={training_config.device}",
+        flush=True,
+    )
     result = train_linear_classifier(
         model=model,
         beta_train=ref.beta,

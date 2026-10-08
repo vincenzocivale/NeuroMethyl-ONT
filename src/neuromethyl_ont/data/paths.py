@@ -16,3 +16,4 @@ def get_data_root(required: bool = True) -> Path | None:
             f"{DATA_ROOT_ENV} is not set. Point it to the external CNSNanoporeData root."
         )
     return None
+
