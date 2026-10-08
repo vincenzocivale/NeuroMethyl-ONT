@@ -2,7 +2,7 @@
 """Classify one ONT sample with the B0+E1 ensemble, at any coverage.
 
 Averages B0's (binary, threshold-based) and E1's (coverage-shrunk continuous)
-softmax probabilities. Empirically (docs/B0_PRODUCTION_MODEL.md), this beats
+softmax probabilities. Empirically (docs/PRODUCTION_MODEL.md), this beats
 either model alone on the one real cohort where both were tested end-to-end:
 matches B0's 100% on GSE289246 (real end-of-run coverage, where E1 alone
 drops to 77.8% due to a platform batch-effect vulnerability) while matching
@@ -18,6 +18,12 @@ Input is a per-probe TSV with columns ``probe_id``, ``methylated_count``,
 docs/RAPIDCNS2_CANONICAL_PREPROCESSING.md), already probe-level aggregated
 (summed across duplicate rows). Probes absent from the file, or from the
 training feature index, are treated as unobserved.
+
+Optional two-stage mode (CNS + acute leukemia): pass ``--router-checkpoint``
+plus the ``--alma-*`` arguments. A domain router first decides between the CNS
+head and the ALMA leukemia head from the same counts; below
+``--router-threshold`` the sample is reported as ``undetermined`` (both heads'
+top-3 are still listed, labelled by head, for transparency).
 
 Usage:
     python scripts/inference/classify_sample.py \\
@@ -38,60 +44,66 @@ import sys
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
-import torch
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from neuromethyl_ont.data.array_reference import load_feature_index  # noqa: E402
-from neuromethyl_ont.data.sequencing_simulator import (  # noqa: E402
-    binary_transform,
-    evidence_transform,
-)
 from neuromethyl_ont.evaluation.explainability import explain_prediction  # noqa: E402
-from neuromethyl_ont.models.evidence_linear import build_linear_classifier  # noqa: E402
+from neuromethyl_ont.inference.two_stage import (  # noqa: E402
+    UNDETERMINED,
+    decide_domain,
+    load_counts_aligned,
+    load_head,
+    load_router,
+    route,
+    score_head,
+)
+from neuromethyl_ont.training.router import DOMAINS  # noqa: E402
 
 
-def load_counts_aligned(path: Path, probe_ids: list[str]) -> tuple[np.ndarray, np.ndarray]:
-    """Read a probe-level counts TSV and reindex it to ``probe_ids`` order.
-
-    Probes missing from the file get ``m = u = 0`` (unobserved, matching
-    ``binary_transform``/``evidence_transform``'s ``n == 0`` convention).
-    """
-    table = pd.read_csv(path, sep="\t")
-    required = {"probe_id", "methylated_count", "unmethylated_count"}
-    missing_cols = required - set(table.columns)
-    if missing_cols:
-        raise ValueError(f"{path} is missing columns: {sorted(missing_cols)}")
-
-    by_probe = table.set_index("probe_id")[["methylated_count", "unmethylated_count"]]
-    m = np.zeros(len(probe_ids), dtype=np.float64)
-    u = np.zeros(len(probe_ids), dtype=np.float64)
-    for i, probe_id in enumerate(probe_ids):
-        if probe_id in by_probe.index:
-            row = by_probe.loc[probe_id]
-            m[i], u[i] = float(row["methylated_count"]), float(row["unmethylated_count"])
-    return m, u
+def _serialize(report):
+    return {
+        class_name: [
+            {
+                "probe_id": c.probe_id,
+                "feature_value": c.feature_value,
+                "weight": c.weight,
+                "contribution": c.contribution,
+            }
+            for c in contributions
+        ]
+        for class_name, contributions in report.contributions_by_class.items()
+    }
 
 
-def load_linear_checkpoint(path: Path, expected_representation: str):
-    checkpoint = torch.load(path, map_location="cpu")
-    representation = checkpoint["representation"]
-    if representation != expected_representation:
-        raise ValueError(
-            f"{path}: expected representation={expected_representation!r}, "
-            f"got {representation!r}"
-        )
-    class_names = [
-        name for name, _ in sorted(checkpoint["class_to_idx"].items(), key=lambda kv: kv[1])
+def classify_with_head(head, counts_path: Path, sample_id: str, top_n: int, n_runner_up: int):
+    m, u = load_counts_aligned(counts_path, head.feature_index.probe_ids)
+    scores = score_head(head, m, u)
+    ranked = np.argsort(-scores.ensemble_probs)
+    top3 = [
+        {"class_name": head.class_names[i], "probability": float(scores.ensemble_probs[i])}
+        for i in ranked[:3]
     ]
-    model = build_linear_classifier(
-        n_features=checkpoint["n_features"], n_classes=len(class_names)
-    )
-    model.load_state_dict(checkpoint["model_state_dict"])
-    model.eval()
-    return model, class_names
+    per_model = {}
+    for name, model, x, probs in (
+        ("B0", head.b0_model, scores.x_b0, scores.b0_probs),
+        ("E1", head.e1_model, scores.x_e1, scores.e1_probs),
+    ):
+        report = explain_prediction(
+            model, x, head.feature_index.probe_ids, head.class_names,
+            sample_id=sample_id, top_n=top_n, n_runner_up=n_runner_up,
+        )
+        per_model[name] = {
+            "probability_of_top1": float(probs[ranked[0]]),
+            "explainability": _serialize(report),
+        }
+    return {
+        "head": head.name,
+        "n_probes_in_reference": head.feature_index.n_features,
+        "n_probes_observed": scores.n_observed,
+        "top3": top3,
+        "per_model": per_model,
+    }
 
 
 def main() -> int:
@@ -107,90 +119,73 @@ def main() -> int:
     ap.add_argument("--sample-id", default="sample")
     ap.add_argument("--top-n-loci", type=int, default=20)
     ap.add_argument("--n-runner-up", type=int, default=2)
+    ap.add_argument("--router-checkpoint", type=Path, default=None)
+    ap.add_argument("--router-threshold", type=float, default=0.9)
+    ap.add_argument("--alma-reference-dir", type=Path, default=None)
+    ap.add_argument("--alma-b0-checkpoint", type=Path, default=None)
+    ap.add_argument("--alma-e1-checkpoint", type=Path, default=None)
     ap.add_argument("--output", type=Path, required=True)
     args = ap.parse_args()
 
-    feature_index = load_feature_index(args.feature_index)
-    mu = (
-        pd.read_parquet(args.reference_dir / "probe_statistics.parquet")
-        .set_index("probe_id")["mean_beta"]
-        .reindex(feature_index.probe_ids)
-        .to_numpy()
+    alma_args = (args.alma_reference_dir, args.alma_b0_checkpoint, args.alma_e1_checkpoint)
+    two_stage = args.router_checkpoint is not None
+    if two_stage != all(a is not None for a in alma_args):
+        ap.error("--router-checkpoint requires all of --alma-reference-dir, "
+                 "--alma-b0-checkpoint, --alma-e1-checkpoint (and vice versa)")
+
+    cns = load_head(
+        "cns", args.reference_dir, args.b0_checkpoint, args.e1_checkpoint, args.e1_kappa,
+        feature_index_path=args.feature_index,
     )
+    output: dict = {"sample_id": args.sample_id}
 
-    b0_model, class_names = load_linear_checkpoint(args.b0_checkpoint, "binary")
-    e1_model, e1_class_names = load_linear_checkpoint(args.e1_checkpoint, "evidence")
-    if e1_class_names != class_names:
-        raise ValueError("B0 and E1 checkpoints must cover exactly the same classes, in order")
-
-    m, u = load_counts_aligned(args.sample_counts, feature_index.probe_ids)
-    n_observed = int((m + u > 0).sum())
-
-    x_b0 = binary_transform(m, u)
-    x_e1 = evidence_transform(m, u, mu, args.e1_kappa)
-
-    with torch.no_grad():
-        b0_probs = torch.softmax(
-            b0_model(torch.as_tensor(x_b0, dtype=torch.float32).unsqueeze(0))[0], dim=0
-        ).numpy()
-        e1_probs = torch.softmax(
-            e1_model(torch.as_tensor(x_e1, dtype=torch.float32).unsqueeze(0))[0], dim=0
-        ).numpy()
-    ensemble_probs = 0.5 * b0_probs + 0.5 * e1_probs
-
-    ranked = np.argsort(-ensemble_probs)
-    top3 = [
-        {"class_name": class_names[i], "probability": float(ensemble_probs[i])}
-        for i in ranked[:3]
-    ]
-
-    b0_report = explain_prediction(
-        b0_model, x_b0, feature_index.probe_ids, class_names,
-        sample_id=args.sample_id, top_n=args.top_n_loci, n_runner_up=args.n_runner_up,
-    )
-    e1_report = explain_prediction(
-        e1_model, x_e1, feature_index.probe_ids, class_names,
-        sample_id=args.sample_id, top_n=args.top_n_loci, n_runner_up=args.n_runner_up,
-    )
-
-    def _serialize(report):
-        return {
-            class_name: [
-                {
-                    "probe_id": c.probe_id,
-                    "feature_value": c.feature_value,
-                    "weight": c.weight,
-                    "contribution": c.contribution,
-                }
-                for c in contributions
-            ]
-            for class_name, contributions in report.contributions_by_class.items()
+    if not two_stage:
+        result = classify_with_head(
+            cns, args.sample_counts, args.sample_id, args.top_n_loci, args.n_runner_up
+        )
+        output.update({k: v for k, v in result.items() if k != "head"})
+        top = output["top3"][0]
+        print(
+            f"{args.sample_id}: {output['n_probes_observed']}/{output['n_probes_in_reference']} "
+            f"probes observed -> top1={top['class_name']} (ensemble p={top['probability']:.3f})"
+        )
+    else:
+        router, mask, checksum = load_router(args.router_checkpoint)
+        if checksum != cns.feature_index.checksum:
+            raise ValueError("router was trained on a different CNS feature index")
+        m, u = load_counts_aligned(args.sample_counts, cns.feature_index.probe_ids)
+        proba = route(router, mask, m, u)
+        domain = decide_domain(proba, args.router_threshold)
+        output["router"] = {
+            "p_cns": float(proba[0]), "p_leukemia": float(proba[1]),
+            "threshold": args.router_threshold, "domain": domain,
         }
-
-    output = {
-        "sample_id": args.sample_id,
-        "n_probes_in_reference": feature_index.n_features,
-        "n_probes_observed": n_observed,
-        "top3": top3,
-        "per_model": {
-            "B0": {
-                "probability_of_top1": float(b0_probs[ranked[0]]),
-                "explainability": _serialize(b0_report),
-            },
-            "E1": {
-                "probability_of_top1": float(e1_probs[ranked[0]]),
-                "explainability": _serialize(e1_report),
-            },
-        },
-    }
+        alma = load_head(
+            "leukemia", args.alma_reference_dir, args.alma_b0_checkpoint,
+            args.alma_e1_checkpoint, args.e1_kappa,
+        )
+        heads = {"cns": cns, "leukemia": alma}
+        to_run = list(heads) if domain == UNDETERMINED else [domain]
+        results = {
+            name: classify_with_head(
+                heads[name], args.sample_counts, args.sample_id,
+                args.top_n_loci, args.n_runner_up,
+            )
+            for name in to_run
+        }
+        if domain == UNDETERMINED:
+            output["heads"] = results  # both, for transparency; no diagnosis is asserted
+            print(f"{args.sample_id}: domain undetermined (p_cns={proba[0]:.3f}, "
+                  f"p_leukemia={proba[1]:.3f}) -> no head selected")
+        else:
+            output.update({k: v for k, v in results[domain].items()})
+            top = output["top3"][0]
+            print(f"{args.sample_id}: routed to {domain} (p={proba.max():.3f}) -> "
+                  f"top1={top['class_name']} (ensemble p={top['probability']:.3f})")
+        assert set(DOMAINS) == {"cns", "leukemia"}
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2))
-    print(
-        f"{args.sample_id}: {n_observed}/{feature_index.n_features} probes observed -> "
-        f"top1={top3[0]['class_name']} (ensemble p={top3[0]['probability']:.3f}, "
-        f"B0 p={b0_probs[ranked[0]]:.3f}, E1 p={e1_probs[ranked[0]]:.3f}); wrote {args.output}"
-    )
     return 0
 
 
