@@ -7,7 +7,7 @@ keys -- a quick sanity check before running
 ``extract_sturgeon_classes.py`` on the same zip.
 
 Usage:
-    python scripts/data/label_audit/inspect_sturgeon_model_zip.py \\
+    python scripts/competitors/inspect_sturgeon_model_zip.py \\
         --model-zip "$NEUROMETHYL_DATA_ROOT/benchmarks/sturgeon/general.zip"
 """
 

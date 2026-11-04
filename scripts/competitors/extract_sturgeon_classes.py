@@ -11,7 +11,7 @@ cohort actually support" question -- run this once per Sturgeon model
 release, not per experiment.
 
 Usage:
-    python scripts/data/label_audit/extract_sturgeon_classes.py \\
+    python scripts/competitors/extract_sturgeon_classes.py \\
         --model-zip "$NEUROMETHYL_DATA_ROOT/benchmarks/sturgeon/general.zip" \\
         --output outputs/tables/sturgeon_general_classes.csv \\
         --raw-output outputs/tables/sturgeon_general_raw_decoding.csv

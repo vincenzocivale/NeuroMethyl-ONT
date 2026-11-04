@@ -13,8 +13,9 @@ These assignments must be revalidated after patient-level deduplication.
 
 ## Label/class audit tooling
 
-`scripts/data/label_audit/` (migrated from the sibling
-`cns-io-genomics-data-audit` project) answers "which Sturgeon classes can a
+`scripts/competitors/extract_sturgeon_classes.py` and
+`inspect_sturgeon_model_zip.py` (migrated from the sibling
+`cns-io-genomics-data-audit` project) answer "which Sturgeon classes can a
 given cohort actually support": `extract_sturgeon_classes.py` parses a
 Sturgeon model zip's raw + merged operational class list,
 `inspect_sturgeon_model_zip.py` previews an unfamiliar model zip before
