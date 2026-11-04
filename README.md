@@ -11,10 +11,12 @@ training schedule, and differ only in how features are built:
 
 | Model | Features |
 |---|---|
-| **B0** | binary call, threshold 0.6 |
-| **C0** | continuous beta minus the training-set mean |
-| **E1** | coverage-shrunk posterior beta minus the mean (prior strength `kappa`) |
-| **B0+E1** | average of B0 and E1 softmax probabilities (recommended) |
+| **Binary** (formerly B0) | binary call, threshold 0.6 |
+| **Beta** (formerly C0) | continuous beta minus the training-set mean |
+| **Evidence** (formerly E1) | coverage-shrunk posterior beta minus the mean (prior strength `kappa`) |
+| **Consensus** (formerly B0+E1) | average of Binary and Evidence softmax probabilities (recommended) |
+
+Old names and how saved results stay readable: `docs/MODEL_NAMES.md`.
 
 Sequencing depth only acts as confidence in the evidence (shrinkage), never
 as an input feature, so a model cannot learn depth-to-batch-to-class
@@ -24,11 +26,11 @@ No clinical use is implied.
 **Current question.** Can a classifier give *reliable* CNS tumour calls at low coverage, so that more
 samples fit on one flow cell? Reliability is measured as accuracy, calibration and abstention against
 sequencing depth, on the same samples and class set as the published competitors (Sturgeon, crossNN,
-MethyLYZR, ...). B0/C0/E1 below are the tools for that question.
+MethyLYZR, ...). Binary/Beta/Evidence below are the tools for that question.
 
 ## Current status and where to work
 
-Done: B0/C0/E1 and the B0+E1 ensemble trained on GSE90496; evaluated on Rapid-CNS2, ONT-WGS, GSE289246,
+Done: Binary/Beta/Evidence and the Consensus ensemble trained on GSE90496; evaluated on Rapid-CNS2, ONT-WGS, GSE289246,
 GSE209865, Magibu pools and own MB/ETMR samples; competitor runs (Sturgeon, crossNN, MethyLYZR) in
 `outputs/benchmarks/` (gitignored, regenerable with `scripts/competitors/`); a *synthetic* depth curve on the GSE90496 holdout
 (simulated counts, `scripts/evaluation/evaluate_depth_curve.py`); ALMA leukemia head and router.
@@ -64,7 +66,7 @@ export NEUROMETHYL_DATA_ROOT=/path/to/CNSNanoporeData   # see docs/DATA_LAYOUT.m
 | Download and prepare public data | `scripts/data/download_public_datasets.sh`, `prepare_and_audit_public_datasets.sh` |
 | Build the GSE90496 reference and feature index | `scripts/data/prepare_geo_reference_inputs.py`, `build_array_reference.py` |
 | Canonicalize ONT methylation (Rapid-CNS2, ONT-WGS, own samples) | `scripts/data/build_canonical_methylation.py`, `ingest_our_samples_pileup.py` |
-| Train B0 / C0 / E1 | `scripts/training/train_classifier.py` (configs in `configs/models/`) |
+| Train Binary / Beta / Evidence | `scripts/training/train_classifier.py` (configs in `configs/models/`) |
 | Classify one sample (ensemble + per-probe explanation) | `scripts/inference/classify_sample.py` |
 | CNS + leukemia two-stage mode (router, abstention) | same script with `--router-checkpoint` and `--alma-*` |
 | Leukemia (ALMA) split, heads, router | `scripts/data/split_alma.py`, `scripts/training/train_alma.sh`, `train_router.py` |
@@ -100,9 +102,10 @@ third_party/                         vendored competitor code (see third_party/R
 
 ## Documentation
 
-- [`docs/EVIDENCE_LINEAR_V1.md`](docs/EVIDENCE_LINEAR_V1.md) — B0/C0/E1 specification (features, training, evaluation).
+- [`docs/EVIDENCE_LINEAR_V1.md`](docs/EVIDENCE_LINEAR_V1.md) — Binary/Beta/Evidence specification (features, training, evaluation).
 - [`docs/ALMA_MILESTONE.md`](docs/ALMA_MILESTONE.md) — acute-leukemia head, domain router, results and limits.
-- [`docs/PRODUCTION_MODEL.md`](docs/PRODUCTION_MODEL.md) — why the B0+E1 ensemble, with cohort results and caveats.
+- [`docs/PRODUCTION_MODEL.md`](docs/PRODUCTION_MODEL.md) — why the Consensus ensemble, with cohort results and caveats.
+- [`docs/MODEL_NAMES.md`](docs/MODEL_NAMES.md) — old names (B0/C0/E1/B0+E1) to new, and how saved results stay readable.
 - [`docs/RAPIDCNS2_CANONICAL_PREPROCESSING.md`](docs/RAPIDCNS2_CANONICAL_PREPROCESSING.md) — canonical ONT representations.
 - [`docs/GSE109379_IDAT_RECONSTRUCTION.md`](docs/GSE109379_IDAT_RECONSTRUCTION.md) — GSE109379 rebuilt from raw IDATs.
 - [`docs/DATA_LAYOUT.md`](docs/DATA_LAYOUT.md), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/EXPERIMENT_POLICY.md`](docs/EXPERIMENT_POLICY.md), [`CONTRIBUTING.md`](CONTRIBUTING.md).

@@ -13,11 +13,12 @@ use is implied.
 **Current question.** Can a classifier give *reliable* CNS tumour calls at low coverage, so that more
 samples fit on one flow cell? Reliability is measured as accuracy, calibration and abstention against
 sequencing depth, on the same samples and class set as the published competitors (Sturgeon, crossNN,
-MethyLYZR, ...). B0/C0/E1 below are the tools for that question.
+MethyLYZR, ...). Binary/Beta/Evidence below are the tools for that question.
+Model names: Binary (formerly B0), Beta (formerly C0), Evidence (formerly E1) and Consensus (formerly B0+E1); `docs/MODEL_NAMES.md` has the mapping.
 
 ## Current status and where to work
 
-Done: B0/C0/E1 and the B0+E1 ensemble trained on GSE90496; evaluated on Rapid-CNS2, ONT-WGS, GSE289246,
+Done: Binary/Beta/Evidence and the Consensus ensemble trained on GSE90496; evaluated on Rapid-CNS2, ONT-WGS, GSE289246,
 GSE209865, Magibu pools and own MB/ETMR samples; competitor runs (Sturgeon, crossNN, MethyLYZR) in
 `outputs/benchmarks/` (gitignored, regenerable with `scripts/competitors/`); a *synthetic* depth curve on the GSE90496 holdout
 (simulated counts, `scripts/evaluation/evaluate_depth_curve.py`); ALMA leukemia head and router.
@@ -99,10 +100,10 @@ important for fair ablations (`docs/ARCHITECTURE.md`):
 The active experiment (`docs/EVIDENCE_LINEAR_V1.md`) implements exactly this
 as three linear models sharing one architecture (`nn.Linear(n_features, 91)`)
 and one GSE90496-derived feature index, differing only in feature
-construction: **B0** (`BinaryLinear`, threshold at 0.6), **C0**
-(`ContinuousLinear`, beta minus training-set mean), **E1**
+construction: **Binary** (`BinaryLinear`, threshold at 0.6), **Beta**
+(`ContinuousLinear`, beta minus training-set mean), **Evidence**
 (`EvidenceLinearV1`, coverage-shrunk posterior beta minus mean via a `kappa`
-prior-strength parameter — `kappa=0` degenerates E1 to C0). Sequencing depth
+prior-strength parameter — `kappa=0` degenerates Evidence to Beta). Sequencing depth
 must only ever act as *confidence in the evidence* (shrinkage), never as an
 independent input feature — otherwise a model could learn
 depth→batch→tumor-class shortcuts instead of biology. When touching

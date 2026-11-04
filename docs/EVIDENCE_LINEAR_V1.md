@@ -1,7 +1,8 @@
 # EvidenceLinearV1
 
 Design spec for the V0 representation ablation (binary vs. continuous vs.
-evidence-weighted methylation), implemented as `B0` / `C0` / `E1` below. This
+evidence-weighted methylation), implemented as `Binary` / `Beta` / `Evidence` below (formerly B0 / C0 / E1, see
+`docs/MODEL_NAMES.md`). This
 document is the source of truth for `src/neuromethyl_ont/data/array_reference.py`,
 `src/neuromethyl_ont/data/sequencing_simulator.py`,
 `src/neuromethyl_ont/models/evidence_linear.py`, the `training/` and
@@ -51,7 +52,7 @@ probe_statistics.parquet   # probe_id, mean_beta, std_beta, valid_fraction
 feature_index.json
 ```
 
-The same feature index is reused by every model (B0/C0/E1) and by validation
+The same feature index is reused by every model (Binary/Beta/Evidence) and by validation
 cohorts (aligned via `align_to_feature_index`).
 
 ## 4. Three representations, one architecture
@@ -59,12 +60,12 @@ cohorts (aligned via `align_to_feature_index`).
 Same architecture, train set, feature set, optimizer, and schedule across all
 three. Only the representation changes.
 
-- **B0 -- BinaryLinear**: `beta_hat > 0.6 -> +1`, `<= 0.6 -> -1`, missing
+- **Binary -- BinaryLinear**: `beta_hat > 0.6 -> +1`, `<= 0.6 -> -1`, missing
   (`n == 0`) -> `0`. Conceptually close to crossNN/Sturgeon.
-- **C0 -- ContinuousLinear**: `x_i = beta_hat_i - mu_i`, where `mu_i` is the
+- **Beta -- ContinuousLinear**: `x_i = beta_hat_i - mu_i`, where `mu_i` is the
   training-set mean beta for probe `i`. Missing -> `0` (i.e. "no evidence
   relative to the probe's background", not "unmethylated").
-- **E1 -- EvidenceLinearV1**: given ONT counts `m_i` (methylated reads),
+- **Evidence -- EvidenceLinearV1**: given ONT counts `m_i` (methylated reads),
   `u_i` (unmethylated reads), `n_i = m_i + u_i`, and prior `mu_i`:
 
   ```text
@@ -83,7 +84,7 @@ three. Only the representation changes.
 
 All three: `nn.Linear(n_features, 91, bias=True)`. No hidden layer, no
 dropout, no attention, no Transformer. `logits = Wx + b`, `CrossEntropyLoss`.
-If E1 beats B0/C0 under this constraint, the result cannot be attributed to
+If Evidence beats Binary/Beta under this constraint, the result cannot be attributed to
 extra model capacity.
 
 ## 6. Training-time depth simulation
@@ -97,7 +98,7 @@ m_i ~ Binomial(n_i, beta_i)
 u_i = n_i - m_i
 ```
 
-then apply the B0/C0/E1 transform above. Never compute features as
+then apply the Binary/Beta/Evidence transform above. Never compute features as
 `beta * coverage` directly -- always sample counts first.
 
 ## 7. Depth (lambda) distribution
@@ -111,16 +112,16 @@ lambda:      0.02  0.05  0.10 | 0.5  1  2  4 | 8  16  32 | inf (full array)
 weight:      15% split evenly | 45% split evenly | 30% split evenly | 10%
 ```
 
-`lambda = inf` means no sampling: `x_i = beta_i - mu_i` (C0/E1 coincide in
-this limit) or `beta_i > 0.6` (B0), directly from the array beta.
+`lambda = inf` means no sampling: `x_i = beta_i - mu_i` (Beta/Evidence coincide in
+this limit) or `beta_i > 0.6` (Binary), directly from the array beta.
 
 ## 8. Binary augmentation
 
-B0 sees the same `n_i` availability pattern as C0/E1. `n_i == 0 -> x_i = 0`;
+Binary sees the same `n_i` availability pattern as Beta/Evidence. `n_i == 0 -> x_i = 0`;
 otherwise threshold `beta_hat_i = m_i/n_i` at `0.6`. Increasing `n_i` never
 changes the binary value once evidence exists -- by construction, 1/1
 methylated reads and 30/30 methylated reads give the identical binary
-feature. That collapse is exactly the limitation E1 is designed to fix.
+feature. That collapse is exactly the limitation Evidence is designed to fix.
 
 ## 9. Continuous augmentation
 
@@ -129,7 +130,7 @@ feature. That collapse is exactly the limitation E1 is designed to fix.
 ## 10. Kappa
 
 Configurable; first sweep `{0, 1, 2, 4, 8}`. `kappa = 0` removes
-coverage-aware shrinkage and E1 degenerates toward C0 -- a built-in ablation.
+coverage-aware shrinkage and Evidence degenerates toward Beta -- a built-in ablation.
 First run: `kappa = 2`, no sweep yet.
 
 ## 11. Training config (first run)
@@ -155,7 +156,7 @@ shows a clear problem on rare classes.
 - **Full-array**: real beta values, to verify the taxonomy was learned.
 - **Synthetic sequencing**: FIXED realizations at
   `lambda in {0.02, 0.1, 0.5, 1, 2, 4, 8, 16, 32, full array}`, sampled once
-  (same `(m, u, n)` draw at each depth reused across B0/C0/E1) and saved, so
+  (same `(m, u, n)` draw at each depth reused across Binary/Beta/Evidence) and saved, so
   all three models are compared on identical synthetic evidence.
 
 ## 14. Metrics
@@ -166,18 +167,18 @@ plus `fraction(score >= 0.8)` / `accuracy | score >= 0.8` and the same at
 
 ## 15. Main V1 figure
 
-x = sequencing depth, y = accuracy, three curves (B0/C0/E1). Hypothesis:
-`B0 ~ C0 ~ E1` at very low depth; `C0 > B0` as depth grows;
-`E1 >= C0 > B0` at high/full-run depth; the gap `E1 - B0` should grow with
+x = sequencing depth, y = accuracy, three curves (Binary/Beta/Evidence). Hypothesis:
+`Binary ~ Beta ~ Evidence` at very low depth; `Beta > Binary` as depth grows;
+`Evidence >= Beta > Binary` at high/full-run depth; the gap `Evidence - Binary` should grow with
 available information.
 
 ## 16. External benchmarks (after model selection on GSE109379 only)
 
-- **Legacy** (GSE209865, 415 ONT R9, binary calls): evaluate E1 at `n = 1`
+- **Legacy** (GSE209865, 415 ONT R9, binary calls): evaluate Evidence at `n = 1`
   per observed CpG. Not expected to show the coverage-aware advantage; checks
-  E1 is competitive in Sturgeon's original sparse-evidence setting.
+  Evidence is competitive in Sturgeon's original sparse-evidence setting.
 - **Full-run** (Rapid-CNS2 n=300, ONT_WGS n=39): real `m, u, n, beta` from the
-  canonical parquet outputs. This is where E1's advantage should show.
+  canonical parquet outputs. This is where Evidence's advantage should show.
 
 ## 17. Taxonomy
 
@@ -220,7 +221,7 @@ outputs/experiments/<run_id>/
 
 1. Evidence transform reference value: `mu=0.5, m=8, u=2, n=10, kappa=2` ->
    `posterior=(8+2*0.5)/12=0.75` -> `x=0.25`.
-2. Missing (`n=0`) -> `x=0`, never NaN, for B0/C0/E1.
+2. Missing (`n=0`) -> `x=0`, never NaN, for Binary/Beta/Evidence.
 3. High coverage: `n -> inf` => `x -> beta_hat - mu`.
 4. Coverage effect: same `beta_hat=0.9`, `mu=0.5`; evidence magnitude at
    `n=1` is smaller than at `n=20`.
@@ -229,9 +230,9 @@ outputs/experiments/<run_id>/
 
 ## 21. Success criteria
 
-A. On GSE109379 full-array, E1/C0 are competitive with a good linear
-   classifier. B. On the depth curve, `C0 > B0` as depth grows. C. `E1 >= C0`
-   at medium/high depth. D. The E1 advantage grows toward full-run depth.
+A. On GSE109379 full-array, Evidence/Beta are competitive with a good linear
+   classifier. B. On the depth curve, `Beta > Binary` as depth grows. C. `Evidence >= Beta`
+   at medium/high depth. D. The Evidence advantage grows toward full-run depth.
    E. No collapse vs. sparse-oriented methods on GSE209865. If A-E hold,
    move to V2.
 

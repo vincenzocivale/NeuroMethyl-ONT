@@ -11,7 +11,7 @@ truth for `src/neuromethyl_ont/data/alma.py`, `registry/datasets.tsv` rows
 
 ALMA classifies acute leukemias (AML, ALL, MDS, APL, MPAL per WHO 2022), not
 CNS tumors. It does **not** extend the GSE90496-derived 91-class CNS
-taxonomy used by B0/C0/E1 (`docs/EVIDENCE_LINEAR_V1.md`), and does not share
+taxonomy used by Binary/Beta/Evidence (formerly B0/C0/E1, `docs/MODEL_NAMES.md`; `docs/EVIDENCE_LINEAR_V1.md`), and does not share
 a reference cohort, probe index, or class list with it. Nothing in this
 milestone should be merged into the CNS models' feature index or training
 data. Treat this as a second, independent classifier family sharing only
@@ -82,7 +82,7 @@ long-tailed class distribution, unlike GSE90496's more even 91-class
 split). This is now frozen as a feature/class index, built by
 `scripts/data/build_alma_reference.py` (reusing
 `neuromethyl_ont.data.array_reference`'s generic build/save/align
-machinery, the same code B0/C0/E1 use for GSE90496 -- but as an entirely
+machinery, the same code Binary/Beta/Evidence use for GSE90496 -- but as an entirely
 separate index/checksum) from the 2987 labeled discovery samples, dropping
 the 327 unlabeled ones. Output at
 `$NEUROMETHYL_DATA_ROOT/derived/reference/ALMA_discovery/`: all
@@ -104,8 +104,8 @@ unaffected by adding leukemia.
 - **Reference** (`build_alma_reference.py --split-file`): probe filter and `mu`
   from the train split only; val/test exported under
   `derived/evaluation/ALMA/`.
-- **Heads** (`scripts/training/train_alma.sh`): B0/C0/E1 with the CNS recipe.
-- **Router** (`scripts/training/train_router.py`): linear, B0-style binary
+- **Heads** (`scripts/training/train_alma.sh`): Binary/Beta/Evidence with the CNS recipe.
+- **Router** (`scripts/training/train_router.py`): linear, Binary-style binary
   features on the 331,433 probes shared with GSE90496, random probe masking.
 
 ## 5. Results (single seed, single split)
@@ -114,13 +114,13 @@ ALMA test, n=423 (`scripts/evaluation/evaluate_alma.py`):
 
 | Model | Acc. | Bal. acc. | Macro-F1 | NLL | ECE |
 |---|--:|--:|--:|--:|--:|
-| B0 | 83.7% | 72.1% | 71.6% | 2.57 | 0.147 |
-| C0 | 77.5% | 65.9% | 65.3% | 1.05 | 0.059 |
-| E1 (full-array limit) | 77.5% | 66.9% | 66.4% | 1.22 | 0.109 |
-| B0+E1 | 84.2% | 72.4% | 72.1% | 0.95 | 0.062 |
+| Binary | 83.7% | 72.1% | 71.6% | 2.57 | 0.147 |
+| Beta | 77.5% | 65.9% | 65.3% | 1.05 | 0.059 |
+| Evidence (full-array limit) | 77.5% | 66.9% | 66.4% | 1.22 | 0.109 |
+| Consensus | 84.2% | 72.4% | 72.1% | 0.95 | 0.062 |
 
-The ensemble matches B0 in accuracy (+2 samples, not significant) and is much
-better calibrated. C0/E1 are worse than B0 here; hyperparameters were not
+The ensemble matches Binary in accuracy (+2 samples, not significant) and is much
+better calibrated. Beta/Evidence are worse than Binary here; hyperparameters were not
 tuned for the continuous representations, so this is not evidence against them.
 
 Router (`scripts/evaluation/evaluate_router.py`, threshold 0.9): 100% domain
@@ -133,7 +133,7 @@ to 97% (`router_sparse_seed17`) did not change this.
 ## 6. Two-stage inference
 
 `scripts/inference/classify_sample.py` with `--router-checkpoint` and the
-`--alma-*` arguments runs the router and then the selected head's B0+E1
+`--alma-*` arguments runs the router and then the selected head's Consensus
 ensemble (logic in `src/neuromethyl_ont/inference/two_stage.py`). Below
 `--router-threshold` (default 0.9) the sample is `undetermined`: no head is
 selected and both heads' top-3 are listed for transparency, so a low-confidence
@@ -147,5 +147,5 @@ subtype). No real ONT leukemia counts were available for an end-to-end run.
 - No subtype-labelled nanopore data for leukemia: the 20 nanopore samples only
   validate the *domain* routing. Subtype accuracy is array-only.
 - Several rare subtypes have under 3 test samples; per-class metrics are noisy.
-- One seed, one split. E1 is evaluated in its full-array limit (no counts).
+- One seed, one split. Evidence is evaluated in its full-array limit (no counts).
 - The single 119-class softmax ablation has not been run.
