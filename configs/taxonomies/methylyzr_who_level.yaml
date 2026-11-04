@@ -1,0 +1,127 @@
+# Many-to-one mapping from the 91 GSE90496 (Capper 2018) classes to the WHO-level labels of the
+# MethyLYZR Zenodo cohort (R9 + R10). Documented in docs/METHYLYZR_LABEL_MAPPING.md.
+# Reusable format: a later configs/taxonomies/sturgeon_general_87.yaml can use the same keys.
+#   classes[].coarse         default decision (every source class appears exactly once)
+#   classes[].alt_coarse     the other plausible target when confidence is ambiguous (not applied)
+#   other_label              prediction side: mass of classes that no cohort label covers
+#   out_of_scope_label       truth side only: nothing among the 91 classes maps to it
+#   cohort_labels            truth side: cohort label_short -> coarse label
+# Not a medical decision: a documented, defensible mapping with open questions.
+name: methylyzr_who_level
+version: 1
+source_taxonomy: gse90496_91
+cohort: "MethyLYZR Zenodo 10.5281/zenodo.13236096 (labels: Brandl et al. Nat Med 2025, Supp. Tables 10 and 15)"
+other_label: OTHER_91
+out_of_scope_label: OUT_OF_SCOPE
+coarse_labels: ["A IDH", "O IDH", "GBM", "PXA", "MNG", "MB", "EPN", "LYMPHO", "PA", "PLEX", "ATRT", "DMG, K27", "CONTR, REACT", "OTHER_91"]
+cohort_labels:
+  "A IDH": {coarse: "A IDH"}
+  "O IDH": {coarse: "O IDH"}
+  "GBM": {coarse: "GBM"}
+  "PXA": {coarse: "PXA"}
+  "MNG": {coarse: "MNG"}
+  "MB": {coarse: "MB"}
+  "EPN": {coarse: "EPN"}
+  "LYMPHO": {coarse: "LYMPHO"}
+  "PA": {coarse: "PA"}
+  "PLEX": {coarse: "PLEX"}
+  "ATRT": {coarse: "ATRT"}
+  "DMG, K27": {coarse: "DMG, K27"}
+  "CONTR, REACT": {coarse: "CONTR, REACT"}
+  "Lung cancer metastasis": {coarse: OUT_OF_SCOPE, abstention_test: true}
+  "Breast cancer metastasis": {coarse: OUT_OF_SCOPE, abstention_test: true}
+  "Colorectal cancer metastasis": {coarse: OUT_OF_SCOPE, abstention_test: true}
+  "Endometrial cancer metastasis": {coarse: OUT_OF_SCOPE, abstention_test: true}
+  "Melanoma metastasis": {coarse: OUT_OF_SCOPE, abstention_test: true, note: "the 91 classes contain MELAN (melanoma, 'Metastatic tumor' in MethyLYZR's table): a MELAN call is arguably correct, not an error"}
+classes:
+  - {code: "A IDH", coarse: "A IDH", confidence: clear, rationale: "Capper names 'IDH glioma, subclass astrocytoma' and 'subclass high grade astrocytoma'; cohort label A IDH is a Capper code itself and MethyLYZR's own table merges both into IDH-mutant astrocytoma"}
+  - {code: "A IDH, HG", coarse: "A IDH", confidence: clear, rationale: "Capper names 'IDH glioma, subclass astrocytoma' and 'subclass high grade astrocytoma'; cohort label A IDH is a Capper code itself and MethyLYZR's own table merges both into IDH-mutant astrocytoma"}
+  - {code: "ANA PA", coarse: "PA", confidence: ambiguous, alt_coarse: "OTHER_91", rationale: "Capper 'anaplastic pilocytic astrocytoma' (higher-grade variant); kept in PA to follow MethyLYZR's table, a WHO-level PA label may not cover it"}
+  - {code: "ATRT, MYC", coarse: "ATRT", confidence: clear, rationale: "Capper 'atypical teratoid/rhabdoid tumor' subclasses MYC, SHH, TYR"}
+  - {code: "ATRT, SHH", coarse: "ATRT", confidence: clear, rationale: "Capper 'atypical teratoid/rhabdoid tumor' subclasses MYC, SHH, TYR"}
+  - {code: "ATRT, TYR", coarse: "ATRT", confidence: clear, rationale: "Capper 'atypical teratoid/rhabdoid tumor' subclasses MYC, SHH, TYR"}
+  - {code: "CHGL", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "CHORDM", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "CN", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "CNS NB, FOXR2", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "CONTR, ADENOPIT", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, CEBM", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, HEMI", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, HYPTHAL", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, INFLAM", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, PINEAL", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, PONS", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CONTR, REACT", coarse: "CONTR, REACT", confidence: clear, rationale: "Capper 'control tissue, reactive tumor microenvironment'; same code as the cohort label"}
+  - {code: "CONTR, WM", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "CONTR, REACT", rationale: "Other control tissue classes; the cohort has one CONTR, REACT library and a model call to another control class is arguably also a non-tumour call, but the label is not determined by WHO level"}
+  - {code: "CPH, ADM", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "CPH, PAP", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "DLGNT", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "DMG, K27", coarse: "DMG, K27", confidence: clear, rationale: "Capper 'diffuse midline glioma H3 K27M mutant'; same code as the cohort label"}
+  - {code: "EFT, CIC", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "ENB, A", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "ENB, B", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "EPN, MPE", coarse: "EPN", confidence: clear, rationale: "Capper name starts with 'ependymoma' (posterior fossa A/B, RELA, YAP, spinal, myxopapillary); the cohort label EPN has no subtype (v11b4 calls seen: EPN, PF B)"}
+  - {code: "EPN, PF A", coarse: "EPN", confidence: clear, rationale: "Capper name starts with 'ependymoma' (posterior fossa A/B, RELA, YAP, spinal, myxopapillary); the cohort label EPN has no subtype (v11b4 calls seen: EPN, PF B)"}
+  - {code: "EPN, PF B", coarse: "EPN", confidence: clear, rationale: "Capper name starts with 'ependymoma' (posterior fossa A/B, RELA, YAP, spinal, myxopapillary); the cohort label EPN has no subtype (v11b4 calls seen: EPN, PF B)"}
+  - {code: "EPN, RELA", coarse: "EPN", confidence: clear, rationale: "Capper name starts with 'ependymoma' (posterior fossa A/B, RELA, YAP, spinal, myxopapillary); the cohort label EPN has no subtype (v11b4 calls seen: EPN, PF B)"}
+  - {code: "EPN, SPINE", coarse: "EPN", confidence: clear, rationale: "Capper name starts with 'ependymoma' (posterior fossa A/B, RELA, YAP, spinal, myxopapillary); the cohort label EPN has no subtype (v11b4 calls seen: EPN, PF B)"}
+  - {code: "EPN, YAP", coarse: "EPN", confidence: clear, rationale: "Capper name starts with 'ependymoma' (posterior fossa A/B, RELA, YAP, spinal, myxopapillary); the cohort label EPN has no subtype (v11b4 calls seen: EPN, PF B)"}
+  - {code: "ETMR", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "EWS", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "GBM, G34", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "GBM", rationale: "Capper 'glioblastoma, IDH wildtype, H3.3 G34 mutant'; MethyLYZR's table puts it in its own 'IDH wildtype glioma with H3 molecular features' class (WHO CNS5: diffuse hemispheric glioma, a separate type), but a pre-2021 WHO-level 'GBM' label may include it"}
+  - {code: "GBM, MES", coarse: "GBM", confidence: clear, rationale: "Capper name 'glioblastoma, IDH wildtype, subclass ...'; MethyLYZR's own table merges these into IDH wild type glioblastoma"}
+  - {code: "GBM, MID", coarse: "GBM", confidence: ambiguous, alt_coarse: "DMG, K27", rationale: "Capper name 'glioblastoma, IDH wildtype, subclass midline' and merged into GBM by MethyLYZR, but midline location overlaps DMG, K27 territory; a midline WHO-level GBM label would not tell the two apart"}
+  - {code: "GBM, MYCN", coarse: "GBM", confidence: clear, rationale: "Capper name 'glioblastoma, IDH wildtype, subclass ...'; MethyLYZR's own table merges these into IDH wild type glioblastoma"}
+  - {code: "GBM, RTK I", coarse: "GBM", confidence: clear, rationale: "Capper name 'glioblastoma, IDH wildtype, subclass ...'; MethyLYZR's own table merges these into IDH wild type glioblastoma"}
+  - {code: "GBM, RTK II", coarse: "GBM", confidence: clear, rationale: "Capper name 'glioblastoma, IDH wildtype, subclass ...'; MethyLYZR's own table merges these into IDH wild type glioblastoma"}
+  - {code: "GBM, RTK III", coarse: "GBM", confidence: clear, rationale: "Capper name 'glioblastoma, IDH wildtype, subclass ...'; MethyLYZR's own table merges these into IDH wild type glioblastoma"}
+  - {code: "HGNET, BCOR", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "HGNET, MN1", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "HMB", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "IHG", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "GBM", rationale: "Infantile hemispheric glioma; MethyLYZR groups it with 'IDH wild type glioma' and it is a high-grade IDH-wildtype glioma, but it is not glioblastoma by name and the cohort has few infants (not verified)"}
+  - {code: "LGG, DIG/DIA", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LGG, DNT", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LGG, GG", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LGG, MYB", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LGG, PA MID", coarse: "PA", confidence: clear, rationale: "Capper 'low grade glioma, subclass posterior fossa / midline pilocytic astrocytoma'; MethyLYZR merges them into pilocytic astrocytoma"}
+  - {code: "LGG, PA PF", coarse: "PA", confidence: clear, rationale: "Capper 'low grade glioma, subclass posterior fossa / midline pilocytic astrocytoma'; MethyLYZR merges them into pilocytic astrocytoma"}
+  - {code: "LGG, PA/GG ST", coarse: "PA", confidence: ambiguous, alt_coarse: "OTHER_91", rationale: "Capper 'hemispheric pilocytic astrocytoma and ganglioglioma': mixed PA/ganglioglioma class, so a WHO-level PA label does not determine it; kept in PA to follow MethyLYZR's table"}
+  - {code: "LGG, RGNT", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LGG, SEGA", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LIPN", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "LYMPHO", coarse: "LYMPHO", confidence: clear, rationale: "Capper 'lymphoma'; same code as the cohort label (PLASMA plasmacytoma stays separate, as in MethyLYZR)"}
+  - {code: "MB, G3", coarse: "MB", confidence: clear, rationale: "Capper medulloblastoma subgroup (WNT, SHH A/B, group 3, group 4); the cohort label MB has no subgroup"}
+  - {code: "MB, G4", coarse: "MB", confidence: clear, rationale: "Capper medulloblastoma subgroup (WNT, SHH A/B, group 3, group 4); the cohort label MB has no subgroup"}
+  - {code: "MB, SHH CHL AD", coarse: "MB", confidence: clear, rationale: "Capper medulloblastoma subgroup (WNT, SHH A/B, group 3, group 4); the cohort label MB has no subgroup"}
+  - {code: "MB, SHH INF", coarse: "MB", confidence: clear, rationale: "Capper medulloblastoma subgroup (WNT, SHH A/B, group 3, group 4); the cohort label MB has no subgroup"}
+  - {code: "MB, WNT", coarse: "MB", confidence: clear, rationale: "Capper medulloblastoma subgroup (WNT, SHH A/B, group 3, group 4); the cohort label MB has no subgroup"}
+  - {code: "MELAN", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "MELCYT", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "MNG", coarse: "MNG", confidence: clear, rationale: "Capper 'meningioma'; same code as the cohort label"}
+  - {code: "O IDH", coarse: "O IDH", confidence: clear, rationale: "Capper 'IDH glioma, subclass 1p/19q codeleted oligodendroglioma'; same code as the cohort label"}
+  - {code: "PGG, nC", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PIN T,  PB A", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PIN T,  PB B", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PIN T, PPT", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, ACTH", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, FSH LH", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, PRL", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, STH DNS A", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, STH DNS B", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, STH SPA", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITAD, TSH", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PITUI", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PLASMA", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PLEX, AD", coarse: "PLEX", confidence: clear, rationale: "Capper 'plexus tumor' subclasses (adult, paediatric A/B); MethyLYZR merges them into plexus tumor"}
+  - {code: "PLEX, PED A", coarse: "PLEX", confidence: clear, rationale: "Capper 'plexus tumor' subclasses (adult, paediatric A/B); MethyLYZR merges them into plexus tumor"}
+  - {code: "PLEX, PED B", coarse: "PLEX", confidence: clear, rationale: "Capper 'plexus tumor' subclasses (adult, paediatric A/B); MethyLYZR merges them into plexus tumor"}
+  - {code: "PTPR, A", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PTPR, B", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "PXA", coarse: "PXA", confidence: clear, rationale: "Capper '(anaplastic) pleomorphic xanthoastrocytoma'; same code as the cohort label (v11b4 calls 'PXA' and 'X PXA' in the cohort)"}
+  - {code: "RETB", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "SCHW", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "SCHW, MEL", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "SFT HMPC", coarse: "OTHER_91", confidence: clear, rationale: "No MethyLYZR cohort label covers this class (cohort has about 13 CNS labels)"}
+  - {code: "SUBEPN, PF", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "EPN", rationale: "Subependymoma is a separate WHO type (MethyLYZR keeps it as its own class) though in the ependymal family; unknown whether a pathologist's 'EPN' label in the cohort includes it"}
+  - {code: "SUBEPN, SPINE", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "EPN", rationale: "Subependymoma is a separate WHO type (MethyLYZR keeps it as its own class) though in the ependymal family; unknown whether a pathologist's 'EPN' label in the cohort includes it"}
+  - {code: "SUBEPN, ST", coarse: "OTHER_91", confidence: ambiguous, alt_coarse: "EPN", rationale: "Subependymoma is a separate WHO type (MethyLYZR keeps it as its own class) though in the ependymal family; unknown whether a pathologist's 'EPN' label in the cohort includes it"}
