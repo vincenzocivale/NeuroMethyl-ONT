@@ -21,6 +21,28 @@ as an input feature, so a model cannot learn depth-to-batch-to-class
 shortcuts. Models are benchmarked against Sturgeon, crossNN and MethyLYZR.
 No clinical use is implied.
 
+**Current question.** Can a classifier give *reliable* CNS tumour calls at low coverage, so that more
+samples fit on one flow cell? Reliability is measured as accuracy, calibration and abstention against
+sequencing depth, on the same samples and class set as the published competitors (Sturgeon, crossNN,
+MethyLYZR, ...). B0/C0/E1 below are the tools for that question.
+
+## Current status and where to work
+
+Done: B0/C0/E1 and the B0+E1 ensemble trained on GSE90496; evaluated on Rapid-CNS2, ONT-WGS, GSE289246,
+GSE209865, Magibu pools and own MB/ETMR samples; competitor runs (Sturgeon, crossNN, MethyLYZR) in
+`outputs/benchmarks/` (gitignored, regenerable with `scripts/competitors/`); a *synthetic* depth curve on the GSE90496 holdout
+(simulated counts, `scripts/evaluation/evaluate_depth_curve.py`); ALMA leukemia head and router.
+
+Not done:
+- No depth curve on **real downsampled** ONT data (Rapid-CNS2 / GSE289246 reads or time-cumulative BAMs).
+- No mapping from Sturgeon's released 87 classes to the 91 used here, so no same-class-set comparison.
+- `nanoDx_EGA` is empty (controlled access), so there is no read-level downsampling cohort yet.
+- The earlier EB1 (Beta-Binomial Naive Bayes) results in `outputs/benchmarks/EB1_VS_COMPETITORS.md` come from
+  code that was never committed (`models/evidence_bayes.py`, `docs/EVIDENCE_BAYES_V1.md`); only the
+  checkpoint in `outputs/experiments/eb1_empirical_kappa_seed17` remains, so EB1 is not reproducible from this repo.
+
+Work on branch `mission/<slug>`, never on `main`; run `ruff check .` and `pytest` first.
+
 ## Install
 
 ```bash
@@ -87,5 +109,5 @@ third_party/                         vendored competitor code (see third_party/R
 
 ## License
 
-No license has been selected yet; add one to `LICENSE` before public release.
+No license has been selected yet; replace `LICENSE_PLACEHOLDER.md` with a `LICENSE` before public release.
 Third-party code and model assets remain under their own licenses.
