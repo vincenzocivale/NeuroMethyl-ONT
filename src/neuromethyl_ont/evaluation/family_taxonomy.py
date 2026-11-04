@@ -1,6 +1,6 @@
 """Family-level taxonomy aggregation shared by every SOTA comparison script.
 
-Every model compared this way (B0, C0, E1, the B0+E1 ensemble, Sturgeon,
+Every model compared this way (Binary, Beta, Evidence, the Consensus ensemble, Sturgeon,
 crossNN) is aggregated identically: no
 probability mass is discarded or renormalized, and any class not covered by
 the taxonomy's ``family_code`` column lands in one explicit ``UNRESOLVED``

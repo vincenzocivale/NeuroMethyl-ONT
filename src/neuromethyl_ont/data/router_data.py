@@ -1,6 +1,6 @@
 """Feature construction for the CNS-vs-leukemia domain router.
 
-Every cohort is mapped onto the GSE90496 feature index, binarized like B0
+Every cohort is mapped onto the GSE90496 feature index, binarized like Binary
 (+1/-1 around the 0.6 threshold, 0 = unobserved) and restricted to probes also
 present in the ALMA reference (everything else is set to 0).
 """

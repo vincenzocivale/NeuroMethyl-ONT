@@ -1,6 +1,6 @@
 model:
   name: continuous_linear
-  id: C0
+  id: Beta
   representation: continuous
   family: evidence_linear
   architecture:

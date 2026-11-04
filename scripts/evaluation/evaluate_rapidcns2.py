@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 vs C0 vs E1 vs B0+E1 vs Sturgeon vs crossNN on Rapid-CNS2 / ONT-WGS: this
+"""Binary vs Beta vs Evidence vs Consensus vs Sturgeon vs crossNN on Rapid-CNS2 / ONT-WGS: this
 project's primary *real* (not synthetic, not pooled) coverage-aware
 benchmark pair (docs/RAPIDCNS2_CANONICAL_PREPROCESSING.md, EVIDENCE_LINEAR_V1.md
 #16). Rapid_CNS2 (n=300, median mean coverage ~2.0x) is the low-coverage,
@@ -64,8 +64,8 @@ def score_cohort(
     c0_probs = softmax_probs(predict_logits(c0_model, features["continuous"]))
     c0_fam, c0_families = aggregate_to_family(c0_probs, c0_classes, family_by_class)
     if c0_families != families:
-        raise RuntimeError("B0/C0 family layouts disagree")
-    model_probs = {"B0": b0_fam, "C0": c0_fam}
+        raise RuntimeError("Binary/Beta family layouts disagree")
+    model_probs = {"Binary": b0_fam, "Beta": c0_fam}
 
     if e1_model is not None:
         evidence = evidence_transform(features["m"], features["u"], mu, e1_kappa).astype(
@@ -74,8 +74,8 @@ def score_cohort(
         e1_probs = softmax_probs(predict_logits(e1_model, evidence))
         e1_fam, e1_families = aggregate_to_family(e1_probs, e1_classes, family_by_class)
         e1_fam = reindex(e1_fam, e1_families, families)
-        model_probs["E1"] = e1_fam
-        model_probs["B0+E1"] = ensemble_average(b0_fam, e1_fam)
+        model_probs["Evidence"] = e1_fam
+        model_probs["Consensus"] = ensemble_average(b0_fam, e1_fam)
 
     frame = pd.DataFrame(
         {"sample_id": features["sample_id"], "mean_coverage": features["mean_coverage"]}
@@ -152,12 +152,12 @@ def main() -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     ap.add_argument("--reference-dir", type=Path, required=True)
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
-    ap.add_argument("--c0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--beta-checkpoint", "--c0-checkpoint", type=Path, required=True)
     ap.add_argument(
-        "--e1-checkpoint", type=Path, default=None, help="optional; omit to skip E1 entirely"
+        "--evidence-checkpoint", "--e1-checkpoint", type=Path, default=None, help="optional; omit to skip Evidence entirely"
     )
-    ap.add_argument("--e1-kappa", type=float, default=2.0)
+    ap.add_argument("--evidence-kappa", "--e1-kappa", type=float, default=2.0)
     ap.add_argument("--taxonomy", type=Path, required=True)
     ap.add_argument("--rapid-dir", type=Path, required=True)
     ap.add_argument("--rapid-labels-xlsx", type=Path, required=True)
@@ -190,16 +190,16 @@ def main() -> int:
         if pd.notna(row.family_code) and str(row.family_code).strip()
     }
 
-    b0_model, b0_classes = load_torch_checkpoint(args.b0_checkpoint)
-    c0_model, c0_classes = load_torch_checkpoint(args.c0_checkpoint)
+    b0_model, b0_classes = load_torch_checkpoint(args.binary_checkpoint)
+    c0_model, c0_classes = load_torch_checkpoint(args.beta_checkpoint)
     if set(b0_classes) != set(c0_classes):
-        raise RuntimeError("B0/C0 must cover exactly the same classes")
+        raise RuntimeError("Binary/Beta must cover exactly the same classes")
 
     e1_model, e1_classes = (None, None)
-    if args.e1_checkpoint is not None:
-        e1_model, e1_classes = load_torch_checkpoint(args.e1_checkpoint)
+    if args.evidence_checkpoint is not None:
+        e1_model, e1_classes = load_torch_checkpoint(args.evidence_checkpoint)
         if set(e1_classes) != set(b0_classes):
-            raise RuntimeError("E1 must cover exactly the same classes as B0/C0")
+            raise RuntimeError("Evidence must cover exactly the same classes as Binary/Beta")
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -209,11 +209,11 @@ def main() -> int:
 
     rapid_frame, rapid_probs, families = score_cohort(
         rapid_files, feature_pos, mu, b0_model, b0_classes, c0_model, c0_classes,
-        family_by_class, e1_model, e1_classes, args.e1_kappa,
+        family_by_class, e1_model, e1_classes, args.evidence_kappa,
     )
     ont_frame, ont_probs, ont_families = score_cohort(
         ont_files, feature_pos, mu, b0_model, b0_classes, c0_model, c0_classes,
-        family_by_class, e1_model, e1_classes, args.e1_kappa,
+        family_by_class, e1_model, e1_classes, args.evidence_kappa,
     )
     if ont_families != families:
         raise RuntimeError("Rapid_CNS2/ONT_WGS family layouts disagree")
@@ -234,9 +234,9 @@ def main() -> int:
         ont_frame, ont_probs, families, "crossNN", args.crossnn_ont,
         family_by_class, lambda c: c,
     )
-    model_names = ["B0", "C0", "Sturgeon", "crossNN"]
+    model_names = ["Binary", "Beta", "Sturgeon", "crossNN"]
     if e1_model is not None:
-        model_names[2:2] = ["E1", "B0+E1"]
+        model_names[2:2] = ["Evidence", "Consensus"]
 
     labels = load_rapidcns2_labels(args.rapid_labels_xlsx, set(b0_classes)).labels
     truth_family = labels.assign(family_code=labels.label.map(family_by_class))

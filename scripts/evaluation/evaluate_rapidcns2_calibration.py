@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 calibration and top-3 accuracy on Rapid_CNS2, at full 91-class
+"""Binary calibration and top-3 accuracy on Rapid_CNS2, at full 91-class
 resolution (not the family-level aggregation evaluate_rapidcns2.py
 uses for cross-model comparison). Real per-patient coverage (median ~2x,
 not pooled, not synthetic), ground truth from Supplementary Table 1
@@ -12,7 +12,7 @@ plot_b0_calibration_top3.py can draw either cohort with the same code.
 Usage:
     python scripts/evaluation/evaluate_rapidcns2_calibration.py \
         --reference-dir $NEUROMETHYL_DATA_ROOT/derived/reference/GSE90496 \
-        --b0-checkpoint outputs/experiments/b0_fixed80_seed17_bs128_w16_opt/checkpoint_best.pt \
+        --binary-checkpoint outputs/experiments/b0_fixed80_seed17_bs128_w16_opt/checkpoint_best.pt \
         --rapid-dir $NEUROMETHYL_DATA_ROOT/derived/array_aligned/probe_level/RapidCNS2/Rapid_CNS2 \
         --rapid-labels-xlsx \
             $NEUROMETHYL_DATA_ROOT/datasets/RapidCNS2/metadata/Supplementary_Tables_1_2.xlsx \
@@ -54,7 +54,7 @@ def main() -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     ap.add_argument("--reference-dir", type=Path, required=True)
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
     ap.add_argument("--rapid-dir", type=Path, required=True)
     ap.add_argument("--rapid-labels-xlsx", type=Path, required=True)
     ap.add_argument("--output-dir", type=Path, required=True)
@@ -69,7 +69,7 @@ def main() -> int:
     )
     feature_pos = {probe: i for i, probe in enumerate(feature_index.probe_ids)}
 
-    b0_model, b0_classes = load_torch_checkpoint(args.b0_checkpoint)
+    b0_model, b0_classes = load_torch_checkpoint(args.binary_checkpoint)
     class_to_idx = {c: i for i, c in enumerate(b0_classes)}
 
     rapid_files = sorted(args.rapid_dir.glob("*.parquet"))
@@ -97,7 +97,7 @@ def main() -> int:
 
     prediction = b0_probs.argmax(axis=1)
     metrics = {
-        "model": "B0",
+        "model": "Binary",
         "n_samples": len(sample_ids),
         **classification_metrics(y_true, prediction),
         "top3_accuracy": top_k_accuracy(b0_probs, y_true, k=3),
@@ -118,7 +118,7 @@ def main() -> int:
     top3_frame.insert(0, "sample_id", sample_ids)
     top3_frame.to_csv(args.output_dir / "rapidcns2_b0_top3.tsv", sep="\t", index=False)
 
-    print("\n=== Rapid_CNS2, B0, full 91-class ===")
+    print("\n=== Rapid_CNS2, Binary, full 91-class ===")
     print(pd.DataFrame([metrics]).to_string(index=False))
     return 0
 

@@ -38,7 +38,7 @@ def test_run_depth_curve_produces_one_row_per_model_per_depth():
     mu = beta_train.mean(axis=0)
 
     models, representations = {}, {}
-    for name, representation in (("B0", "binary"), ("C0", "continuous"), ("E1", "evidence")):
+    for name, representation in (("Binary", "binary"), ("Beta", "continuous"), ("Evidence", "evidence")):
         model = build_linear_classifier(n_features=6, n_classes=3)
         config = TrainingConfig(
             representation=representation, max_epochs=5, early_stopping_patience=5,
@@ -53,5 +53,5 @@ def test_run_depth_curve_produces_one_row_per_model_per_depth():
     )
 
     assert len(depth_curve) == len(models) * len(DEPTH_GRID)
-    assert set(depth_curve["model"]) == {"B0", "C0", "E1"}
+    assert set(depth_curve["model"]) == {"Binary", "Beta", "Evidence"}
     assert "accuracy" in depth_curve.columns

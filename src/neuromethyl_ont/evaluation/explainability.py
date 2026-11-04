@@ -1,4 +1,4 @@
-"""Post-hoc explainability for the linear classifiers (B0/C0/E1).
+"""Post-hoc explainability for the linear classifiers (Binary/Beta/Evidence).
 
 Because every model built by ``models.evidence_linear.build_linear_classifier``
 is exactly ``logits = Wx + b``, the contribution of each input feature to each
@@ -70,7 +70,7 @@ def explain_prediction(
     """Explain one sample's prediction by decomposing the linear logit.
 
     ``x`` is the model's input feature vector (post representation-specific
-    encoding -- e.g. B0's thresholded binary state), shape ``(n_features,)``,
+    encoding -- e.g. Binary's thresholded binary state), shape ``(n_features,)``,
     already aligned to ``probe_ids`` via the canonical
     :class:`~neuromethyl_ont.data.array_reference.FeatureIndex`.
     """

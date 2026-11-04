@@ -1,6 +1,6 @@
 """Two-stage inference: domain router -> CNS or leukemia specialist head.
 
-Each head is the B0+E1 ensemble (docs/PRODUCTION_MODEL.md) over its own
+Each head is the Consensus ensemble (docs/PRODUCTION_MODEL.md) over its own
 reference. The router (training/router.py) picks the head from the same sample
 counts; if its confidence is below ``threshold`` the sample is left
 ``undetermined`` rather than forced into either taxonomy.
@@ -98,7 +98,7 @@ def load_head(
     b0_model, classes = load_linear_checkpoint(b0_checkpoint, "binary")
     e1_model, e1_classes = load_linear_checkpoint(e1_checkpoint, "evidence")
     if e1_classes != classes:
-        raise ValueError("B0 and E1 checkpoints must cover exactly the same classes, in order")
+        raise ValueError("Binary and Evidence checkpoints must cover exactly the same classes, in order")
     return Head(name, feature_index, mu, b0_model, e1_model, classes, kappa)
 
 

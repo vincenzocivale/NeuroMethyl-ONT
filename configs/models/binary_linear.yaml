@@ -1,6 +1,6 @@
 model:
   name: binary_linear
-  id: B0
+  id: Binary
   representation: binary
   family: evidence_linear
   architecture:

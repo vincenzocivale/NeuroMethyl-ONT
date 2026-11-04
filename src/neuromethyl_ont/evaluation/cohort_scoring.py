@@ -2,7 +2,7 @@
 
 Checkpoint loading, canonical-parquet feature extraction (binary, continuous
 and count features sharing one feature-index column order, so every model
-scores exactly the same evidence) and the B0+E1 ensemble.
+scores exactly the same evidence) and the Consensus ensemble.
 """
 
 from __future__ import annotations
@@ -75,5 +75,5 @@ def reindex(probs: np.ndarray, source: list[str], target: list[str]) -> np.ndarr
 
 
 def ensemble_average(*probs: np.ndarray) -> np.ndarray:
-    """Arithmetic mean of aligned probability matrices (the B0+E1 ensemble)."""
+    """Arithmetic mean of aligned probability matrices (the Consensus ensemble)."""
     return np.mean(probs, axis=0)

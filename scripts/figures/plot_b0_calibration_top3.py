@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 calibration (reliability diagram) and top-1-vs-top-3 accuracy, from any
+"""Binary calibration (reliability diagram) and top-1-vs-top-3 accuracy, from any
 cohort's evaluate_*.py output that follows the {prefix}_calibration.tsv /
 {prefix}_top3.tsv / class_metrics.tsv shape (evaluate_gse109379.py,
 evaluate_rapidcns2_calibration.py).
@@ -31,6 +31,7 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from neuromethyl_ont.evaluation.plot_style import COLOR, HAIRLINE, INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
 
 def plot_reliability_diagram(calibration: pd.DataFrame, dataset_label: str, output: Path) -> None:
@@ -39,7 +40,7 @@ def plot_reliability_diagram(calibration: pd.DataFrame, dataset_label: str, outp
     ax.plot([0, 1], [0, 1], color=HAIRLINE, linewidth=1.2, linestyle="--", zorder=1)
     sizes = 40 + 260 * (valid["count"] / valid["count"].max())
     ax.scatter(
-        valid["confidence"], valid["accuracy"], s=sizes, color=COLOR["B0"], zorder=3,
+        valid["confidence"], valid["accuracy"], s=sizes, color=COLOR["Binary"], zorder=3,
         edgecolor="white", linewidth=0.8,
     )
     for _, row in valid.iterrows():
@@ -56,7 +57,7 @@ def plot_reliability_diagram(calibration: pd.DataFrame, dataset_label: str, outp
     ax.set_axisbelow(True)
     ax.grid(True, color=HAIRLINE, linewidth=0.8, zorder=0)
     fig.suptitle(
-        f"B0 calibration — {dataset_label}", fontsize=13, fontweight="bold", x=0.02, ha="left",
+        f"Binary calibration — {dataset_label}", fontsize=13, fontweight="bold", x=0.02, ha="left",
         color=INK,
     )
     ax.set_title(
@@ -70,12 +71,12 @@ def plot_reliability_diagram(calibration: pd.DataFrame, dataset_label: str, outp
 
 
 def plot_top1_vs_top3(class_metrics: pd.DataFrame, dataset_label: str, output: Path) -> None:
-    row = class_metrics.loc[class_metrics["model"] == "B0"].iloc[0]
+    row = class_metrics.loc[class_metrics["model"] == "Binary"].iloc[0]
     values = [row["accuracy"], row["top3_accuracy"]]
     labels = ["top-1", "top-3"]
 
     fig, ax = plt.subplots(figsize=(4.6, 4.4))
-    bars = ax.bar(labels, values, width=0.55, color=[COLOR["B0"], COLOR["C0"]], zorder=3)
+    bars = ax.bar(labels, values, width=0.55, color=[COLOR["Binary"], COLOR["Beta"]], zorder=3)
     for bar, v in zip(bars, values, strict=True):
         ax.annotate(
             f"{v * 100:.1f}%", xy=(bar.get_x() + bar.get_width() / 2, v),
@@ -90,7 +91,7 @@ def plot_top1_vs_top3(class_metrics: pd.DataFrame, dataset_label: str, output: P
     ax.set_axisbelow(True)
     ax.tick_params(axis="both", length=0)
     fig.suptitle(
-        f"B0 top-1 vs top-3 — {dataset_label}", fontsize=13, fontweight="bold", x=0.02, ha="left",
+        f"Binary top-1 vs top-3 — {dataset_label}", fontsize=13, fontweight="bold", x=0.02, ha="left",
         color=INK,
     )
     ax.set_title(
@@ -117,9 +118,9 @@ def main() -> int:
     args = ap.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    calibration = pd.read_csv(args.results_dir / args.calibration_file, sep="\t")
-    class_metrics = pd.read_csv(args.results_dir / args.class_metrics_file, sep="\t")
-    top3 = pd.read_csv(args.results_dir / args.top3_file, sep="\t")
+    calibration = read_results_tsv(args.results_dir / args.calibration_file)
+    class_metrics = read_results_tsv(args.results_dir / args.class_metrics_file)
+    top3 = read_results_tsv(args.results_dir / args.top3_file)
 
     plot_reliability_diagram(
         calibration, args.dataset_label,

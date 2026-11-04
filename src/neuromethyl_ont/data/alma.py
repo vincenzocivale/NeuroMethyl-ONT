@@ -4,7 +4,7 @@ doi:10.1038/s41467-025-62005-4) -- see docs/ALMA_MILESTONE.md.
 This is a separate classifier milestone from the CNS tumor pipeline: ALMA
 covers acute leukemias (AML/ALL/MDS/APL/MPAL), not CNS tumors, and has its
 own reference cohort and class taxonomy. Nothing here feeds the GSE90496-derived
-91-class CNS models (B0/C0/E1).
+91-class CNS models (Binary/Beta/Evidence).
 
 Two public files, both under ``datasets/ALMA/raw/`` (GitHub f-marchi/ALMA
 v0.2.0 release):

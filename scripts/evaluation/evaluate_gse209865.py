@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
-"""B0 vs Sturgeon vs crossNN on GSE209865 -- this project's own registry
+"""Binary vs Sturgeon vs crossNN on GSE209865 -- this project's own registry
 (registry/datasets.tsv) names this the legacy Sturgeon/nanoDx benchmark:
 415 real individual nanopore low-pass WGS tumors (median ~8.6k probe calls
 per sample, range 46-326660 -- real, highly variable low coverage, not
 synthetic and not pooled). Never scored by any model in this project before
 (confirmed gap).
 
-Only B0 is scored, not C0. GSE209865's raw GEO files are *already*
+Only Binary is scored, not Beta. GSE209865's raw GEO files are *already*
 binary methylation calls per probe (chrom, chromStart, chromEnd,
 methylation_call, probe_id) -- exactly Sturgeon's own input shape -- with no
 continuous beta or (methylated_count, unmethylated_count) evidence anywhere
-in what GEO published. That is precisely B0's own feature space
+in what GEO published. That is precisely Binary's own feature space
 (binary_transform's +1/-1/0-if-unobserved), used here with GEO's own real
 calls directly -- no synthetic Poisson/threshold step at all, the most
-faithful B0 evaluation on real low-coverage ONT data this project has run.
-C0 need a continuous or count representation this cohort's raw data
+faithful Binary evaluation on real low-coverage ONT data this project has run.
+Beta need a continuous or count representation this cohort's raw data
 does not provide; scoring them here would require inventing coverage this
 dataset does not have, so they are skipped rather than faked.
 
@@ -107,7 +107,7 @@ def main() -> int:
     ap.add_argument("--raw-dir", type=Path, required=True, help="datasets/GSE209865/raw/extracted")
     ap.add_argument("--soft-file", type=Path, required=True)
     ap.add_argument("--reference-dir", type=Path, required=True)
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
     ap.add_argument("--taxonomy", type=Path, required=True)
     ap.add_argument("--sturgeon-predictions", type=Path, default=None)
     ap.add_argument("--crossnn-predictions", type=Path, default=None)
@@ -124,7 +124,7 @@ def main() -> int:
         if pd.notna(row.family_code) and str(row.family_code).strip()
     }
 
-    b0_model, b0_classes = load_torch_checkpoint(args.b0_checkpoint)
+    b0_model, b0_classes = load_torch_checkpoint(args.binary_checkpoint)
     class_to_idx = {c: i for i, c in enumerate(b0_classes)}
 
     soft_labels = parse_soft_labels(args.soft_file)
@@ -178,13 +178,13 @@ def main() -> int:
     b0_fam_probs, families = aggregate_to_family(b0_probs, b0_classes, family_by_class)
 
     class_rows = [{
-        "model": "B0", "n_samples": len(sample_ids),
+        "model": "Binary", "n_samples": len(sample_ids),
         **dict(classification_metrics(y_true, b0_probs.argmax(axis=1))),
         "top3_accuracy": top_k_accuracy(b0_probs, y_true, k=3),
         "nll": negative_log_likelihood(b0_probs, y_true),
         "ece": expected_calibration_error(b0_probs, y_true),
     }]
-    family_rows = [{"model": "B0", **family_metrics(true_families, b0_fam_probs, families)}]
+    family_rows = [{"model": "Binary", **family_metrics(true_families, b0_fam_probs, families)}]
 
     frame = pd.DataFrame({
         "sample_id": sample_ids,
@@ -221,7 +221,7 @@ def main() -> int:
         args.output_dir / "gse209865_family_metrics.tsv", sep="\t", index=False
     )
 
-    print("\n=== GSE209865, B0 91-class accuracy ===")
+    print("\n=== GSE209865, Binary 91-class accuracy ===")
     print(pd.DataFrame(class_rows)[["model", "accuracy", "top3_accuracy", "balanced_accuracy",
                                      "macro_f1", "nll", "ece"]].to_string(index=False))
     print("\n=== GSE209865, family-level accuracy ===")

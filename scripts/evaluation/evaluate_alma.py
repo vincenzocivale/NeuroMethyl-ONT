@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Score the ALMA leukemia heads (B0, C0, E1 and B0+E1) on the held-out splits.
+"""Score the ALMA leukemia heads (Binary, Beta, Evidence and Consensus) on the held-out splits.
 
-ALMA cohorts are arrays (beta only, no counts), so E1 is evaluated in its
+ALMA cohorts are arrays (beta only, no counts), so Evidence is evaluated in its
 full-array limit, as during training validation. The test split should be
 read once, after model selection on val is finished.
 
@@ -39,7 +39,7 @@ def load_probe_ids(path: Path) -> list[str]:
     return pd.read_csv(path, sep="\t")["probe_id"].astype(str).tolist()
 
 
-REPRESENTATION = {"B0": "binary", "C0": "continuous", "E1": "evidence"}
+REPRESENTATION = {"Binary": "binary", "Beta": "continuous", "Evidence": "evidence"}
 
 
 def main() -> int:
@@ -81,7 +81,7 @@ def main() -> int:
         for name, model in models.items():
             x = encode_full_array(REPRESENTATION[name], beta, mu=mu, threshold=0.6)
             probs[name] = softmax_probs(predict_logits(model, x))
-        probs["B0+E1"] = 0.5 * (probs["B0"] + probs["E1"])
+        probs["Consensus"] = 0.5 * (probs["Binary"] + probs["Evidence"])
 
         for name, p in probs.items():
             metrics = depth_curve_metrics(np.log(np.clip(p, 1e-12, None)), y)

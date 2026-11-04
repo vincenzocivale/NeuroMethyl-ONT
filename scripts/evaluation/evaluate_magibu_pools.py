@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Consolidated B0 vs C0 vs Sturgeon vs crossNN family-level comparison on
+"""Consolidated Binary vs Beta vs Sturgeon vs crossNN family-level comparison on
 the data provider's pooled Magibu pseudo-samples. These pools carry no counts
-(beta only), so E1 and the B0+E1 ensemble, which need sequencing counts,
+(beta only), so Evidence and the Consensus ensemble, which need sequencing counts,
 cannot be scored here.
 
-Scores B0 and C0 from the same beta.npy in one pass and adds Sturgeon and
+Scores Binary and Beta from the same beta.npy in one pass and adds Sturgeon and
 crossNN's own predictions (scripts/competitors/run_sturgeon_predict.py /
 scripts/competitors/run_crossnn_predict.py output), all onto the identical
 family taxonomy, and writes one table with all models side by side per
@@ -75,10 +75,10 @@ def main() -> int:
     ap.add_argument(
         "--magibu-root", type=Path, required=True, help="derived/evaluation/magibu_v1"
     )
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
-    ap.add_argument("--c0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--beta-checkpoint", "--c0-checkpoint", type=Path, required=True)
     ap.add_argument("--taxonomy", type=Path, required=True)
-    ap.add_argument("--reference-dir", type=Path, required=True, help="for C0's per-probe mean")
+    ap.add_argument("--reference-dir", type=Path, required=True, help="for Beta's per-probe mean")
     ap.add_argument("--sturgeon-predictions", type=Path, required=True)
     ap.add_argument("--crossnn-predictions", type=Path, required=True)
     ap.add_argument("--output-dir", type=Path, required=True)
@@ -91,14 +91,14 @@ def main() -> int:
         if pd.notna(row.family_code) and str(row.family_code).strip()
     }
 
-    b0_model, b0_classes = load_checkpoint(args.b0_checkpoint)
-    c0_model, c0_classes = load_checkpoint(args.c0_checkpoint)
+    b0_model, b0_classes = load_checkpoint(args.binary_checkpoint)
+    c0_model, c0_classes = load_checkpoint(args.beta_checkpoint)
     if (
         set(b0_classes) != set(c0_classes)
         or set(b0_classes) != set(taxonomy.model_class)
     ):
         raise RuntimeError(
-            "B0/C0 checkpoints and taxonomy must cover exactly the same classes"
+            "Binary/Beta checkpoints and taxonomy must cover exactly the same classes"
         )
     mu = (
         pd.read_parquet(args.reference_dir / "probe_statistics.parquet")
@@ -147,7 +147,7 @@ def main() -> int:
         )
         c0_fam, c0_families = aggregate_to_family(c0_probs, c0_classes, family_by_class)
         if c0_families != families:
-            raise RuntimeError(f"{pool}: B0/C0 family layouts disagree")
+            raise RuntimeError(f"{pool}: Binary/Beta family layouts disagree")
 
         if not set(manifest.sample_id).issubset(sturgeon_by_sample):
             raise RuntimeError(f"{pool}: some samples lack a Sturgeon prediction")
@@ -160,7 +160,7 @@ def main() -> int:
 
         truth = manifest.family_code.to_numpy()
         model_probs = {
-            "B0": b0_fam, "C0": c0_fam,
+            "Binary": b0_fam, "Beta": c0_fam,
             "Sturgeon": sturgeon_fam, "crossNN": crossnn_fam,
         }
         for model_name, probs in model_probs.items():

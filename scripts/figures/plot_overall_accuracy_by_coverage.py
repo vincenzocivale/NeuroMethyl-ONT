@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Overall (not per-class) B0 vs. Sturgeon vs. crossNN family accuracy,
+"""Overall (not per-class) Binary vs. Sturgeon vs. crossNN family accuracy,
 one bar chart with three groups, all platform-verified:
 
 - Magibu lowpass_pool (GSE209865, confirmed single-platform MinION/GPL24106
@@ -45,8 +45,9 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from neuromethyl_ont.evaluation.plot_style import COLOR, HAIRLINE, INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
-MODELS = ["B0", "Sturgeon", "crossNN"]
+MODELS = ["Binary", "Sturgeon", "crossNN"]
 POOL_GROUPS = [
     ("lowpass_pool", "Magibu lowpass_pool\n(~1x MinION, GSE209865, verified single-platform)"),
     ("promethion_subclass_pool", "Magibu promethion_subclass_pool\n(~1x PromethION, literature)"),
@@ -57,8 +58,8 @@ RAPIDCNS2_GROUP = "Rapid_CNS2\n(real, median ~2x, n=255)"
 def load_accuracy(
     magibu_metrics_tsv: Path, rapidcns2_metrics_tsv: Path,
 ) -> pd.DataFrame:
-    magibu = pd.read_csv(magibu_metrics_tsv, sep="\t")
-    rapid = pd.read_csv(rapidcns2_metrics_tsv, sep="\t")
+    magibu = read_results_tsv(magibu_metrics_tsv)
+    rapid = read_results_tsv(rapidcns2_metrics_tsv)
 
     rows = []
     for pool, group in POOL_GROUPS:
@@ -104,7 +105,7 @@ def plot(acc: pd.DataFrame, output: Path) -> None:
     )
 
     fig.suptitle(
-        "Overall accuracy — B0 vs. Sturgeon vs. crossNN (platform-verified pools only)",
+        "Overall accuracy — Binary vs. Sturgeon vs. crossNN (platform-verified pools only)",
         fontsize=13, fontweight="bold", x=0.02, y=0.99, ha="left", color=INK,
     )
     fig.text(

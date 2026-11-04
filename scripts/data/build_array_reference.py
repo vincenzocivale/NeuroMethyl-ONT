@@ -5,7 +5,7 @@
         -> build_array_reference()   (drop insufficient/constant/duplicate probes)
         -> save_array_reference()    ($DATA_ROOT/derived/reference/GSE90496/)
 
-This is the ONLY place the canonical B0/C0/E1 feature index is built. Every
+This is the ONLY place the canonical Binary/Beta/Evidence feature index is built. Every
 downstream cohort (GSE109379, GSE209865, Rapid-CNS2, ONT-WGS) must be aligned
 to the resulting ``feature_index.json`` via
 ``neuromethyl_ont.data.array_reference.align_to_feature_index`` rather than

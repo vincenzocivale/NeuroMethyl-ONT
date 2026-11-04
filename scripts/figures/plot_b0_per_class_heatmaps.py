@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Per-class classification-performance heatmaps: B0 (ours) vs. Sturgeon and
+"""Per-class classification-performance heatmaps: Binary (ours) vs. Sturgeon and
 crossNN (competitors) -- one figure per dataset: the five Magibu pools
 (deep/lowpass/nanopore_family/promethion_family/promethion_subclass, from
 `outputs/benchmarks/magibu_pool_comparison/magibu_pool_model_comparison_samples.tsv`)
 plus Rapid_CNS2 (real per-sample coverage, median ~2.9x, n=255, from the
 already-aggregated `outputs/benchmarks/rapidcns2_perclass.tsv`).
 
-C0 are left out on purpose (only B0 represents "ours" here) so the
+Beta are left out on purpose (only Binary represents "ours" here) so the
 comparison is a clean 3-column read: for every family present in a dataset,
 what percent of that family's samples did each model call correctly?
 Family codes that repeat within a Magibu pool (e.g. lowpass_pool has 3 GBM
 subtypes -> GBM, 2 A_IDH subtypes -> A_IDH) give rows with n>1, so a cell
-can be a real fractional accuracy, not just 0%/100%. Rows are sorted by B0
+can be a real fractional accuracy, not just 0%/100%. Rows are sorted by Binary
 accuracy ascending (worst first) so any gap surfaces at the top.
 
 CAVEAT (Magibu pools only, same one evaluate_magibu_pools.py carries): each
@@ -48,14 +48,15 @@ from matplotlib.patches import Rectangle
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from neuromethyl_ont.evaluation.plot_style import INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
-MODELS = ["B0", "Sturgeon", "crossNN"]
+MODELS = ["Binary", "Sturgeon", "crossNN"]
 MAGIBU_POOLS = [
     "deep_pool", "lowpass_pool", "nanopore_family_pool",
     "promethion_family_pool", "promethion_subclass_pool",
 ]
 
-# Same brand blue as plot_style.COLOR["B0"/"C0"]
+# Same brand blue as plot_style.COLOR["Binary"/"Beta"]
 # (palette steps 300/450/600), extended to the full sequential ramp.
 SEQUENTIAL_BLUE = LinearSegmentedColormap.from_list(
     "neuromethyl_blue",
@@ -65,20 +66,20 @@ SEQUENTIAL_BLUE = LinearSegmentedColormap.from_list(
     ],
 )
 
-# Diverging red -> grey -> green for the "B0 advantage" column: red means
-# the best competitor beat B0 on that class, green means B0 beat every
+# Diverging red -> grey -> green for the "Binary advantage" column: red means
+# the best competitor beat Binary on that class, green means Binary beat every
 # competitor, so a doctor can read the sign at a glance without comparing
 # the three model columns themselves.
 DIVERGING_DELTA = LinearSegmentedColormap.from_list(
     "neuromethyl_delta",
     ["#b3261e", "#e2a29d", "#f0efec", "#a8d5ae", "#2f9e44"],
 )
-DELTA_COL_LABEL = "B0 advantage\n(vs. best competitor)"
+DELTA_COL_LABEL = "Binary advantage\n(vs. best competitor)"
 
 
 def per_row_delta_vs_best_competitor(pct: np.ndarray) -> np.ndarray:
-    """B0's percentage minus the best-scoring competitor's, per row (in pp)."""
-    b0_col = MODELS.index("B0")
+    """Binary's percentage minus the best-scoring competitor's, per row (in pp)."""
+    b0_col = MODELS.index("Binary")
     competitor_cols = [j for j in range(len(MODELS)) if j != b0_col]
     return pct[:, b0_col] - pct[:, competitor_cols].max(axis=1)
 
@@ -97,7 +98,7 @@ def build_per_class_accuracy_from_samples(
             correct = (rows[f"{model}_predicted_family"] == label).sum()
             pct[i, j] = correct / len(rows) * 100
 
-    order = np.lexsort((labels, pct[:, MODELS.index("B0")]))
+    order = np.lexsort((labels, pct[:, MODELS.index("Binary")]))
     return pct[order], [labels[i] for i in order], n_by_class[order]
 
 
@@ -109,7 +110,7 @@ def build_per_class_accuracy_from_perclass_table(
     labels = table["family"].tolist()
     n_by_class = table["n"].to_numpy(dtype=int)
 
-    order = np.lexsort((labels, pct[:, MODELS.index("B0")]))
+    order = np.lexsort((labels, pct[:, MODELS.index("Binary")]))
     return pct[order], [labels[i] for i in order], n_by_class[order]
 
 
@@ -117,7 +118,7 @@ def render_class_heatmap(
     pct: np.ndarray, labels: list[str], n_by_class: np.ndarray,
     title: str, note: str, output: Path,
 ) -> None:
-    # Rows are sorted worst-B0-first by the caller; sort ordering itself is
+    # Rows are sorted worst-Binary-first by the caller; sort ordering itself is
     # not re-derived here.
     n_rows = len(labels)
     delta = per_row_delta_vs_best_competitor(pct)
@@ -129,7 +130,7 @@ def render_class_heatmap(
     left_in, right_in, top_in, bottom_in = 2.0, 0.9, 1.9, 0.3
     col_w = 2.6
     plot_h = max(2.0, n_rows * row_h)
-    # +1 column for the "B0 advantage" delta, drawn separately below with
+    # +1 column for the "Binary advantage" delta, drawn separately below with
     # its own diverging colormap since it's not on the same 0-100% scale.
     n_cols = len(MODELS) + 1
     # The subtitle line (the longest, Rapid_CNS2's, runs ~185 chars) needs
@@ -153,8 +154,8 @@ def render_class_heatmap(
                 fontsize=fontsize, color=text_color,
             )
 
-    # Frame the B0 column -- it's "ours" in this comparison.
-    b0_col = MODELS.index("B0")
+    # Frame the Binary column -- it's "ours" in this comparison.
+    b0_col = MODELS.index("Binary")
     ax.add_patch(
         Rectangle(
             (b0_col - 0.5, -0.5), 1, n_rows, fill=False, edgecolor=INK,
@@ -162,9 +163,9 @@ def render_class_heatmap(
         )
     )
 
-    # Extra "B0 advantage" column: one glance, no mental subtraction --
-    # green/"+Npp" means B0 beat the best competitor on that class, red/
-    # "-Npp" means the best competitor beat B0. Own diverging colormap
+    # Extra "Binary advantage" column: one glance, no mental subtraction --
+    # green/"+Npp" means Binary beat the best competitor on that class, red/
+    # "-Npp" means the best competitor beat Binary. Own diverging colormap
     # (symmetric around 0) since it's not a 0-100% scale like the other
     # columns.
     delta_col = len(MODELS)
@@ -230,30 +231,30 @@ def plot_magibu_pool(pool: str, sub: pd.DataFrame, output: Path) -> None:
     overall = {m: (sub[f"{m}_predicted_family"] == sub["family_code"]).mean() * 100 for m in MODELS}
     render_class_heatmap(
         pct, labels, n_by_class,
-        title=f"B0 vs. competitors — {pool} — per-class accuracy",
+        title=f"Binary vs. competitors — {pool} — per-class accuracy",
         note=(
             f"{int(n_by_class.sum())} pool-samples, {len(labels)} families · overall: "
-            f"B0 {overall['B0']:.0f}%, Sturgeon {overall['Sturgeon']:.0f}%, "
-            f"crossNN {overall['crossNN']:.0f}% · boxed = B0 (ours) · rightmost col = B0's edge over best competitor · sorted by B0 accuracy"
+            f"Binary {overall['Binary']:.0f}%, Sturgeon {overall['Sturgeon']:.0f}%, "
+            f"crossNN {overall['crossNN']:.0f}% · boxed = Binary (ours) · rightmost col = Binary's edge over best competitor · sorted by Binary accuracy"
         ),
         output=output,
     )
 
 
 def plot_rapidcns2(perclass_tsv: Path, output: Path, min_n: int = 5) -> None:
-    perclass = pd.read_csv(perclass_tsv, sep="\t")
+    perclass = read_results_tsv(perclass_tsv)
     pct, labels, n_by_class = build_per_class_accuracy_from_perclass_table(perclass, min_n)
     overall = {
         m: (perclass[m] * perclass["n"]).sum() / perclass["n"].sum() * 100 for m in MODELS
     }
     render_class_heatmap(
         pct, labels, n_by_class,
-        title="B0 vs. competitors — Rapid_CNS2 — per-class accuracy",
+        title="Binary vs. competitors — Rapid_CNS2 — per-class accuracy",
         note=(
             f"{int(perclass['n'].sum())} real patients (median ~2.9x coverage, unpooled), "
             f"{len(labels)} families with n≥{min_n} · overall (all classes): "
-            f"B0 {overall['B0']:.0f}%, Sturgeon {overall['Sturgeon']:.0f}%, "
-            f"crossNN {overall['crossNN']:.0f}% · boxed = B0 (ours) · rightmost col = B0's edge over best competitor · sorted by B0 accuracy"
+            f"Binary {overall['Binary']:.0f}%, Sturgeon {overall['Sturgeon']:.0f}%, "
+            f"crossNN {overall['crossNN']:.0f}% · boxed = Binary (ours) · rightmost col = Binary's edge over best competitor · sorted by Binary accuracy"
         ),
         output=output,
     )
@@ -280,7 +281,7 @@ def main() -> int:
     args = ap.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv(args.samples_tsv, sep="\t")
+    df = read_results_tsv(args.samples_tsv)
     for pool in MAGIBU_POOLS:
         sub = df[df.benchmark == pool]
         if sub.empty:

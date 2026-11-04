@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 vs C0 vs E1 vs B0+E1 vs Sturgeon vs crossNN on GSE289246 -- this project's own
+"""Binary vs Beta vs Evidence vs Consensus vs Sturgeon vs crossNN on GSE289246 -- this project's own
 registry (registry/datasets.tsv) calls this the *primary* ONT test cohort,
 but no model in this project had ever been run on it until now (only
 Sturgeon had, via a bed-only path that never went through counts). Real
@@ -81,12 +81,12 @@ def main() -> int:
     )
     ap.add_argument("--soft-file", type=Path, required=True)
     ap.add_argument("--reference-dir", type=Path, required=True)
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
-    ap.add_argument("--c0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--beta-checkpoint", "--c0-checkpoint", type=Path, required=True)
     ap.add_argument(
-        "--e1-checkpoint", type=Path, default=None, help="optional; omit to skip E1 entirely"
+        "--evidence-checkpoint", "--e1-checkpoint", type=Path, default=None, help="optional; omit to skip Evidence entirely"
     )
-    ap.add_argument("--e1-kappa", type=float, default=2.0)
+    ap.add_argument("--evidence-kappa", "--e1-kappa", type=float, default=2.0)
     ap.add_argument("--taxonomy", type=Path, required=True)
     ap.add_argument("--sturgeon-predictions", type=Path, required=True)
     ap.add_argument("--crossnn-predictions", type=Path, required=True)
@@ -162,8 +162,8 @@ def main() -> int:
         ap.error("no sample had a mappable diagnosis -- nothing to score")
     m, u = np.stack(m_rows), np.stack(u_rows)
 
-    b0_model, b0_classes = load_torch_checkpoint(args.b0_checkpoint)
-    c0_model, c0_classes = load_torch_checkpoint(args.c0_checkpoint)
+    b0_model, b0_classes = load_torch_checkpoint(args.binary_checkpoint)
+    c0_model, c0_classes = load_torch_checkpoint(args.beta_checkpoint)
 
     from neuromethyl_ont.data.sequencing_simulator import (
         binary_transform,
@@ -176,16 +176,16 @@ def main() -> int:
     c0_probs = softmax_probs(predict_logits(c0_model, continuous_transform(m, u, mu)))
     c0_fam, c0_families = aggregate_to_family(c0_probs, c0_classes, family_by_class)
     if c0_families != families:
-        raise RuntimeError("B0/C0 family layouts disagree")
+        raise RuntimeError("Binary/Beta family layouts disagree")
 
     e1_fam = None
-    if args.e1_checkpoint is not None:
-        e1_model, e1_classes = load_torch_checkpoint(args.e1_checkpoint)
-        evidence = evidence_transform(m, u, mu, args.e1_kappa)
+    if args.evidence_checkpoint is not None:
+        e1_model, e1_classes = load_torch_checkpoint(args.evidence_checkpoint)
+        evidence = evidence_transform(m, u, mu, args.evidence_kappa)
         e1_probs = softmax_probs(predict_logits(e1_model, evidence))
         e1_fam, e1_families = aggregate_to_family(e1_probs, e1_classes, family_by_class)
         if e1_families != families:
-            raise RuntimeError("B0/E1 family layouts disagree")
+            raise RuntimeError("Binary/Evidence family layouts disagree")
 
     def external_probs(path, column_to_model_class=lambda c: c):
         table = pd.read_csv(path, sep="\t")
@@ -200,10 +200,10 @@ def main() -> int:
     sturgeon_by_sample = external_probs(args.sturgeon_predictions, sturgeon_model_class)
     crossnn_by_sample = external_probs(args.crossnn_predictions)
 
-    model_probs = {"B0": b0_fam, "C0": c0_fam}
+    model_probs = {"Binary": b0_fam, "Beta": c0_fam}
     if e1_fam is not None:
-        model_probs["E1"] = e1_fam
-        model_probs["B0+E1"] = 0.5 * b0_fam + 0.5 * e1_fam
+        model_probs["Evidence"] = e1_fam
+        model_probs["Consensus"] = 0.5 * b0_fam + 0.5 * e1_fam
 
     rows = []
     for i, sample_id in enumerate(sample_ids):
@@ -226,9 +226,9 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(args.output, sep="\t", index=False)
 
-    report_models = ["B0", "C0"]
+    report_models = ["Binary", "Beta"]
     if e1_fam is not None:
-        report_models += ["E1", "B0+E1"]
+        report_models += ["Evidence", "Consensus"]
     report_models += ["Sturgeon", "crossNN"]
     for name in report_models:
         col = f"{name}_predicted_family"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Per-class error rate (not raw count) for B0 vs. Sturgeon vs. crossNN,
+"""Per-class error rate (not raw count) for Binary vs. Sturgeon vs. crossNN,
 classes with error rate > 0 only -- one chart each for Magibu lowpass_pool
 (~1x MinION, GSE209865), Magibu promethion_subclass_pool (~1x PromethION,
 literature) and Rapid_CNS2 (real per-patient coverage, median ~2x, n=255).
@@ -46,8 +46,9 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from neuromethyl_ont.evaluation.plot_style import COLOR, HAIRLINE, INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
-MODELS = ["B0", "Sturgeon", "crossNN"]
+MODELS = ["Binary", "Sturgeon", "crossNN"]
 
 
 def magibu_error_rate(sub: pd.DataFrame) -> pd.DataFrame:
@@ -152,7 +153,7 @@ def main() -> int:
     args = ap.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv(args.magibu_samples_tsv, sep="\t")
+    df = read_results_tsv(args.magibu_samples_tsv)
     for pool, tier_label, caveat in [
         ("lowpass_pool", "Magibu lowpass_pool",
          "~1x MinION, GSE209865, verified single-platform · pooled pseudo-samples "
@@ -174,7 +175,7 @@ def main() -> int:
         )
 
     if args.rapidcns2_perclass_tsv.exists():
-        perclass = pd.read_csv(args.rapidcns2_perclass_tsv, sep="\t")
+        perclass = read_results_tsv(args.rapidcns2_perclass_tsv)
         rate = rapidcns2_error_rate(perclass, args.rapidcns2_min_n)
         plot_error_rate(
             rate,

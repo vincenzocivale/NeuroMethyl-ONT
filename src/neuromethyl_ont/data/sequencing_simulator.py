@@ -1,4 +1,4 @@
-"""Synthetic sequencing evidence and the B0/C0/E1 representation transforms.
+"""Synthetic sequencing evidence and the Binary/Beta/Evidence representation transforms.
 
 See ``docs/EVIDENCE_LINEAR_V1.md`` for the full spec. GSE90496 has no real
 coverage, so training/validation depth is simulated by treating the array
@@ -9,13 +9,13 @@ beta value as a latent methylation probability and drawing counts:
     u_i = n_i - m_i
 
 ``lambda = np.inf`` is the sentinel for "full array, no sampling" (section 7):
-in that limit C0 and E1 both reduce to ``beta_i - mu_i`` and B0 reduces to
+in that limit Beta and Evidence both reduce to ``beta_i - mu_i`` and Binary reduces to
 thresholding the raw beta directly, rather than counts drawn from it.
 
 The transforms are pure, vectorized numpy functions so they can be reused
 identically for training-time augmentation (random lambda per sample) and for
 the fixed, saved depth-curve realizations used at evaluation time (same
-``(m, u, n)`` draw shared across B0/C0/E1 for a fair comparison).
+``(m, u, n)`` draw shared across Binary/Beta/Evidence for a fair comparison).
 """
 
 from __future__ import annotations
@@ -132,7 +132,7 @@ def _safe_divide(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarray:
 def binary_transform(
     m: np.ndarray, u: np.ndarray, threshold: float = BINARY_THRESHOLD
 ) -> np.ndarray:
-    """B0 feature from synthetic counts: +1/-1 above/at-or-below threshold, 0 if unobserved."""
+    """Binary feature from synthetic counts: +1/-1 above/at-or-below threshold, 0 if unobserved."""
     m = np.asarray(m, dtype=np.float64)
     u = np.asarray(u, dtype=np.float64)
     n = m + u
@@ -144,7 +144,7 @@ def binary_transform(
 def binary_transform_full_array(
     beta: np.ndarray, threshold: float = BINARY_THRESHOLD
 ) -> np.ndarray:
-    """B0 feature straight from array beta (the ``lambda = inf`` closed form)."""
+    """Binary feature straight from array beta (the ``lambda = inf`` closed form)."""
     beta = np.asarray(beta, dtype=np.float64)
     missing = np.isnan(beta)
     x = np.where(beta > threshold, 1.0, -1.0)
@@ -152,7 +152,7 @@ def binary_transform_full_array(
 
 
 def continuous_transform(m: np.ndarray, u: np.ndarray, mu: np.ndarray) -> np.ndarray:
-    """C0 feature from synthetic counts: beta_hat - mu, 0 if unobserved."""
+    """Beta feature from synthetic counts: beta_hat - mu, 0 if unobserved."""
     m = np.asarray(m, dtype=np.float64)
     u = np.asarray(u, dtype=np.float64)
     n = m + u
@@ -162,7 +162,7 @@ def continuous_transform(m: np.ndarray, u: np.ndarray, mu: np.ndarray) -> np.nda
 
 
 def continuous_transform_full_array(beta: np.ndarray, mu: np.ndarray) -> np.ndarray:
-    """C0 feature straight from array beta (also E1's ``lambda = inf`` limit)."""
+    """Beta feature straight from array beta (also Evidence's ``lambda = inf`` limit)."""
     beta = np.asarray(beta, dtype=np.float64)
     missing = np.isnan(beta)
     x = beta - mu
@@ -170,7 +170,7 @@ def continuous_transform_full_array(beta: np.ndarray, mu: np.ndarray) -> np.ndar
 
 
 def evidence_transform(m: np.ndarray, u: np.ndarray, mu: np.ndarray, kappa: float) -> np.ndarray:
-    """E1 feature: coverage-shrunk posterior beta minus the training prior.
+    """Evidence feature: coverage-shrunk posterior beta minus the training prior.
 
     ``posterior = (m + kappa * mu) / (n + kappa)``, ``x = posterior - mu``,
     equivalently ``x = n / (n + kappa) * (beta_hat - mu)``. ``n = 0 -> x = 0``
@@ -264,7 +264,7 @@ def encode_batch(
 def encode_binary_batch(
     beta: np.ndarray, lam: np.ndarray, rng: np.random.Generator, threshold: float = BINARY_THRESHOLD
 ) -> np.ndarray:
-    """Simulate B0 directly, avoiding unused count tensors and float64 casts.
+    """Simulate Binary directly, avoiding unused count tensors and float64 casts.
 
     ``m / n > 0.6`` is exactly equivalent to ``5 * m > 3 * n`` for positive
     integer coverage.  The returned values are only ``{-1, 0, +1}``, so

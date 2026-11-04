@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 vs C0 on our own real samples (`scripts/data/ingest_our_samples_pileup.py`
+"""Binary vs Beta on our own real samples (`scripts/data/ingest_our_samples_pileup.py`
 output): ETMR and MB, matched high/low coverage where available. Ground
 truth here is family-level only, from the sample naming convention (no
 per-subclass label was found for these samples anywhere in the source
@@ -37,8 +37,8 @@ def main() -> int:
     ap.add_argument(
         "--counts-dir", type=Path, required=True, help="ingest_our_samples_pileup.py output"
     )
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
-    ap.add_argument("--c0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--beta-checkpoint", "--c0-checkpoint", type=Path, required=True)
     ap.add_argument("--reference-dir", type=Path, required=True)
     ap.add_argument("--taxonomy", type=Path, required=True)
     ap.add_argument("--coverage-label", required=True, help="e.g. 'low coverage (~10min)'")
@@ -63,8 +63,8 @@ def main() -> int:
         if pd.notna(row.family_code) and str(row.family_code).strip()
     }
 
-    b0_model, b0_classes = load_torch_checkpoint(args.b0_checkpoint)
-    c0_model, c0_classes = load_torch_checkpoint(args.c0_checkpoint)
+    b0_model, b0_classes = load_torch_checkpoint(args.binary_checkpoint)
+    c0_model, c0_classes = load_torch_checkpoint(args.beta_checkpoint)
 
     b0_x = binary_transform(m, u, threshold=0.6)
     b0_probs = softmax_probs(predict_logits(b0_model, b0_x))
@@ -74,9 +74,9 @@ def main() -> int:
     c0_probs = softmax_probs(predict_logits(c0_model, c0_x))
     c0_fam, c0_families = aggregate_to_family(c0_probs, c0_classes, family_by_class)
     if c0_families != families:
-        raise RuntimeError("B0/C0 family layouts disagree")
+        raise RuntimeError("Binary/Beta family layouts disagree")
 
-    model_families = [("B0", b0_fam), ("C0", c0_fam)]
+    model_families = [("Binary", b0_fam), ("Beta", c0_fam)]
     if args.crossnn_predictions is not None:
         table = pd.read_csv(args.crossnn_predictions, sep="\t")
         score_columns = [c for c in table.columns if c not in {"sample_id", "number_probes"}]

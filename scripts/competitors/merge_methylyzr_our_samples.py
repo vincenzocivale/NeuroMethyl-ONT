@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Merge MethyLYZR predictions (`run_methylyzr_predict.py` output) into the
-existing B0/C0/crossNN comparison on our own low-coverage MB/ETMR
+existing Binary/Beta/crossNN comparison on our own low-coverage MB/ETMR
 samples (`outputs/benchmarks/our_samples/mb_low_coverage_predictions.tsv`,
 built by `evaluate_our_samples.py` / `build_sturgeon_bed_our_samples.py`).
 
@@ -27,11 +27,16 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from neuromethyl_ont.model_names import canonicalize_frame  # noqa: E402
+
 TRUE_FAMILY = {  # same MB_591->ETMR override as ingest_our_samples_pileup.py
     "MB_591": "ETMR",
 }
@@ -61,7 +66,7 @@ def main() -> int:
     )
     args = ap.parse_args()
 
-    existing = pd.read_csv(args.existing_predictions, sep="\t")
+    existing = canonicalize_frame(pd.read_csv(args.existing_predictions, sep="\t"))
     true_family_by_sample = (
         existing.drop_duplicates("sample_id").set_index("sample_id")["true_family"]
     )

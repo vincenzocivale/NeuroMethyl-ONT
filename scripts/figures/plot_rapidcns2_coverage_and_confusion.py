@@ -6,7 +6,7 @@ for why those need caveats):
 
 1. Accuracy vs. real coverage -- bins Rapid_CNS2's actual per-patient mean
    coverage (1.2x-19.2x, not a synthetic high/low split) into quartiles and
-   plots B0/Sturgeon/crossNN family accuracy per bin. Directly tests this
+   plots Binary/Sturgeon/crossNN family accuracy per bin. Directly tests this
    project's core claim (EVIDENCE_LINEAR_V1.md): does accuracy hold up as
    real coverage drops.
 
@@ -46,8 +46,9 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from neuromethyl_ont.data.paths import get_data_root  # noqa: E402
 from neuromethyl_ont.data.rapidcns2_labels import load_rapidcns2_labels  # noqa: E402
 from neuromethyl_ont.evaluation.plot_style import COLOR, HAIRLINE, INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
-MODELS = ["B0", "Sturgeon", "crossNN"]
+MODELS = ["Binary", "Sturgeon", "crossNN"]
 
 SEQUENTIAL_ORANGE = plt.matplotlib.colors.LinearSegmentedColormap.from_list(
     "neuromethyl_orange", ["#fbe4d5", "#f6c39a", "#f0a05f", "#eb6834", "#c94f22", "#9c3c19"],
@@ -71,7 +72,7 @@ def build_scored_frame(
     labels = res.labels.assign(true_family=lambda d: d.label.map(family_by_class))
     labels = labels.loc[labels.true_family.notna(), ["sample_id", "true_family"]]
 
-    preds = pd.read_csv(predictions_tsv, sep="\t")
+    preds = read_results_tsv(predictions_tsv)
     merged = preds.merge(labels, on="sample_id", how="inner")
     for model in MODELS:
         merged[f"{model}_correct"] = merged[f"{model}_predicted_family"] == merged.true_family

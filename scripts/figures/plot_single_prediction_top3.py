@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""What a single B0 top-3 prediction looks like, for two real Rapid_CNS2
+"""What a single Binary top-3 prediction looks like, for two real Rapid_CNS2
 samples (evaluate_rapidcns2_calibration.py's per-sample top3 table):
 
 - a top-1 "close call" (ID_157, SCHW) where the top-2 candidate is nearly
   tied with the winner -- top-3 here is just showing the runner-up.
 - a top-1 miss the top-3 list recovers (ID_110, PLEX_PED_B) -- the true
   class is buried at rank 3 with a tiny probability, illustrating both what
-  "top-3 recovers this sample" means and how little probability mass B0
+  "top-3 recovers this sample" means and how little probability mass Binary
   gives the true class even when it's technically inside the top-3 (ties
   into the reliability-diagram overconfidence finding).
 
@@ -32,6 +32,7 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from neuromethyl_ont.evaluation.plot_style import COLOR, HAIRLINE, INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
 CORRECT_COLOR = "#2f9e5c"
 
@@ -41,7 +42,7 @@ def plot_sample(row: pd.Series, title: str, subtitle: str, ax) -> None:
     classes = [row[f"top{k}_class"] for k in ranks]
     probs = [max(row[f"top{k}_probability"], 1e-6) for k in ranks]
     colors = [
-        CORRECT_COLOR if cls == row["true_class"] else COLOR["B0"] for cls in classes
+        CORRECT_COLOR if cls == row["true_class"] else COLOR["Binary"] for cls in classes
     ]
     bars = ax.bar([f"top-{k}" for k in ranks], probs, color=colors, width=0.6, zorder=3)
     ax.set_yscale("log")
@@ -78,7 +79,7 @@ def main() -> int:
     args = ap.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    table = pd.read_csv(args.top3_file, sep="\t").set_index("sample_id")
+    table = read_results_tsv(args.top3_file).set_index("sample_id")
     hit_row = table.loc[args.sample_hit]
     recovered_row = table.loc[args.sample_recovered]
 
@@ -92,7 +93,7 @@ def main() -> int:
         "True class ranked 3rd — buried, but still on the list", ax2,
     )
     fig.suptitle(
-        "What a B0 top-3 prediction looks like (Rapid_CNS2)", fontsize=14, fontweight="bold",
+        "What a Binary top-3 prediction looks like (Rapid_CNS2)", fontsize=14, fontweight="bold",
         x=0.02, ha="left", color=INK, y=1.03,
     )
     fig.tight_layout()

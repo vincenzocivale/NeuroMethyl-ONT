@@ -2,7 +2,7 @@
 """Build Sturgeon- or crossNN-format BED inputs from our own samples'
 pileup-derived counts (`scripts/data/ingest_our_samples_pileup.py` output:
 m.npy/u.npy/probe_ids.tsv/manifest.tsv). Needed to run Sturgeon/crossNN on
-the same evidence B0/C0 already score in
+the same evidence Binary/Beta already score in
 `scripts/evaluation/evaluate_our_samples.py` -- neither had been run on
 this cohort before (a previously open gap).
 

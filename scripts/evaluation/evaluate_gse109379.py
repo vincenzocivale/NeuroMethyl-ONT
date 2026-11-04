@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 vs C0 on GSE109379 -- this project's own registry
+"""Binary vs Beta on GSE109379 -- this project's own registry
 (registry/datasets.tsv, docs/EXPERIMENT_POLICY.md) names this the
 validation/model-selection cohort, but no model had ever been scored on it
 (a previously open gap). Closes it.
@@ -14,7 +14,7 @@ averages, and with real full-91-class ground truth (not just family), from
 GSE109379's own SOFT metadata (`methylation_class` column already extracted
 into the IDAT sample manifest by export_idat_sample_manifest.py).
 
-This cohort is beta-only (no counts), so E1 and the B0+E1 ensemble, which need
+This cohort is beta-only (no counts), so Evidence and the Consensus ensemble, which need
 sequencing counts, cannot be scored here.
 
 Sturgeon/crossNN are scored too, if their prediction tables are passed
@@ -24,7 +24,7 @@ run_crossnn_predict.py) -- family-level only, same as every other cohort in
 this project, since both competitors use their own class vocabulary and
 only agree with this project's taxonomy at the family level
 (sturgeon_model_class translates Sturgeon's public labels first). Omit both
-flags to score B0/C0 only.
+flags to score Binary/Beta only.
 """
 
 from __future__ import annotations
@@ -124,8 +124,8 @@ def main() -> int:
         help="datasets/GSE109379/processed/idat_sample_manifest.tsv (gsm, methylation_class, ...)",
     )
     ap.add_argument("--reference-dir", type=Path, required=True, help="derived/reference/GSE90496")
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
-    ap.add_argument("--c0-checkpoint", type=Path, required=True)
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--beta-checkpoint", "--c0-checkpoint", type=Path, required=True)
     ap.add_argument("--taxonomy", type=Path, required=True)
     ap.add_argument("--sturgeon-predictions", type=Path, default=None)
     ap.add_argument("--crossnn-predictions", type=Path, default=None)
@@ -147,10 +147,10 @@ def main() -> int:
         if pd.notna(row.family_code) and str(row.family_code).strip()
     }
 
-    b0_model, b0_classes = load_torch_checkpoint(args.b0_checkpoint)
-    c0_model, c0_classes = load_torch_checkpoint(args.c0_checkpoint)
+    b0_model, b0_classes = load_torch_checkpoint(args.binary_checkpoint)
+    c0_model, c0_classes = load_torch_checkpoint(args.beta_checkpoint)
     if set(b0_classes) != set(c0_classes):
-        raise RuntimeError("B0/C0 must cover exactly the same classes")
+        raise RuntimeError("Binary/Beta must cover exactly the same classes")
     class_to_idx = {c: i for i, c in enumerate(b0_classes)}
     # The checkpoint's own class strings are not internally whitespace-clean
     # (e.g. "PIN T,  PB B" has a double space) -- normalize both sides
@@ -201,7 +201,7 @@ def main() -> int:
     c0_probs = softmax_probs(
         predict_logits(c0_model, continuous_transform_full_array(beta, mu))
     )
-    model_probs = {"B0": b0_probs, "C0": c0_probs}
+    model_probs = {"Binary": b0_probs, "Beta": c0_probs}
 
     # A handful of classes (e.g. MELCYT) have no established family assignment
     # in the taxonomy (docs note "no supported family assignment") -- same
@@ -227,7 +227,7 @@ def main() -> int:
         frame[f"{name}_true_class_probability"] = probs[np.arange(len(y_true)), y_true]
         frame[f"{name}_predicted_family"] = [families[i] for i in fam_probs.argmax(axis=1)]
 
-    # families/true_families are fixed by the loop above (B0/C0 share one
+    # families/true_families are fixed by the loop above (Binary/Beta share one
     # family layout, checked via aggregate_to_family's own class coverage) --
     # reuse the same `families` order for Sturgeon/crossNN.
     external = [

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Turn `modkit pileup` bedMethyl output for our own ETMR/MB samples into
-counts aligned to the GSE90496 feature index -- the format E1 needs
+counts aligned to the GSE90496 feature index -- the format Evidence needs
 (methylated_count, unmethylated_count per probe), which the Magibu
 beta-only pools and our own samples' existing entropy.tsv files cannot
 provide.

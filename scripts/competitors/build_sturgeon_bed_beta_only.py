@@ -3,7 +3,7 @@
 beta-only pools.
 
 This adapter does not manufacture coverage or counts, and must never be
-used to evaluate E1. Both Sturgeon's and crossNN's input formats accept
+used to evaluate Evidence. Both Sturgeon's and crossNN's input formats accept
 exactly one binary methylation call per probe; ``--caller`` picks whose own
 decision rule to reproduce: Sturgeon's 0.7/0.3 dead zone (values in the
 ambiguous interval omitted), or crossNN's own single 0.6 cutoff, no dead

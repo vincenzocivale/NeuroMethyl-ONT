@@ -1,6 +1,6 @@
 """Domain router: CNS tumor vs acute leukemia.
 
-A linear classifier over B0-style binary features (+1/-1, 0 = unobserved)
+A linear classifier over Binary-style binary features (+1/-1, 0 = unobserved)
 restricted to probes shared by the CNS (GSE90496) and ALMA references, so the
 router cannot separate the domains by which probes exist. Random probe
 masking during training mimics sparse nanopore coverage. It only decides which

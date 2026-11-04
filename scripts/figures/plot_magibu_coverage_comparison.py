@@ -8,7 +8,7 @@ lowpass_pool = ~1x low coverage) -- reads
 
 1. Per-class accuracy bar chart -- for every family present in the tier,
    what percent of that family's pool-rows did each of the 5 models
-   (B0/C0/E1/Sturgeon/crossNN) call correctly.
+   (Binary/Beta/Evidence/Sturgeon/crossNN) call correctly.
 2. Per-model misclassification frequency -- for every (model, family) pair
    with at least one wrong call, how many of that family's pool-rows the
    model missed. deep_pool has one pool-row per family (5 families, no
@@ -39,8 +39,9 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 from neuromethyl_ont.evaluation.plot_style import COLOR, HAIRLINE, INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
-MODELS = ["B0", "Sturgeon", "crossNN"]
+MODELS = ["Binary", "Sturgeon", "crossNN"]
 COVERAGE_TIERS = {
     "deep_pool": "high coverage (deep_pool)",
     "lowpass_pool": "low coverage (~1x, lowpass_pool)",
@@ -112,7 +113,7 @@ def plot_accuracy_bar(acc: pd.DataFrame, pool: str, tier_label: str, output: Pat
     fig.text(
         0.02, 0.925,
         f"{int(acc['n'].sum())} pool-rows, {n_families} families · pooled pseudo-samples "
-        "(feasibility check, not single-sample accuracy) · sorted by B0 accuracy",
+        "(feasibility check, not single-sample accuracy) · sorted by Binary accuracy",
         fontsize=8.7, color=MUTED, ha="left",
     )
     fig.subplots_adjust(top=0.86, bottom=0.24, left=0.06, right=0.98)
@@ -197,7 +198,7 @@ def main() -> int:
     args = ap.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv(args.samples_tsv, sep="\t")
+    df = read_results_tsv(args.samples_tsv)
     for pool, tier_label in COVERAGE_TIERS.items():
         sub = df[df.benchmark == pool]
         if sub.empty:

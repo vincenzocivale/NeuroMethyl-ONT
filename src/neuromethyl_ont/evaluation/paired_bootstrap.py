@@ -5,7 +5,7 @@ Pure-numpy statistical core with no dataset- or model-specific coupling.
 None of NeuroMethyl-ONT's existing comparison scripts
 (``scripts/evaluation/evaluate_rapidcns2.py``,
 ``evaluate_magibu_pools.py``, ...) currently report whether a point-estimate
-accuracy gap (e.g. B0 vs crossNN) is statistically significant given the
+accuracy gap (e.g. Binary vs crossNN) is statistically significant given the
 sample size -- this module adds that, operating directly on two models'
 per-sample class probabilities (already computed, however they were
 produced), rather than re-running inference.

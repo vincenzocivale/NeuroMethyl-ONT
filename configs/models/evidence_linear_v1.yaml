@@ -1,13 +1,13 @@
 model:
   name: evidence_linear_v1
-  id: E1
+  id: Evidence
   representation: evidence
   family: evidence_linear
   architecture:
     hidden_layers: 0
     bias: true
   # First run: kappa = 2, no sweep yet (docs/EVIDENCE_LINEAR_V1.md #10).
-  # kappa = 0 disables coverage shrinkage and E1 degenerates toward C0 --
+  # kappa = 0 disables coverage shrinkage and Evidence degenerates toward Beta --
   # a natural ablation for a later sweep over {0, 1, 2, 4, 8}.
   kappa: 2.0
 

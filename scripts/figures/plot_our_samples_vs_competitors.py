@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""B0 (ours) vs. crossNN vs. MethyLYZR, per sample, on our own low-coverage
+"""Binary (ours) vs. crossNN vs. MethyLYZR, per sample, on our own low-coverage
 (~10min ONT) MB/ETMR patients -- reads
 `outputs/benchmarks/our_samples/mb_low_coverage_predictions_with_methylyzr.tsv`
 (`merge_methylyzr_our_samples.py` output).
@@ -29,7 +29,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.patches import Rectangle
 
@@ -38,9 +37,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 from plot_b0_per_class_heatmaps import DIVERGING_DELTA  # noqa: E402
 
 from neuromethyl_ont.evaluation.plot_style import INK, MUTED  # noqa: E402
+from neuromethyl_ont.model_names import read_results_tsv  # noqa: E402
 
-MODELS = ["B0", "MethyLYZR", "crossNN"]
-DELTA_COL_LABEL = "B0 advantage\n(vs. best competitor)"
+MODELS = ["Binary", "MethyLYZR", "crossNN"]
+DELTA_COL_LABEL = "Binary advantage\n(vs. best competitor)"
 PREDICTIONS_TSV = (
     REPO_ROOT / "outputs/benchmarks/our_samples/mb_low_coverage_predictions_with_methylyzr.tsv"
 )
@@ -61,7 +61,7 @@ def main() -> int:
     ap.add_argument("--output-png", type=Path, default=OUTPUT_PNG)
     args = ap.parse_args()
     predictions_tsv, output_png = args.predictions_tsv, args.output_png
-    df = pd.read_csv(predictions_tsv, sep="\t")
+    df = read_results_tsv(predictions_tsv)
     df = df[df["model"].isin(MODELS)]
     samples = sorted(df["sample_id"].unique())
     true_family = df.drop_duplicates("sample_id").set_index("sample_id")["true_family"]
@@ -74,7 +74,7 @@ def main() -> int:
     ).reindex(index=samples, columns=MODELS)
 
     n_rows = len(samples)
-    n_cols = len(MODELS) + 1  # +1 for the "B0 advantage" delta column
+    n_cols = len(MODELS) + 1  # +1 for the "Binary advantage" delta column
     row_h, left_in, right_in, top_in, bottom_in, col_w = 0.6, 2.1, 0.9, 1.9, 0.3, 2.6
     plot_h = max(2.0, n_rows * row_h)
     fig_width = max(left_in + n_cols * col_w + right_in, 9.5)
@@ -89,10 +89,10 @@ def main() -> int:
     )
     im.cmap.set_bad("#f0efec")
 
-    # B0's confidence in the true family minus the best-scoring competitor's
+    # Binary's confidence in the true family minus the best-scoring competitor's
     # (nanmax so a still-pending MethyLYZR cell doesn't zero it out) -- one
     # glance instead of comparing three columns in your head.
-    b0_col_idx = MODELS.index("B0")
+    b0_col_idx = MODELS.index("Binary")
     competitor_idx = [j for j in range(len(MODELS)) if j != b0_col_idx]
     with np.errstate(invalid="ignore"):
         best_competitor = np.nanmax(matrix[:, competitor_idx], axis=1)
@@ -115,7 +115,7 @@ def main() -> int:
                     )
                 )
 
-    b0_col = MODELS.index("B0")
+    b0_col = MODELS.index("Binary")
     ax.add_patch(
         Rectangle(
             (b0_col - 0.5, -0.5), 1, n_rows, fill=False, edgecolor=INK,
@@ -177,7 +177,7 @@ def main() -> int:
     fig_w, fig_h = figsize
     n_scored = int(pct["MethyLYZR"].notna().sum())
     fig.suptitle(
-        "B0 vs. MethyLYZR vs. crossNN — our own ETMR/MB patients",
+        "Binary vs. MethyLYZR vs. crossNN — our own ETMR/MB patients",
         fontsize=13, fontweight="bold", x=0.02, y=0.99, ha="left", color=INK,
     )
     methylyzr_status = (
@@ -189,7 +189,7 @@ def main() -> int:
     fig.text(
         0.02, 1 - 0.5 / fig_h,
         f"{n_rows} patients, real low coverage (~10min ONT) · {methylyzr_status} · "
-        "boxed column = B0 (ours) · rightmost column = B0's edge over the best "
+        "boxed column = Binary (ours) · rightmost column = Binary's edge over the best "
         "competitor · red outline = wrong top-1 call",
         fontsize=8.7, color=MUTED, ha="left",
     )

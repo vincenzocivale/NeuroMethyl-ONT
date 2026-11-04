@@ -1,7 +1,7 @@
 experiment:
   id: v1_representation_ablation
   description: >
-    Compare BinaryLinear (B0), ContinuousLinear (C0) and EvidenceLinearV1 (E1)
+    Compare BinaryLinear (Binary), ContinuousLinear (Beta) and EvidenceLinearV1 (Evidence)
     under an identical architecture, optimizer and training schedule, varying
     only how synthetic sequencing evidence is turned into features at a fixed
     GSE90496-derived feature space. See docs/EVIDENCE_LINEAR_V1.md.
@@ -25,7 +25,7 @@ depth_augmentation:
   lambda_weights: [0.05, 0.05, 0.05, 0.1125, 0.1125, 0.1125, 0.1125, 0.10, 0.10, 0.10, 0.10]
 
 # Fixed grid the depth-curve figure (spec #15) is reported over; realizations
-# are saved once and shared across B0/C0/E1 (spec #13).
+# are saved once and shared across Binary/Beta/Evidence (spec #13).
 depth_curve:
   lambda_grid: [0.02, 0.1, 0.5, 1, 2, 4, 8, 16, 32, .inf]
 

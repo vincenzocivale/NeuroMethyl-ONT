@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Fixed synthetic depth-curve evaluation across B0/C0/E1 (docs/EVIDENCE_LINEAR_V1.md #13/#15).
+"""Fixed synthetic depth-curve evaluation across Binary/Beta/Evidence (docs/EVIDENCE_LINEAR_V1.md #13/#15).
 
 Loads one checkpoint per representation (as written by
 scripts/training/train_classifier.py), builds ONE fixed set of synthetic
 sequencing realizations on the validation cohort, and evaluates every
 checkpoint on the same realizations at every depth -- so the resulting
-``depth_curve.tsv`` compares B0/C0/E1 on identical synthetic evidence.
+``depth_curve.tsv`` compares Binary/Beta/Evidence on identical synthetic evidence.
 
 Usage:
     python scripts/evaluation/evaluate_depth_curve.py \\
         --reference-dir "$NEUROMETHYL_DATA_ROOT/derived/reference/GSE90496" \\
         --validation-beta PATH --validation-probe-ids PATH --validation-labels PATH \\
-        --checkpoint B0=outputs/experiments/b0_run1/checkpoint_best.pt \\
-        --checkpoint C0=outputs/experiments/c0_run1/checkpoint_best.pt \\
-        --checkpoint E1=outputs/experiments/e1_run1/checkpoint_best.pt \\
+        --checkpoint Binary=outputs/experiments/b0_run1/checkpoint_best.pt \\
+        --checkpoint Beta=outputs/experiments/c0_run1/checkpoint_best.pt \\
+        --checkpoint Evidence=outputs/experiments/e1_run1/checkpoint_best.pt \\
         --output outputs/experiments/v1_representation_ablation/depth_curve.tsv
 """
 
@@ -35,6 +35,7 @@ from neuromethyl_ont.data.array_reference import (  # noqa: E402
     load_feature_index,
 )
 from neuromethyl_ont.evaluation.depth_curve import run_depth_curve  # noqa: E402
+from neuromethyl_ont.model_names import canonical_model_name  # noqa: E402
 from neuromethyl_ont.models.evidence_linear import build_linear_classifier  # noqa: E402
 
 
@@ -48,7 +49,7 @@ def parse_checkpoint_arg(value: str) -> tuple[str, Path]:
     name, _, path = value.partition("=")
     if not path:
         raise argparse.ArgumentTypeError(f"expected NAME=PATH, got {value!r}")
-    return name, Path(path)
+    return canonical_model_name(name), Path(path)
 
 
 def main() -> int:
@@ -65,11 +66,11 @@ def main() -> int:
         type=parse_checkpoint_arg,
         required=True,
         dest="checkpoints",
-        help="NAME=PATH, repeatable (e.g. --checkpoint B0=... --checkpoint C0=... "
-        "--checkpoint E1=...)",
+        help="NAME=PATH, repeatable (e.g. --checkpoint Binary=... --checkpoint Beta=... "
+        "--checkpoint Evidence=...)",
     )
     ap.add_argument(
-        "--kappa", type=float, default=2.0, help="kappa used to build E1 features at eval time"
+        "--kappa", type=float, default=2.0, help="kappa used to build Evidence features at eval time"
     )
     ap.add_argument(
         "--seed", type=int, default=0, help="fixed realization seed, shared across all checkpoints"

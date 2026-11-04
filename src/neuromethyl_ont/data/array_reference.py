@@ -1,7 +1,7 @@
 """The canonical GSE90496 probe/feature reference (docs/EVIDENCE_LINEAR_V1.md #3).
 
 One feature index is built exclusively from GSE90496 training data and reused
-identically by B0/C0/E1 and by every validation/test cohort (aligned via
+identically by Binary/Beta/Evidence and by every validation/test cohort (aligned via
 :func:`align_to_feature_index`). Probes are dropped only for: insufficient
 valid values, zero variance in training, or duplicate probe IDs -- never by
 looking at a validation/test set.
@@ -27,7 +27,7 @@ class ArrayReference:
 
     ``beta`` is float64, NaN for missing values, shape ``(n_samples, n_probes)``.
     ``probe_mean``/``probe_std``/``probe_valid_fraction`` are computed over
-    ``beta`` (i.e. post-filtering) and are what ``mu_i`` in the E1/C0
+    ``beta`` (i.e. post-filtering) and are what ``mu_i`` in the Evidence/Beta
     transforms comes from.
     """
 

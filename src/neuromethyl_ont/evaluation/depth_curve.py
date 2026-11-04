@@ -2,7 +2,7 @@
 
 Builds ONE saved set of synthetic ``(m, u, n)`` realizations per depth on the
 validation cohort, then feeds the SAME counts through every representation's
-transform so B0/C0/E1 are compared on identical synthetic evidence -- not
+transform so Binary/Beta/Evidence are compared on identical synthetic evidence -- not
 independently resampled evidence that happens to have the same lambda.
 """
 

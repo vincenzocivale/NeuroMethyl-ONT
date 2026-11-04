@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Classify one ONT sample with the B0+E1 ensemble, at any coverage.
+"""Classify one ONT sample with the Consensus ensemble, at any coverage.
 
-Averages B0's (binary, threshold-based) and E1's (coverage-shrunk continuous)
+Averages Binary's (binary, threshold-based) and Evidence's (coverage-shrunk continuous)
 softmax probabilities. Empirically (docs/PRODUCTION_MODEL.md), this beats
 either model alone on the one real cohort where both were tested end-to-end:
-matches B0's 100% on GSE289246 (real end-of-run coverage, where E1 alone
+matches Binary's 100% on GSE289246 (real end-of-run coverage, where Evidence alone
 drops to 77.8% due to a platform batch-effect vulnerability) while matching
-E1's accuracy gain over B0 on Rapid-CNS2 (real low/medium coverage) and
+Evidence's accuracy gain over Binary on Rapid-CNS2 (real low/medium coverage) and
 improving calibration (NLL) beyond both individual models. There is no
 depth-dependent branch in either model or its encoding: calling this script
 on a partial intra-operative pileup and again once the run has finished uses
@@ -29,8 +29,8 @@ Usage:
     python scripts/inference/classify_sample.py \\
         --feature-index "$NEUROMETHYL_DATA_ROOT/derived/reference/GSE90496/feature_index.json" \\
         --reference-dir "$NEUROMETHYL_DATA_ROOT/derived/reference/GSE90496" \\
-        --b0-checkpoint outputs/experiments/b0_fixed80_seed17_bs128_w16_opt/checkpoint_best.pt \\
-        --e1-checkpoint outputs/experiments/e1_kappa2_fixed80_seed17_bs128_w2/checkpoint_best.pt \\
+        --binary-checkpoint outputs/experiments/b0_fixed80_seed17_bs128_w16_opt/checkpoint_best.pt \\
+        --evidence-checkpoint outputs/experiments/e1_kappa2_fixed80_seed17_bs128_w2/checkpoint_best.pt \\
         --sample-counts PATH/sample_counts.tsv \\
         --sample-id patient001 \\
         --output outputs/inference/patient001.json
@@ -86,8 +86,8 @@ def classify_with_head(head, counts_path: Path, sample_id: str, top_n: int, n_ru
     ]
     per_model = {}
     for name, model, x, probs in (
-        ("B0", head.b0_model, scores.x_b0, scores.b0_probs),
-        ("E1", head.e1_model, scores.x_e1, scores.e1_probs),
+        ("Binary", head.b0_model, scores.x_b0, scores.b0_probs),
+        ("Evidence", head.e1_model, scores.x_e1, scores.e1_probs),
     ):
         report = explain_prediction(
             model, x, head.feature_index.probe_ids, head.class_names,
@@ -101,6 +101,7 @@ def classify_with_head(head, counts_path: Path, sample_id: str, top_n: int, n_ru
         "head": head.name,
         "n_probes_in_reference": head.feature_index.n_features,
         "n_probes_observed": scores.n_observed,
+        "top3_model": "Consensus",
         "top3": top3,
         "per_model": per_model,
     }
@@ -111,10 +112,10 @@ def main() -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     ap.add_argument("--feature-index", type=Path, required=True)
-    ap.add_argument("--reference-dir", type=Path, required=True, help="for E1's per-probe mean")
-    ap.add_argument("--b0-checkpoint", type=Path, required=True)
-    ap.add_argument("--e1-checkpoint", type=Path, required=True)
-    ap.add_argument("--e1-kappa", type=float, default=2.0)
+    ap.add_argument("--reference-dir", type=Path, required=True, help="for Evidence's per-probe mean")
+    ap.add_argument("--binary-checkpoint", "--b0-checkpoint", type=Path, required=True)
+    ap.add_argument("--evidence-checkpoint", "--e1-checkpoint", type=Path, required=True)
+    ap.add_argument("--evidence-kappa", "--e1-kappa", type=float, default=2.0)
     ap.add_argument("--sample-counts", type=Path, required=True)
     ap.add_argument("--sample-id", default="sample")
     ap.add_argument("--top-n-loci", type=int, default=20)
@@ -122,19 +123,19 @@ def main() -> int:
     ap.add_argument("--router-checkpoint", type=Path, default=None)
     ap.add_argument("--router-threshold", type=float, default=0.9)
     ap.add_argument("--alma-reference-dir", type=Path, default=None)
-    ap.add_argument("--alma-b0-checkpoint", type=Path, default=None)
-    ap.add_argument("--alma-e1-checkpoint", type=Path, default=None)
+    ap.add_argument("--alma-binary-checkpoint", "--alma-b0-checkpoint", type=Path, default=None)
+    ap.add_argument("--alma-evidence-checkpoint", "--alma-e1-checkpoint", type=Path, default=None)
     ap.add_argument("--output", type=Path, required=True)
     args = ap.parse_args()
 
-    alma_args = (args.alma_reference_dir, args.alma_b0_checkpoint, args.alma_e1_checkpoint)
+    alma_args = (args.alma_reference_dir, args.alma_binary_checkpoint, args.alma_evidence_checkpoint)
     two_stage = args.router_checkpoint is not None
     if two_stage != all(a is not None for a in alma_args):
         ap.error("--router-checkpoint requires all of --alma-reference-dir, "
-                 "--alma-b0-checkpoint, --alma-e1-checkpoint (and vice versa)")
+                 "--alma-binary-checkpoint, --alma-evidence-checkpoint (and vice versa)")
 
     cns = load_head(
-        "cns", args.reference_dir, args.b0_checkpoint, args.e1_checkpoint, args.e1_kappa,
+        "cns", args.reference_dir, args.binary_checkpoint, args.evidence_checkpoint, args.evidence_kappa,
         feature_index_path=args.feature_index,
     )
     output: dict = {"sample_id": args.sample_id}
@@ -147,7 +148,7 @@ def main() -> int:
         top = output["top3"][0]
         print(
             f"{args.sample_id}: {output['n_probes_observed']}/{output['n_probes_in_reference']} "
-            f"probes observed -> top1={top['class_name']} (ensemble p={top['probability']:.3f})"
+            f"probes observed -> top1={top['class_name']} (Consensus p={top['probability']:.3f})"
         )
     else:
         router, mask, checksum = load_router(args.router_checkpoint)
@@ -161,8 +162,8 @@ def main() -> int:
             "threshold": args.router_threshold, "domain": domain,
         }
         alma = load_head(
-            "leukemia", args.alma_reference_dir, args.alma_b0_checkpoint,
-            args.alma_e1_checkpoint, args.e1_kappa,
+            "leukemia", args.alma_reference_dir, args.alma_binary_checkpoint,
+            args.alma_evidence_checkpoint, args.evidence_kappa,
         )
         heads = {"cns": cns, "leukemia": alma}
         to_run = list(heads) if domain == UNDETERMINED else [domain]
@@ -181,7 +182,7 @@ def main() -> int:
             output.update({k: v for k, v in results[domain].items()})
             top = output["top3"][0]
             print(f"{args.sample_id}: routed to {domain} (p={proba.max():.3f}) -> "
-                  f"top1={top['class_name']} (ensemble p={top['probability']:.3f})")
+                  f"top1={top['class_name']} (Consensus p={top['probability']:.3f})")
         assert set(DOMAINS) == {"cns", "leukemia"}
 
     args.output.parent.mkdir(parents=True, exist_ok=True)

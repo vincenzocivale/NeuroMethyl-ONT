@@ -1,4 +1,4 @@
-"""Generic training loop shared by B0/C0/E1 (docs/EVIDENCE_LINEAR_V1.md #11).
+"""Generic training loop shared by Binary/Beta/Evidence (docs/EVIDENCE_LINEAR_V1.md #11).
 
 Only the representation (``config.representation``) changes what feature
 tensor a batch turns into; the optimizer, schedule and architecture

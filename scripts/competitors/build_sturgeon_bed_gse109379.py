@@ -10,7 +10,7 @@ or crossNN's own single 0.6 cutoff, no dead zone
 produced the Sturgeon bed and fed it to crossNN too, silently withholding
 every probe in (0.3, 0.7) that crossNN's own pipeline would still call.
 Uses the full IDAT-reconstructed probe set (485512 probes), not the
-GSE90496 feature-index subset used for B0/C0 -- Sturgeon/crossNN each
+GSE90496 feature-index subset used for Binary/Beta -- Sturgeon/crossNN each
 subset to their own probe panel internally, so there is no reason to
 pre-restrict here.
 """

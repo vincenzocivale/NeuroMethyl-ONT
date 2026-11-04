@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Train B0/C0/E1 on the ALMA train split (same recipe as the CNS heads).
+# Train Binary/Beta/Evidence on the ALMA train split (same recipe as the CNS heads).
 # Validation = ALMA val split (early stopping); test is never touched here.
 set -euo pipefail
 cd "$(dirname "$0")/../.."

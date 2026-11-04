@@ -9,7 +9,7 @@
 Reuses the same reference machinery as the CNS GSE90496 pipeline
 (`neuromethyl_ont.data.array_reference`), but this is a wholly separate
 reference: a leukemia classifier built on it must never share a feature
-index or class list with B0/C0/E1.
+index or class list with Binary/Beta/Evidence.
 
 Usage:
     python scripts/data/build_alma_reference.py [--min-valid-fraction 0.95] [--output-dir PATH]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train one of B0/C0/E1 (docs/EVIDENCE_LINEAR_V1.md) and write run outputs.
+"""Train one of Binary/Beta/Evidence (docs/EVIDENCE_LINEAR_V1.md) and write run outputs.
 
     GSE90496 reference (build_array_reference.py output)
         -> LinearClassifier, representation from --model-config
