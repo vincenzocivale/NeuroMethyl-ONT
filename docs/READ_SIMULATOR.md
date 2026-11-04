@@ -87,8 +87,9 @@ Findings (N = reads covering at least one probe):
 
 - Within a read the calls are independent given beta (real reads share one molecule's methylation
   state), so the read mode captures the clustering of coverage, not correlated calls.
-- Cost: reads that cover no probe are 87% of the draws. Roughly N = lam x 428,799 / 0.47 reads per
-  sample: lam = 1 is 0.9 M reads, lam = 32 is 29 M. Fine for the fixed depth curve, slow for
+- Cost: reads that cover no probe are 87% of the draws. N = lam x 428,799 / 0.47 reads per sample,
+  measured at about 0.5 s per sample at lam = 1 (0.9 M reads) and 4 s at lam = 8, against 0.05 s
+  for Poisson; lam = 32 is extrapolated to about 16 s. Fine for the fixed depth curve, slow for
   training at high lam (a thinned informative-reads-only sampler would fix it; not built).
 - Uniform starts over the whole assembly (including N gaps), no mappability, GC or CNV bias, no
   mapped-length vs raw-length difference, one length table pooled over 10 libraries.
