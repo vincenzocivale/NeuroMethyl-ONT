@@ -1,9 +1,9 @@
 dataset_id	modality	default_role	accession_or_source	raw_format	reference_genome	status	notes
-GSE90496	450K_array	train	GSE90496	IDAT/beta	NA	planned	Capper/Heidelberg reference cohort
-GSE109379	450K_array	validation	GSE109379	IDAT/beta	NA	planned	External array validation/model-selection cohort
-GSE289246	ONT_methylation	test_primary	GSE289246	bedMethyl	TBD	planned	Primary continuous/depth-aware ONT evaluation
-GSE209865	ONT_binary	benchmark_legacy	GSE209865	binary_calls	TBD	planned	Legacy Sturgeon/nanoDx-style benchmark
-RapidCNS2	ONT_methylation	test_secondary	Zenodo/Rapid-CNS2	processed	TBD	planned	Secondary full-run sequencing benchmark
-nanoDx_EGA	ONT_raw	test_raw_reads	EGA controlled access	BAM/FAST5/POD5	TBD	planned	Read-level downsampling/scaling experiments
+GSE90496	450K_array	train	GSE90496	IDAT/beta	NA	downloaded	Capper/Heidelberg reference cohort; on disk, checked 2026-11-04 (14G; beta matrix + labels under processed/)
+GSE109379	450K_array	validation	GSE109379	IDAT/beta	NA	downloaded	External array validation/model-selection cohort; on disk, checked 2026-11-04 (35G; raw IDATs and MNP-style reconstruction under processed/)
+GSE289246	ONT_methylation	test_primary	GSE289246	bedMethyl	TBD	downloaded	Primary continuous/depth-aware ONT evaluation; on disk, checked 2026-11-04 (24G raw; processed/ empty, derived tables live under derived/)
+GSE209865	ONT_binary	benchmark_legacy	GSE209865	binary_calls	TBD	downloaded	Legacy Sturgeon/nanoDx-style benchmark; on disk, checked 2026-11-04 (0.6G; merged binary-call TSV)
+RapidCNS2	ONT_methylation	test_secondary	Zenodo/Rapid-CNS2	processed	TBD	downloaded	Secondary full-run sequencing benchmark; on disk, checked 2026-11-04 (18G raw; processed/ empty)
+nanoDx_EGA	ONT_raw	test_raw_reads	EGA controlled access	BAM/FAST5/POD5	TBD	planned	Read-level downsampling/scaling experiments; checked 2026-11-04: data root directory is EMPTY (no files), keep planned
 ALMA_discovery	450K/EPIC/EPICv2_array	train	GitHub f-marchi/ALMA v0.2.0	beta_pickle	NA	labeled	Separate leukemia-classifier milestone (AML/ALL/MDS/APL/MPAL), not part of CNS 91-class taxonomy; 3314 samples x 331556 CpGs, batch-corrected; joined by sample_id with clinical Excel MOESM4 (Marchi et al. 2025, doi:10.1038/s41467-025-62005-4) -- 2987/3314 have an AL Epigenomic Subtype label (28 classes); labels at datasets/ALMA/processed/discovery_clinical_labels.parquet
 ALMA_nanopore	ONT_methylation	test_primary	GitHub f-marchi/ALMA v0.2.0	CSV (EPIC-filtered)	TBD	unlabeled	Leukemia-classifier ONT evaluation cohort, 20 samples x 866857 CpGs filtered to EPIC coverage; sample IDs (alma_N_BM/PB) do not appear in the public clinical Excel or author notebooks -- ground-truth subtype labels not yet recovered, must be extracted manually from the Nat Commun article text/tables; separate model family from CNS classifier, see ALMA_discovery

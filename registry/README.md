@@ -12,3 +12,6 @@ One row per sample/run after metadata harmonization. `global_patient_id` must be
 Tracks generated processed/derived artifacts back to source data, code version and configuration.
 
 Do not commit protected patient identifiers or private clinical metadata to Git.
+
+## Status vocabulary (datasets.tsv)
+Not enforced by the validator; used so far: `planned` (not on disk), `downloaded` (raw/processed present in the data root), `labeled` / `unlabeled` (ready, with / without ground-truth labels).
