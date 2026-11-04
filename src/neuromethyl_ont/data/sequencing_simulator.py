@@ -21,8 +21,12 @@ the fixed, saved depth-curve realizations used at evaluation time (same
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import numpy as np
+
+if TYPE_CHECKING:
+    from neuromethyl_ont.data.read_simulator import ReadModel
 
 # Section 7 depth mixture: sparse / low-full / high / clean-array.
 # Order matters only for readability; sampling uses LAMBDA_GRID/LAMBDA_WEIGHTS together.
@@ -69,7 +73,10 @@ def sample_lambda_batch(rng: np.random.Generator, size: int) -> np.ndarray:
 
 
 def simulate_counts(
-    beta: np.ndarray, lam: np.ndarray | float, rng: np.random.Generator
+    beta: np.ndarray,
+    lam: np.ndarray | float,
+    rng: np.random.Generator,
+    read_model: ReadModel | None = None,
 ) -> SimulatedCounts:
     """Draw synthetic sequencing counts for every entry of ``beta``.
 
@@ -79,7 +86,14 @@ def simulate_counts(
     ``lam == inf`` marks a sample as full-array (see ``SimulatedCounts``).
     Missing probes (``NaN`` in ``beta``) always get ``m = u = n = 0``,
     regardless of the depth condition -- missingness at every depth.
+
+    With ``read_model`` the counts come from simulated reads covering probe clusters instead of
+    i.i.d. Poisson draws (``read_simulator.simulate_read_counts``; same ``lam`` convention).
     """
+    if read_model is not None:
+        from neuromethyl_ont.data.read_simulator import simulate_read_counts
+
+        return simulate_read_counts(beta, lam, rng, read_model)
     beta = np.asarray(beta, dtype=np.float64)
     lam_arr = np.asarray(lam, dtype=np.float64)
     if lam_arr.ndim == 0:
@@ -231,6 +245,7 @@ def encode_batch(
     mu: np.ndarray | None = None,
     kappa: float | None = None,
     threshold: float = BINARY_THRESHOLD,
+    read_model: ReadModel | None = None,
 ) -> np.ndarray:
     """Training-time augmentation: draw one depth per sample, apply the
     representation transform. Use for random augmentation only -- evaluation
@@ -238,9 +253,9 @@ def encode_batch(
     same counts across representations (see docs/EVIDENCE_LINEAR_V1.md #13).
     """
     lam = sample_lambda_batch(rng, size=beta.shape[0])
-    if representation == "binary":
+    if representation == "binary" and read_model is None:
         return encode_binary_batch(beta, lam=lam, rng=rng, threshold=threshold)
-    counts = simulate_counts(beta, lam, rng)
+    counts = simulate_counts(beta, lam, rng, read_model=read_model)
     return apply_representation(
         representation, beta, counts, mu=mu, kappa=kappa, threshold=threshold
     )

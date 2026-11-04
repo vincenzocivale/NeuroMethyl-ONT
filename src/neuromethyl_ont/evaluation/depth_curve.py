@@ -13,6 +13,7 @@ import pandas as pd
 import torch
 from torch import nn
 
+from neuromethyl_ont.data.read_simulator import ReadModel
 from neuromethyl_ont.data.sequencing_simulator import (
     SimulatedCounts,
     apply_representation,
@@ -30,7 +31,10 @@ def depth_label(depth: float) -> str:
 
 
 def build_fixed_depth_realizations(
-    beta: np.ndarray, depth_grid: tuple[float, ...] = DEPTH_GRID, seed: int = 0
+    beta: np.ndarray,
+    depth_grid: tuple[float, ...] = DEPTH_GRID,
+    seed: int = 0,
+    read_model: ReadModel | None = None,
 ) -> dict[float, SimulatedCounts]:
     """One fixed ``SimulatedCounts`` draw per depth, reused across representations.
 
@@ -40,7 +44,7 @@ def build_fixed_depth_realizations(
     realizations: dict[float, SimulatedCounts] = {}
     for i, depth in enumerate(depth_grid):
         rng = np.random.default_rng((seed, i))
-        realizations[depth] = simulate_counts(beta, float(depth), rng)
+        realizations[depth] = simulate_counts(beta, float(depth), rng, read_model=read_model)
     return realizations
 
 
@@ -60,13 +64,16 @@ def run_depth_curve(
     kappa: float,
     depth_grid: tuple[float, ...] = DEPTH_GRID,
     seed: int = 0,
+    read_model: ReadModel | None = None,
 ) -> pd.DataFrame:
     """Evaluate every ``models[name]`` (representation ``representations[name]``)
     at every depth in ``depth_grid``, on shared synthetic counts per depth.
 
     Returns one row per (model name, depth) with the section-14 metric set.
     """
-    realizations = build_fixed_depth_realizations(beta, depth_grid=depth_grid, seed=seed)
+    realizations = build_fixed_depth_realizations(
+        beta, depth_grid=depth_grid, seed=seed, read_model=read_model
+    )
 
     rows = []
     for name, model in models.items():

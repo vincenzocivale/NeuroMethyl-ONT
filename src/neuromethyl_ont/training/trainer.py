@@ -20,6 +20,7 @@ import numpy as np
 import torch
 from torch import nn
 
+from neuromethyl_ont.data.read_simulator import ReadModel
 from neuromethyl_ont.data.sequencing_simulator import (
     apply_representation,
     encode_batch,
@@ -46,6 +47,7 @@ class TrainingConfig:
     loss_name: str = "cross_entropy"
     device: str = "cpu"
     batch_encoding_workers: int = 1
+    read_model: ReadModel | None = None  # None: i.i.d. Poisson depth; else read-structured
 
 
 @dataclass
@@ -81,6 +83,7 @@ def _encode(
         mu=mu,
         kappa=config.kappa,
         threshold=config.binary_threshold,
+        read_model=config.read_model,
     )
 
 
@@ -92,12 +95,13 @@ def _encode_chunk(
     mu: np.ndarray | None,
     kappa: float,
     threshold: float,
+    read_model: ReadModel | None = None,
 ) -> np.ndarray:
     """Encode one independent batch slice with its own deterministic RNG."""
     chunk_rng = np.random.default_rng(seed)
-    if representation == "binary":
+    if representation == "binary" and read_model is None:
         return encode_binary_batch(beta, lam=lam, rng=chunk_rng, threshold=threshold)
-    counts = simulate_counts(beta, lam, chunk_rng)
+    counts = simulate_counts(beta, lam, chunk_rng, read_model=read_model)
     return apply_representation(
         representation, beta, counts, mu=mu, kappa=kappa, threshold=threshold
     )
@@ -142,6 +146,7 @@ def _encode_parallel(
                     mu,
                     config.kappa,
                     config.binary_threshold,
+                    config.read_model,
                 ),
             )
             for i, (start, end) in enumerate(zip(boundaries[:-1], boundaries[1:], strict=True))
